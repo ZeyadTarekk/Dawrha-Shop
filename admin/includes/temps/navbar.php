@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end align-center" id="navbarSupportedContent">
-      <form class="m-auto  d-flex">
+      <form class="m-auto  d-flex" action="" method="">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
