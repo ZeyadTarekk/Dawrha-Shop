@@ -1,0 +1,18 @@
+.notificationNumberZeyad {
+  color: white;
+  font-size: 20px;
+  background-color: red;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transform: translate(-60%, -50%);
+  -webkit-transform: translate(-60%, -50%);
+  -moz-transform: translate(-60%, -50%);
+  -ms-transform: translate(-60%, -50%);
+  -o-transform: translate(-60%, -50%);
+}
