@@ -11,6 +11,7 @@
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
       <ul class="navbar-nav text-center">
+        <!-- Start Difference -->
         <li class="nav-item dropdown">
           <a class="nav-link ms-4 mt-3 m-lg-auto " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -43,6 +44,7 @@
         <li class="nav-item ">
           <a class="nav-link active " aria-current="page" href="#">Name</a>
         </li>
+        <!-- End Difference-->
       </ul>
     </div>
   </div>
