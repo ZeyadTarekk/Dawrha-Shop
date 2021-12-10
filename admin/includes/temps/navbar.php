@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end align-center" id="navbarSupportedContent">
-      <form class="m-auto  d-flex" action="" method="">
+      <form class="m-auto  d-flex  mt-3 mt-lg-auto" action="" method="">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
@@ -31,7 +31,7 @@
             aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+          <ul class="dropdown-menu " aria-labelledby="navbarDropdown1">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Cart </a></li>
             <li>
@@ -40,8 +40,8 @@
             <li><a class="dropdown-item" href="#">Log Out</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Name</a>
+        <li class="nav-item ">
+          <a class="nav-link active " aria-current="page" href="#">Name</a>
         </li>
       </ul>
     </div>
