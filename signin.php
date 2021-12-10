@@ -29,13 +29,13 @@ include "admin/includes/temps/header.php";
 
 <script>
     function togglePasswordVisibility() {
-        var password = document.getElementById("password");
+        let password = document.getElementById("password");
         if (password.type === "password") {
             password.type = "text";
         } else {
             password.type = "password";
         }
-        var eyeIcon = document.getElementById("eyeIcon");
+        let eyeIcon = document.getElementById("eyeIcon");
         if (eyeIcon.classList.contains("bi-eye")) {
             eyeIcon.classList.remove("bi-eye");
             eyeIcon.classList.add("bi-eye-slash");
