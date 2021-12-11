@@ -34,7 +34,7 @@ include "init.php";
       </form>
     </div>
     <div class="col-lg-7 col-md-12">
-      <img src=" <?php echo  $dataimages."Login-img.png" ?>" alt="Login image" class="img-fluid">
+      <img src=" <?php echo  $imgs ."Login-img.png" ?>" alt="Login image" class="img-fluid">
     </div>
   </div>
 </div>

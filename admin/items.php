@@ -34,7 +34,7 @@ include 'init.php';
                     <!-- here we need to send the item id to edit or delete -->
                     <a href="?do=View&itemId=5" class="btn btn-primary"><i class="fas fa-eye"></i> View</a>
                     <a href="?do=Edit&itemId=5" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
-                    <a href="?do=Delete&itemId=5" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
+                    <a href="?do=Delete&itemId=5" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
                   </td>
                 </tr>
               </tbody>
