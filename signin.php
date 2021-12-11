@@ -1,5 +1,7 @@
 <?php
-include "admin/includes/temps/header.php";
+$noNavbar = '';
+$pageTitle = 'SignIn';
+include "init.php";
 ?>
     <div class="container-fluid text-center shadow p-2">
         <h3>Logo</h3>
@@ -38,24 +40,4 @@ include "admin/includes/temps/header.php";
         </div>
     </div>
 
-    <script>
-        function togglePasswordVisibility() {
-            let password = document.getElementById("password");
-            if (password.type === "password") {
-                password.type = "text";
-            } else {
-                password.type = "password";
-            }
-            let eyeIcon = document.getElementById("eyeIcon");
-            if (eyeIcon.classList.contains("bi-eye")) {
-                eyeIcon.classList.remove("bi-eye");
-                eyeIcon.classList.add("bi-eye-slash");
-            } else {
-                eyeIcon.classList.remove("bi-eye-slash");
-                eyeIcon.classList.add("bi-eye");
-            }
-        }
-    </script>
-<?php
-include "admin/includes/temps/footer.php";
-?>
+<?php include $tpl . "footer.php" ?>
