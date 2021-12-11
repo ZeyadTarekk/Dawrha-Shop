@@ -1,0 +1,77 @@
+/* Start Main Rules */
+body {
+  background-color: #f3f3f3;
+  font-size: 16px;
+}
+/* End Main Rules */
+/* Start NavBar */
+.navbar .nav-link {
+  color: rgb(211, 209, 209) !important; 
+}
+.navbar .nav-link:hover {
+  color: rgb(255, 255, 255) !important; 
+}
+.dropdown-menu {
+  border-top: 2px solid #212529;
+  border-radius: 0 0 10px 10px;
+  padding: 0;
+}
+.dropdown-menu[data-bs-popper] {
+  top: 110%;
+  left: auto;
+  right: 0;
+}
+.dropdown-item {
+  padding: 10px 15px;
+}
+/* End NavBar */
+
+/* Start Admins Page */
+.admin h1 {
+  margin: 60px 0;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.admin .add-btn {
+  display: block;
+  width: fit-content;
+  margin: 15px auto;
+}
+.admin thead .table-dark {
+  background-color: #3b3f42;
+  font-weight: 400;
+}
+.AdminsForm h1 {
+  margin: 50px 0;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.AdminsForm .form-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 20px;
+}
+/* End Admins Page */
+/*  */
+.items h1 {
+  margin: 60px 0;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.items thead .table-dark {
+  background-color: #3b3f42;
+  font-weight: 400;
+}
+.ItemsForm h1 {
+  margin: 50px 0;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.ItemsForm .form-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 20px;
+}
+/*  */
