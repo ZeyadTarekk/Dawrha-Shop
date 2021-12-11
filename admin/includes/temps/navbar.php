@@ -13,8 +13,8 @@
       <ul class="navbar-nav text-center">
         <!-- Start Difference -->
         <li class="nav-item dropdown">
-          <a class="nav-link ms-4 mt-3 m-lg-auto " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <a class="nav-link ms-1 mt-3 m-lg-auto " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false" style="position: relative; display:inline-block;">
             <i class="bi bi-bell" style="font-size: 23px; color: white;"></i>
             <span class="notificationNumberZeyad">1</span>
           </a>
