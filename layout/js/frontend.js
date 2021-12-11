@@ -18,6 +18,7 @@ function togglePasswordVisibility() {
 // End SignIn
 
 //Start ReviewItem
+//counter to the number of items to add to cart
 let amount = document.getElementById("amount");
 function ereasing() {
   amount.innerHTML = +amount.innerHTML - 1;
@@ -30,4 +31,15 @@ function adding(max) {
     amount.innerHTML = +amount.innerHTML + 1;
   }
 }
+//function to change the main image of the item
+let thumbArray = document.querySelectorAll(".thumbnails img");
+let mainImage = document.querySelector("#screen img");
+
+thumbArray.forEach(element => {
+  element.addEventListener("click",function() {
+    //change the main image src with this src
+    let newsrc = element.getAttribute("src");
+    mainImage.setAttribute("src", newsrc);
+  });
+});
 //End ReviewItem
