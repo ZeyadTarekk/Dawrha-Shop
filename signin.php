@@ -6,7 +6,7 @@ include "admin/includes/temps/header.php";
     </div>
     <div class="row justify-content-evenly container-fluid">
         <div class="col-md-10 row justify-content-center m-5 text-center shadow">
-            <div class="col-lg-5 col-md-6">
+            <div class="col-lg-5 col-md-12">
                 <form class="form-signin p-5">
                     <h3 class="m-3">Sign in to your account</h3>
                     <p class="lead m-3">Dawrha </p>
@@ -32,7 +32,7 @@ include "admin/includes/temps/header.php";
                     <button type="button" class="btn btn-block btn-success text-white rounded-pill btn-lg ps-5 pe-5">Sign-up</button>
                 </form>
             </div>
-            <div class="col-lg-7 col-md-5">
+            <div class="col-lg-7 col-md-12">
                 <img src="./Login-img.png" alt="Login image" class="img-fluid">
             </div>
         </div>
