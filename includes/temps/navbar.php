@@ -19,7 +19,7 @@
             <i class="bi bi-bell" style="font-size: 23px; color: white;"></i>
             <span class="notificationNumberZeyad">1</span>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style=" top: 56px; left: -14px;">
             <li><a class="dropdown-item" href="#">First Notification</a></li>
             <li><a class="dropdown-item" href="#">First Notification</a></li>
             <li>
@@ -33,7 +33,7 @@
             aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
           </a>
-          <ul class="dropdown-menu " aria-labelledby="navbarDropdown1">
+          <ul class="dropdown-menu " aria-labelledby="navbarDropdown1" style="top: 56px; left: -50px;">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Cart </a></li>
             <li>
