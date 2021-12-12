@@ -1,5 +1,5 @@
 <?php  ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success ">
   <div class="container-fluid ">
     <a class="navbar-brand" href="#">Logo</a>
     <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
