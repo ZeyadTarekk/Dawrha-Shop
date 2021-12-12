@@ -8,10 +8,7 @@ include "init.php";
     </div>
     <div class="row justify-content-evenly container-fluid">
         <div class="col-md-10 row justify-content-center m-5 text-center shadow">
-            <div class="col-lg-7 col-md-12">
-                <img src=" <?php echo $imgs . "Signup.png" ?>" alt="Login image" class="img-fluid">
-            </div>
-            <div class="col-lg-5 col-md-12">
+            <div class="col-lg-5 col-md-12 ">
                 <form class="form-signin p-5">
                     <h3 class="m-3">Create your account</h3>
                     <p class="lead m-3">Dawrha </p>
@@ -55,7 +52,9 @@ include "init.php";
                        class="btn btn-block btn-success text-white rounded-pill btn-lg ps-5 pe-5">Sign-in</a>
                 </form>
             </div>
-
+            <div class="col-lg-7 col-md-12 order-lg-first">
+                <img src=" <?php echo $imgs . "Signup.png" ?>" alt="Login image" class="img-fluid">
+            </div>
         </div>
     </div>
 
