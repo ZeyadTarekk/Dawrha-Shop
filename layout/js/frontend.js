@@ -17,6 +17,40 @@ function togglePasswordVisibility() {
 }
 // End SignIn
 
+//counter
+let count=0;
+let countT=document.getElementById("count");
+function plus()
+{
+  count++;
+  countT.value=count;
+}
+function minus()
+{
+  if(count>0)
+  {
+    count--;
+    countT.value=count;
+  }
+}
+//end counter
+
+
+//add item_to cart
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  const cartButtons = document.querySelectorAll('.cart-button');
+  cartButtons.forEach(button => {
+  button.addEventListener('click',cartClick);
+  });
+  function cartClick(){
+  let button =this;
+  button.classList.add('clicked');
+  }
+  });
+
+//end add item_to cart
+
 //Start ReviewItem
 //counter to the number of items to add to cart
 let amount = document.getElementById("amount");
@@ -43,3 +77,5 @@ thumbArray.forEach(element => {
   });
 });
 //End ReviewItem
+
+
