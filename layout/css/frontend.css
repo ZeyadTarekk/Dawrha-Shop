@@ -136,12 +136,28 @@ section {
   color: rgb(117, 53, 53);
   font-weight: bold;
 }
+@media (max-width: 576px) {
+  .order-section .counter .left-btn,
+.order-section .counter .right-btn {
+  font-size: 13px;
+}
+}
 .container .head {
   text-align: center;
 }
 #amount {
   font-weight: bold;
   width: 100%;
+}
+/* Chrome, Safari, Edge, Opera */
+#amount::-webkit-outer-spin-button,
+#amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+#amount[type=number] {
+  -moz-appearance: textfield;
 }
 .order-section .add-to-cart-btn {
   background-color: rgb(117, 53, 53);

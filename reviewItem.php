@@ -38,7 +38,7 @@ include 'init.php';
       <form action="" class="order-section">
         <div class="counter">
           <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
-          <input type="text" id="amount">
+          <input type="number" id="amount" max="5">
           <!-- need to send the max number of items to adding(max) -->
           <span class="right-btn" onclick="adding(5)"><i class="fas fa-plus"></i></span>
         </div>
