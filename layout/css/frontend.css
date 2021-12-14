@@ -119,10 +119,10 @@ section {
   margin-top: 27px;
 }
 .order-section .counter {
-  background-color: #efefef;
+  background-color: #d7d3d3;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: 50%;
+  width: 40%;
   height: 40px;
   text-align: center;
   align-items: center;
@@ -136,9 +136,28 @@ section {
   color: rgb(117, 53, 53);
   font-weight: bold;
 }
+@media (max-width: 576px) {
+  .order-section .counter .left-btn,
+.order-section .counter .right-btn {
+  font-size: 13px;
+}
+}
+.container .head {
+  text-align: center;
+}
 #amount {
   font-weight: bold;
-  user-select: none;
+  width: 100%;
+}
+/* Chrome, Safari, Edge, Opera */
+#amount::-webkit-outer-spin-button,
+#amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+#amount[type=number] {
+  -moz-appearance: textfield;
 }
 .order-section .add-to-cart-btn {
   background-color: rgb(117, 53, 53);
@@ -152,3 +171,106 @@ section {
 }
 
 /* End ReviewItem */
+
+/* add item */
+ .container {
+  position: relative;
+ 
+} 
+.input-group-text {
+  color: #fff;
+}
+body {
+  background-color: #eee;
+}
+
+
+
+.center {
+  height: 100vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.buttons {
+  /* padding: 10px; */
+  /* background-color: #d6d4d4; */
+  border-radius: 8px;
+  position: relative;
+  padding-left: 70px;
+}
+
+.dot {
+  height: 14px;
+  width: 14px;
+  background-color: green;
+  border-radius: 50%;
+  position: absolute;
+  left: 27%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8px;
+  color: #fff;
+  opacity: 0;
+}
+
+.cart-button {
+  height: 48px;
+}
+
+.cart-button:focus {
+  box-shadow: none;
+}
+
+.cart {
+  position: relative;
+  height: 48px !important;
+  width: 50px;
+  margin-right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 11px;
+  border-radius: 5px;
+  font-size: 21px;
+}
+
+.cart-button.clicked span.dot {
+  animation: item 0.3s ease-in forwards;
+}
+
+@keyframes item  {
+  0% {
+    opacity: 1;
+    top: 30%;
+    left: 30%;
+  }
+
+  25% {
+    opacity: 1;
+    left: 26%;
+    top: 0%;
+  }
+
+  50% {
+    opacity: 1;
+    left: 23%;
+    top: -22%;
+  }
+
+  75% {
+    opacity: 1;
+    left: 19%;
+    top: -18%;
+  }
+
+  100% {
+    opacity: 1;
+    left: 14%;
+    top: 28%;
+  }
+} /* end add item */
