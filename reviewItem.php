@@ -35,10 +35,10 @@ include 'init.php';
         <div class="discount">50%</div>
         <div class="old-price">$250</div>
       </div>
-      <div class="order-section">
+      <form action="" class="order-section">
         <div class="counter">
           <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
-          <div id="amount">0</div>
+          <input type="text" id="amount">
           <!-- need to send the max number of items to adding(max) -->
           <span class="right-btn" onclick="adding(5)"><i class="fas fa-plus"></i></span>
         </div>
@@ -46,7 +46,7 @@ include 'init.php';
           <i class="fas fa-shopping-cart"></i>
           <span>Add to cart</span>
         </button>
-      </div>
+      </form>
     </div>
   </section>
 </div>

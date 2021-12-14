@@ -119,10 +119,10 @@ section {
   margin-top: 27px;
 }
 .order-section .counter {
-  background-color: #efefef;
+  background-color: #d7d3d3;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: 50%;
+  width: 40%;
   height: 40px;
   text-align: center;
   align-items: center;
@@ -141,7 +141,7 @@ section {
 }
 #amount {
   font-weight: bold;
-  user-select: none;
+  width: 100%;
 }
 .order-section .add-to-cart-btn {
   background-color: rgb(117, 53, 53);
