@@ -39,6 +39,14 @@ include "init.php";
                         <span class="input-group-text" onclick="togglePasswordVisibility()"><i class="bi bi-eye"
                                                                                                id="eyeIcon"></i></span>
                     </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="userType" id="buyerCheck" value="buyer" checked>
+                        <label class="form-check-label" for="buyerCheck">Buyer</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="userType" id="sellerCheck" value="seller">
+                        <label class="form-check-label" for="sellerCheck">Seller</label>
+                    </div>
                     <p class="mb-4 text-secondary">By clicking Sign-up, you agree to our <a href="#"
                                                                                             class="link-primary">Terms
                             of
