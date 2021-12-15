@@ -18,33 +18,22 @@ function togglePasswordVisibility() {
 // End SignIn
 
 //counter
-let count=document.getElementById("count");
-count.value=0;
+let counter=document.getElementById("counting");
 function plus()
 {
-  count.value++;
+  counter.value++;
 }
 function minus()
 {
-    count.value--;
-    if(count.value<0)
-    count.value=0;
+    counter.value--;
+    if(counter.value<0){
+    counter.value=0;}
 }
 //end counter
 
 
 //add item_to cart
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  const cartButtons = document.querySelectorAll('.cart-button');
-  cartButtons.forEach(button => {
-  button.addEventListener('click',cartClick);
-  });
-  function cartClick(){
-  let button =this;
-  button.classList.add('clicked');
-  }
-  });
 
 //end add item_to cart
 
