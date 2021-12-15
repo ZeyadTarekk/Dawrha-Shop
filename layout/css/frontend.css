@@ -138,9 +138,9 @@ section {
 }
 @media (max-width: 576px) {
   .order-section .counter .left-btn,
-.order-section .counter .right-btn {
-  font-size: 13px;
-}
+  .order-section .counter .right-btn {
+    font-size: 13px;
+  }
 }
 .container .head {
   text-align: center;
@@ -156,7 +156,7 @@ section {
   margin: 0;
 }
 /* Firefox */
-#amount[type=number] {
+#amount[type="number"] {
   -moz-appearance: textfield;
 }
 .order-section .add-to-cart-btn {
@@ -173,6 +173,13 @@ section {
 /* End ReviewItem */
 
 /* add item */
+.Counter {
+  padding-top: 20px;
+}
+.Counter .sign {
+  background-color: #198754;
+  color: #fff;
+}
 .container {
   position: relative;
 }
@@ -188,7 +195,7 @@ body {
   display: inline-block;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  padding: 35px;
 }
 
 .buttons {

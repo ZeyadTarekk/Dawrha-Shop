@@ -47,10 +47,10 @@ include "init.php";
                             for="inputGroupFile02">Upload</label>
                     </div>
                 </div>
-                <div class="Counter" id="input_div" style="display:inline;">
+                <div class="Counter" id="input_div">
                     <input type=" text" size="25" value="1" id="count">
-                    <input type="button" value="-" id="moins" onclick="minus()">
-                    <input type="button" value="+" id="pluss" onclick="plus()">
+                    <input class="sign" type="button" value="-" id="moins" onclick="minus()">
+                    <input class="sign" type="button" value="+" id="pluss" onclick="plus()">
                 </div>
                 <div class="center">
                     <div class="buttons d-flex flex-row">

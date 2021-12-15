@@ -18,20 +18,17 @@ function togglePasswordVisibility() {
 // End SignIn
 
 //counter
-let count=0;
-let countT=document.getElementById("count");
+let count=document.getElementById("count");
+count.value=0;
 function plus()
 {
-  count++;
-  countT.value=count;
+  count.value++;
 }
 function minus()
 {
-  if(count>0)
-  {
-    count--;
-    countT.value=count;
-  }
+    count.value--;
+    if(count.value<0)
+    count.value=0;
 }
 //end counter
 
