@@ -157,10 +157,9 @@ section {
 /* End ReviewItem */
 
 /* add item */
- .container {
+.container {
   position: relative;
- 
-} 
+}
 .input-group-text {
   color: #fff;
 }
@@ -168,10 +167,8 @@ body {
   background-color: #eee;
 }
 
-
-
 .center {
-  height: 100vh;
+  height: 15vh;
   display: inline-block;
   justify-content: center;
   align-items: center;
@@ -227,7 +224,7 @@ body {
   animation: item 0.3s ease-in forwards;
 }
 
-@keyframes item  {
+@keyframes item {
   0% {
     opacity: 1;
     top: 30%;
