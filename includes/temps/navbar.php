@@ -33,7 +33,7 @@
             <span class="navbar-toggler-icon"></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-profile mt-3 mt-lg-0" aria-labelledby="navbarDropdown1"
-            style="top: 56px; left: -50px;">
+            style="top: 52px; left: -50px;">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Cart </a></li>
             <li>
