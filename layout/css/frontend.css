@@ -173,10 +173,10 @@ section {
 /* End ReviewItem */
 
 /* add item */
-.bottles{
-  width:400px;
-   height:310px;
-   margin:80px;
+.bottles {
+  width: 400px;
+  height: 310px;
+  margin: 80px;
 }
 .Counter {
   padding-top: 20px;
@@ -229,3 +229,30 @@ section {
   margin: 20px;
 }
 /* end cart */
+/* start item card */
+@media (max-width: 470px) {
+  .card {
+    margin-left: -25px;
+  }
+  .row-of-card {
+    max-width: 100%;
+    margin-right: 0px;
+  }
+}
+ol.item-categories {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0;
+  margin-bottom: 1rem;
+  list-style: none;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+ol.item-categories li a {
+  text-decoration: none;
+  color: white;
+}
+
+/* end item card */
