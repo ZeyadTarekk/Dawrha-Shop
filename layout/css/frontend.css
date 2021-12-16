@@ -278,3 +278,20 @@ ol.item-categories li a {
 }
 
 /* end item card */
+
+/* start Scroll bar in user profile */
+.profile_scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.profile_scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(200,200,200,1);
+  border-radius: 5px;
+}
+
+.profile_scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #198754;
+  /*-webkit-box-shadow: inset 0 0 6px rgba(90, 90, 90, 0.7);*/
+}
+/* end Scroll bar in user profile */
