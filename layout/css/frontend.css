@@ -173,6 +173,11 @@ section {
 /* End ReviewItem */
 
 /* add item */
+.bottles{
+  width:400px;
+   height:310px;
+   margin:80px;
+}
 .Counter {
   padding-top: 20px;
 }
@@ -187,7 +192,7 @@ section {
   .Counter,
   .Counter.sign,
   .Counter.text-number,
-  .img-bottles {
+  .bottles {
     font-size: 13px;
   }
 }
@@ -210,3 +215,17 @@ section {
 }
 
 /* end add item */
+
+/* startCart */
+.arr-item {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+.edit-item-in-card {
+  text-align: center;
+  height: 100%;
+  margin: 20px;
+}
+/* end cart */
