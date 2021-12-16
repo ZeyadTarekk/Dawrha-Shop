@@ -7,7 +7,7 @@ include "init.php";
   <div class="container-lg ">
     <div class="text-center ">
       <ol class="item-categories ">
-        <li class=""><button class="btn btn-success"><a href="#">All</a></button>
+        <li class=""><button class="btn btn-success active"><a href="#">All</a></button>
         </li>
         <li><button class="btn btn-success"><a href="#">Category1</a></button></li>
         <li><button class="btn btn-success"><a href="#">Category2</a></button></li>
