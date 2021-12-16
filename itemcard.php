@@ -9,7 +9,7 @@ include "init.php";
     <div class="row row-of-card g-5 justify-content-center align-items-center">
       <div class="col-8 col-lg-4 col-xl-3 ">
         <!-- This is the main card and the outer classes are for styling in this page only -->
-        <div class="card m-md-auto" style="width: 18rem;">
+        <div class="card m-md-auto shadow" style="width: 18rem;">
           <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
           <div class="card-body">
             <h5 class="card-title">Item Name</h5>
