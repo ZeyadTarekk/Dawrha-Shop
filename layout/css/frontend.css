@@ -230,6 +230,13 @@ section {
 }
 /* end cart */
 /* start item card */
+.card {
+  border-radius: 1.25rem;
+  -webkit-border-radius: 1.25rem;
+  -moz-border-radius: 1.25rem;
+  -ms-border-radius: 1.25rem;
+  -o-border-radius: 1.25rem;
+}
 @media (max-width: 470px) {
   .card {
     margin-left: -25px;
