@@ -51,17 +51,6 @@ include "init.php";
           </div>
         </div>
         <div class="col-8 col-lg-4 col-xl-3 ">
-          <div class="card " style="width: 18rem;">
-            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-8 col-lg-4 col-xl-3 ">
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
@@ -83,7 +72,17 @@ include "init.php";
             </div>
           </div>
         </div>
-
+        <div class="col-8 col-lg-4 col-xl-3 ">
+          <div class="card m-md-auto" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-success">Add To Cart</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
