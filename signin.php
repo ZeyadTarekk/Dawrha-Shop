@@ -13,7 +13,7 @@ include "init.php";
                     <h3 class="m-3">Sign in to your account</h3>
                     <p class="lead m-3">Dawrha </p>
                     <div class="input-group mb-4">
-                        <input type="email" id="email" class="form-control" placeholder="Email Address" required>
+                        <input type="text" id="username" class="form-control" placeholder="Username" required>
                         <span class="input-group-text">@</span>
                     </div>
                     <div class="input-group mb-4">

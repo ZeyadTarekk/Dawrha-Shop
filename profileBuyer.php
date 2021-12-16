@@ -110,7 +110,7 @@ include "init.php";
                     </div>
 
                     <div class="col-lg-3 m-0" style="position: sticky; right: 0;">
-                        <a href="#" class="link-dark">
+                        <a href="add_item.php" class="link-dark">
                             <div class="card m-md-auto shadow" style="width: 18rem;">
                                 <div class="m-auto">
                                     <i class="bi bi-plus-circle fa-9x"></i>
