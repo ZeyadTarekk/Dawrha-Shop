@@ -21,10 +21,14 @@ include "init.php";
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
             </div>
           </div>
         </div>
@@ -32,10 +36,14 @@ include "init.php";
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
             </div>
           </div>
         </div>
@@ -43,10 +51,14 @@ include "init.php";
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
             </div>
           </div>
         </div>
@@ -54,10 +66,14 @@ include "init.php";
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
             </div>
           </div>
         </div>
@@ -65,10 +81,14 @@ include "init.php";
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
             </div>
           </div>
         </div>
@@ -76,10 +96,89 @@ include "init.php";
           <div class="card m-md-auto" style="width: 18rem;">
             <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
-              <a href="#" class="btn btn-success">Add To Cart</a>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-lg-4 col-xl-3 ">
+          <div class="card m-md-auto" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <div class="card-body">
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-lg-4 col-xl-3 ">
+          <div class="card m-md-auto" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <div class="card-body">
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-lg-4 col-xl-3 ">
+          <div class="card m-md-auto" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <div class="card-body">
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-lg-4 col-xl-3 ">
+          <div class="card m-md-auto" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <div class="card-body">
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-lg-4 col-xl-3 ">
+          <div class="card m-md-auto" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <div class="card-body">
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Add To Cart</a>
+              </div>
             </div>
           </div>
         </div>
