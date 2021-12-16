@@ -21,11 +21,26 @@
   right: 0px;
   padding: 3px 6px;
 }
-
+.notification-icon {
+  order: 3;
+}
 @media (max-width: 991px) {
   .navbar .notificationNumberZeyad {
     top: -8px;
     right: -10px;
+  }
+  .notification-icon {
+    order: 1;
+  }
+}
+.dropdown-menu-notification[data-bs-popper] {
+  top: 100%;
+  left: auto;
+  margin-top: 0.125rem;
+}
+@media (min-width: 991px) {
+  .search-input {
+    width: 500px;
   }
 }
 /* End NavBar */

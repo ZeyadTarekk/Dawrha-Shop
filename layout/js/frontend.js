@@ -63,3 +63,12 @@ thumbArray.forEach((element) => {
   });
 });
 //End ReviewItem
+
+// Start NavBar
+let myMedia = window.matchMedia("(max-width: 991px)");
+if (myMedia.matches) {
+  let myElement = document.querySelector(".dropdown-menu-profile");
+  myElement.classList.add("show");
+}
+
+// End NavBar
