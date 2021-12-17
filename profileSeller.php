@@ -6,26 +6,29 @@ include "init.php";
 
     <div class="container p-3">
 
-        <div class="row shadow rounded p-2 m-5 text-lg-start text-md-center text-sm-center border-start border-5 border-success">
+        <div class="row shadow rounded p-3 m-5 text-lg-start text-md-center text-sm-center border-start border-5 border-success">
             <div class="col-lg-3 m-auto">
                 <h1 class="card-title">UserName</h1>
             </div>
             <div class="col-lg-7 m-auto">
-                <h4 class="d-inline-block">Email: </h4>
-                <a href="mailto:a.m.hamza156@gmail.com" class="mb-2 link-dark fa-1x "><h5
-                            class="text-muted d-inline-block">
-                        a.m.hamza156@gmail.com
-                    </h5></a>
-                <br>
-                <h4 class="d-inline-block">Mobile: </h4>
-                <h5 class="mb-2 text-muted d-inline-block ">0123456789</h5>
-                <br>
-                <h4 class="d-inline-block">Join date: </h4>
-                <h5 class=" mb-2 text-muted d-inline-block">11-22-2022</h5>
-
+                <div class="m-2">
+                    <h4 class="d-inline-block">Email: </h4>
+                    <a href="mailto:a.m.hamza156@gmail.com" class="mb-2 link-dark fa-1x "><h5
+                                class="text-muted d-inline-block">
+                            a.m.hamza156@gmail.com
+                        </h5></a>
+                </div>
+                <div class="m-2">
+                    <h4 class="d-inline-block">Mobile: </h4>
+                    <h5 class="mb-2 text-muted d-inline-block ">0123456789</h5>
+                </div>
+                <div class="m-2">
+                    <h4 class="d-inline-block">Join date: </h4>
+                    <h5 class=" mb-2 text-muted d-inline-block">11-22-2022</h5>
+                </div>
             </div>
-            <div class="col-lg-2">
-                <a href="#" class="link-dark"><i class="bi bi-pencil fa-3x m-auto"></i></a>
+            <div class="col-lg-2 m-auto">
+                <a href="#" class="link-dark"><i class="bi bi-pencil fa-3x"></i></a>
             </div>
         </div>
 
