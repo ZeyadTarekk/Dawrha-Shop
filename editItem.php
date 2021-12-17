@@ -1,6 +1,6 @@
 <?php
 $noNavbar = '';
-$pageTitle = 'Add Item';
+$pageTitle = 'Edit Item';
 include "init.php";
  if(isset($_POST['upload-img']))
   { 
@@ -19,7 +19,7 @@ include "init.php";
 <div class="container-fluid ">
     <div class=" row justify-content-center m-5 ">
         <div class=" col-md-10 row  justify-content-center m-5 text-center shadow">
-            <div class="display h1 mt-4 mb-4">Add Item</div>
+            <div class="display h1 mt-4 mb-4">Edit Item</div>
             <div class=" col-lg-5 col-md-12">
                 <form action="profileBuyer.php" method="POST" target=" _self" id="contactFrom"
                     enctype="multipart/form-data">
@@ -51,7 +51,8 @@ include "init.php";
                         <span class="input-group-text bg-success text-light">0.00</span>
                     </div>
                     <div class="input-group input-group-lg mb-4">
-                        <input placeholder="Discount" max=100 name="discountOfItem" type="number" class="form-control">
+                        <input placeholder="Discount" max=100 name="discountOfItem" type="number" required
+                            class="form-control">
                         <span class=" input-group-text bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
@@ -69,8 +70,8 @@ include "init.php";
                         <!-- <input class=" bg-success text-light" type="button" value="-" id="moins" onclick="minus()">
                         <input class=" bg-success text-light" type="button" value="+" id="pluss" onclick="plus()"> -->
                     </div>
-                    <button class="btn btn-lg btn-success text-align-light mb-4" type="submit" name="done">Add
-                        item</button>
+                    <button class="btn btn-lg btn-success text-align-light mb-4" type="submit" name="done">Save
+                    </button>
                 </form>
             </div>
             <div class="col-lg-6 col-md-12">

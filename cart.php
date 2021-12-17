@@ -4,70 +4,100 @@ $pageTitle = 'Cart Item';
 include "init.php";
 ?>
 
-
-<div class="arr-item">
-    <div class="card edit-item-in-card">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="layout/images/OIP.jpg" class="img-fluid" />
-            <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">item title</h5>
-            <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the
-                card's content.
-            </p>
-            <a href="#!" class="btn btn-success">view cart</a>
-        </div>
-    </div>
-    <div class="card edit-item-in-card">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="layout/images/OIP.jpg" class="img-fluid" />
-            <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">item title</h5>
-            <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the
-                card's content.
-            </p>
-            <a href="#!" class="btn btn-success">view cart</a>
-        </div>
-    </div>
-    <div class="card edit-item-in-card">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="layout/images/OIP.jpg" class="img-fluid" />
-            <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">item title</h5>
-            <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the
-                card's content.
-            </p>
-            <a href="#!" class="btn btn-success">view cart</a>
-        </div>
-    </div>
-    <div class="card edit-item-in-card">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="layout/images/OIP.jpg" class="img-fluid" />
-            <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">item title</h5>
-            <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the
-                card's content.
-            </p>
-            <a href="#!" class="btn btn-success">view cart</a>
+<div class="container-lg text-center pt-5">
+    <div class="text-center">
+        <div class="row row-of-card g-5 justify-content-start align-items-center">
+            <div class="col-8 col-lg-4 col-xl-3 ">
+                <!-- This is the main card and the outer classes are for styling in this page only -->
+                <div class="card m-md-auto shadow" style="width: 18rem;">
+                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                    <div class="card-body">
+                        <h5 class="card-title">Item Name</h5>
+                        <h6 class="card-title">Category</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's
+                            content.</p>
+                        <h4 class="card-title"> 30 &#163</h4>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-success">view item</a>
+                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 col-lg-4 col-xl-3 ">
+                <!-- This is the main card and the outer classes are for styling in this page only -->
+                <div class="card m-md-auto shadow" style="width: 18rem;">
+                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                    <div class="card-body">
+                        <h5 class="card-title">Item Name</h5>
+                        <h6 class="card-title">Category</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's
+                            content.</p>
+                        <h4 class="card-title">30 &#163</h4>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-success">view item</a>
+                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 col-lg-4 col-xl-3 ">
+                <!-- This is the main card and the outer classes are for styling in this page only -->
+                <div class="card m-md-auto shadow" style="width: 18rem;">
+                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                    <div class="card-body">
+                        <h5 class="card-title">Item Name</h5>
+                        <h6 class="card-title">Category</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's
+                            content.</p>
+                        <h4 class="card-title">30 &#163</h4>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-success">view item</a>
+                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 col-lg-4 col-xl-3 ">
+                <!-- This is the main card and the outer classes are for styling in this page only -->
+                <div class="card m-md-auto shadow" style="width: 18rem;">
+                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                    <div class="card-body">
+                        <h5 class="card-title">Item Name</h5>
+                        <h6 class="card-title">Category</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's
+                            content.</p>
+                        <h4 class="card-title">30 &#163</h4>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-success">view item</a>
+                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 col-lg-4 col-xl-3 ">
+                <!-- This is the main card and the outer classes are for styling in this page only -->
+                <div class="card m-md-auto shadow" style="width: 18rem;">
+                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                    <div class="card-body">
+                        <h5 class="card-title">Item Name</h5>
+                        <h6 class="card-title">Category</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's
+                            content.</p>
+                        <h4 class="card-title">30 &#163</h4>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-success">view item</a>
+                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<!-- </div> -->
