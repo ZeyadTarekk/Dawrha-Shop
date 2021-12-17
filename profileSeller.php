@@ -6,13 +6,14 @@ include "init.php";
 
     <div class="container p-3">
 
-        <div class="row shadow rounded p-2 m-5 text-lg-start text-md-center text-sm-center">
+        <div class="row shadow rounded p-2 m-5 text-lg-start text-md-center text-sm-center border-start border-5 border-success">
             <div class="col-lg-3 m-auto">
                 <h1 class="card-title">UserName</h1>
             </div>
             <div class="col-lg-7 m-auto">
                 <h4 class="d-inline-block">Email: </h4>
-                <a href="mailto:a.m.hamza156@gmail.com" class="mb-2 link-dark fa-1x "><h5 class="text-muted d-inline-block">
+                <a href="mailto:a.m.hamza156@gmail.com" class="mb-2 link-dark fa-1x "><h5
+                            class="text-muted d-inline-block">
                         a.m.hamza156@gmail.com
                     </h5></a>
                 <br>
@@ -28,13 +29,29 @@ include "init.php";
             </div>
         </div>
 
+
+
+
+
+
+
+        <!------------------------------------------------>
+        <!--   For sale   -->
+        <!------------------------------------------------>
         <div class="row justify-content-around" id="forSale">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a href="#forSale" class="btn btn-success m-2 rounded-pill">For sale</a>
-                <a href="#sold" class="btn btn-success m-2 rounded-pill">sold</a>
-                <a href="#deleted" class="btn btn-success m-2 rounded-pill">deleted</a>
+                <a href="#sold" class="btn btn-success m-2 rounded-pill">Sold</a>
+                <a href="#deleted" class="btn btn-success m-2 rounded-pill">Deleted</a>
             </div>
-            <h1 class="border rounded-pill border-success border-2 text-center m-2">For Sale</h1>
+            <div class="jumbotron jumbotron-fluid m-3">
+                <div class="container  border-start border-5 border-success">
+                    <h1 class="display-4">For sale</h1>
+                    <hr class="my-4">
+
+                    <p class="lead">List of all items that are offered for sale.</p>
+                </div>
+            </div>
             <div class="col-sm-12">
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
 
@@ -154,7 +171,23 @@ include "init.php";
                 </section>
             </div>
         </div>
+
+
+
+
+
+
+        <!------------------------------------------------>
+        <!--   Sold   -->
+        <!------------------------------------------------>
         <div class="row justify-content-around" id="sold">
+            <div class="jumbotron jumbotron-fluid m-3">
+                <div class="container  border-start border-5 border-success">
+                    <h1 class="display-4">Sold</h1>
+                    <hr class="my-4">
+                    <p class="lead">List of all Sold items.</p>
+                </div>
+            </div>
             <div class="col-sm-12">
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
 
@@ -274,8 +307,24 @@ include "init.php";
                 </section>
             </div>
         </div>
+
+
+
+
+
+
+        <!------------------------------------------------>
+        <!--   Deleted   -->
+        <!------------------------------------------------>
         <div class="row justify-content-around" id="deleted">
             <div class="col-sm-12">
+                <div class="jumbotron jumbotron-fluid m-3">
+                    <div class="container  border-start border-5 border-success">
+                        <h1 class="display-4">Deleted</h1>
+                        <hr class="my-4">
+                        <p class="lead">List of all deleted items.</p>
+                    </div>
+                </div>
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
 
                     <div class="col-lg-3 m-0">
