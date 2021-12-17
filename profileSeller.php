@@ -6,7 +6,7 @@ include "init.php";
 
     <div class="container p-3">
 
-        <div class="row shadow rounded p-2 m-5">
+        <div class="row shadow rounded p-2 m-5 text-lg-start text-md-center text-sm-center">
             <div class="col-lg-3 m-auto">
                 <h1 class="card-title">UserName</h1>
             </div>
