@@ -45,7 +45,7 @@ include "init.php";
                 <a href="#deleted" class="btn btn-success m-2 rounded-pill">Deleted</a>
             </div>
             <div class="jumbotron jumbotron-fluid m-3">
-                <div class="container  border-start border-5 border-success">
+                <div class="container">
                     <h1 class="display-4">For sale</h1>
                     <hr class="my-4">
 
@@ -182,7 +182,7 @@ include "init.php";
         <!------------------------------------------------>
         <div class="row justify-content-around" id="sold">
             <div class="jumbotron jumbotron-fluid m-3">
-                <div class="container  border-start border-5 border-success">
+                <div class="container">
                     <h1 class="display-4">Sold</h1>
                     <hr class="my-4">
                     <p class="lead">List of all Sold items.</p>
@@ -319,7 +319,7 @@ include "init.php";
         <div class="row justify-content-around" id="deleted">
             <div class="col-sm-12">
                 <div class="jumbotron jumbotron-fluid m-3">
-                    <div class="container  border-start border-5 border-success">
+                    <div class="container">
                         <h1 class="display-4">Deleted</h1>
                         <hr class="my-4">
                         <p class="lead">List of all deleted items.</p>
