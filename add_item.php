@@ -1,5 +1,4 @@
 <?php
-$noNavbar = '';
 $pageTitle = 'Add Item';
 include "init.php";
  if(isset($_POST['upload-img']))
@@ -18,9 +17,9 @@ include "init.php";
 ?>
 <div class="container-fluid ">
     <div class=" row justify-content-center m-5 ">
-        <div class=" col-md-10 row  justify-content-center m-5 text-center shadow">
+        <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
             <div class="display h1 mt-4 mb-4">Add Item</div>
-            <div class=" col-lg-5 col-md-12">
+            <div class=" col-lg-5 col-md-12 col-sm-6">
                 <form action="profileBuyer.php" method="POST" target=" _self" id="contactFrom"
                     enctype="multipart/form-data">
                     <div class="mb-4 input-group-lg ">
@@ -45,19 +44,20 @@ include "init.php";
                             name="address" required>
                     </div>
                     <div class="input-group input-group-lg mb-4">
-                        <input placeholder="Price" name="priceOfItem" type="text" required class="form-control"
+                        <input placeholder="Price" name="priceOfItem" type="text" required
+                            class="form-control form-control-lg "
                             aria-label="Dollar amount (with dot and two decimal places)">
                         <span class="input-group-text bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">0.00</span>
                     </div>
-                    <div class="input-group input-group-lg mb-4">
+                    <div class="input-group input-group-lg  mb-4">
                         <input placeholder="Discount" max=100 name="discountOfItem" type="number" class="form-control">
-                        <span class=" input-group-text bg-success text-light">&#163</span>
+                        <span class=" input-group-text  bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
-                    <div class="input-group input-group-lg mb-4">
-                        <input name="file" type="file" class="form-control" id="inputGroupFile04"
-                            aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
+                    <div class="input-group input-group-lg mb-4 ">
+                        <input name="file" type="file" class="form-control form-control-lg " id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
                         <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
                             multiple>
                             Upload

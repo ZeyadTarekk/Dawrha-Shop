@@ -18,21 +18,21 @@ function togglePasswordVisibility() {
 // End SignIn
 
 //counter
-let counter = document.getElementById("counting");
-counter.value=0;
-function plus() {
-  if(counter.value!=null)
-  counter.value++;
-}
-function minus() {
-  if(counter.value!=null)
-  {
-  counter.value--;
-  if (counter.value < 0) {
-    counter.value = 0;
-  }
-}
-}
+// let counter = document.getElementById("counting");
+// counter.value=0;
+// function plus() {
+//   if(counter.value!=null)
+//   counter.value++;
+// }
+// function minus() {
+//   if(counter.value!=null)
+//   {
+//   counter.value--;
+//   if (counter.value < 0) {
+//     counter.value = 0;
+//   }
+// }
+// }
 //end counter
 
 //add item_to cart

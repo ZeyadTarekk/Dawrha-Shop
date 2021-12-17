@@ -1,5 +1,5 @@
 <?php
-$noNavbar = '';
+//$noNavbar = '';
 $pageTitle = 'Edit Item';
 include "init.php";
  if(isset($_POST['upload-img']))
@@ -56,8 +56,8 @@ include "init.php";
                         <span class=" input-group-text bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
-                    <div class="input-group input-group-lg mb-4">
-                        <input name="file" type="file" class="form-control" id="inputGroupFile04"
+                    <div class="input-group input-group-lg mb-4 ">
+                        <input name="file" type="file" class="form-control form-control-lg" id="inputGroupFile04"
                             aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
                         <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
                             multiple>
