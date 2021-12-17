@@ -21,7 +21,7 @@ include "init.php";
         <div class=" col-md-10 row  justify-content-center m-5 text-center shadow">
             <div class="display h1 mt-4 mb-4">Edit Item</div>
             <div class=" col-lg-5 col-md-12">
-                <form action="profileBuyer.php" method="POST" target=" _self" id="contactFrom"
+                <form action="profileSeller.php" method="POST" target=" _self" id="contactFrom"
                     enctype="multipart/form-data">
                     <div class="mb-4 input-group-lg ">
                         <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name" required
@@ -29,7 +29,7 @@ include "init.php";
                     </div>
                     <div class="mb-4 input-group-lg">
                         <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
-                            name="description" required rows="3"></textarea>
+                            name="description" rows="3"></textarea>
                     </div>
                     <div class="input-group input-group-lg mb-4">
                         <select class="form-select input-lg " id="inputGroupSelect02" name="category">
@@ -75,7 +75,7 @@ include "init.php";
                 </form>
             </div>
             <div class="col-lg-6 col-md-12">
-                <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
+                <img src="<?php echo $imgs . "editing.png" ?>" alt=" item's photo" class="img-fluid">
             </div>
         </div>
     </div>
