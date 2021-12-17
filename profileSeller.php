@@ -40,11 +40,10 @@ include "init.php";
             <div class="col-xl-3 col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title mt-0 mb-4">Total likes</h4>
+                        <h4 class="header-title mt-0 mb-4">Total Reviews</h4>
                         <div class="row flex-row flex-nowrap justify-content-evenly">
                             <div style="width: fit-content">
-                                <i class="bi bi-hand-thumbs-up fa-4x"></i>
-                                <i class="bi bi-hand-thumbs-down fa-4x"></i>
+                                <i class="bi bi-people-fill fa-4x" ></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
                                 <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
