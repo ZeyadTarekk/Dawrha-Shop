@@ -63,13 +63,13 @@ include "init.php";
                             Upload
                         </button>
                     </div>
-                    <div class="input-group mb-5" id="input_div">
+                    <div class="input-group mb-4" id="input_div">
                         <input required class="form-control " type="number" placeholder="Quantity" name="quantity"
                             size="25" min=0 id=" counting">
                         <!-- <input class=" bg-success text-light" type="button" value="-" id="moins" onclick="minus()">
                         <input class=" bg-success text-light" type="button" value="+" id="pluss" onclick="plus()"> -->
                     </div>
-                    <button class="btn btn-lg btn-success text-align-light mt-2 mb-4" type="submit" name="done">Add
+                    <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="done">Add
                         item</button>
                 </form>
             </div>
