@@ -1,5 +1,5 @@
 <?php 
-//include 'connect.php';
+include 'admin/connect.php';
 
 //Routes 
 $tpl = "includes/temps/";
