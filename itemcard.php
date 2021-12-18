@@ -9,20 +9,22 @@ include "init.php";
     <div class="row row-of-card g-5 justify-content-center align-items-center">
       <div class="col-8 col-lg-4 col-xl-3 ">
         <!-- This is the main card and the outer classes are for styling in this page only -->
-        <div class="card m-md-auto shadow" style="width: 18rem;">
-          <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-          <div class="card-body">
-            <h5 class="card-title">Item Name</h5>
-            <h6 class="card-title">Category</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <h4 class="card-title">$30</h4>
+        <a href="#" style="text-decoration:none; color:black">
+          <div class="card m-md-auto shadow" style="width: 18rem;">
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
             <div class="card-body">
-              <a href="#" class="btn btn-success">Go 1</a>
-              <a href="#" class="btn btn-danger">Go 2</a>
+              <h5 class="card-title">Item Name</h5>
+              <h6 class="card-title">Category</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <h4 class="card-title">$30</h4>
+              <div class="card-body">
+                <a href="#" class="btn btn-success">Go 1</a>
+                <a href="#" class="btn btn-danger">Go 2</a>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
