@@ -1,5 +1,6 @@
 <?php
-$pageTitle = 'Add Item';
+//$noNavbar = '';
+$pageTitle = 'Edit Item';
 include "init.php";
  if(isset($_POST['upload-img']))
   { 
@@ -17,9 +18,9 @@ include "init.php";
 ?>
 <div class="container-fluid ">
     <div class=" row justify-content-center m-5 ">
-        <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
-            <div class="display h1 mt-4 mb-4">Add Item</div>
-            <div class=" col-lg-5 col-md-12 col-sm-6">
+        <div class=" col-md-10 row  justify-content-center m-5 text-center shadow">
+            <div class="display h1 mt-4 mb-4">Edit Item</div>
+            <div class=" col-lg-5 col-md-12">
                 <form action="profileSeller.php" method="POST" target=" _self" id="contactFrom"
                     enctype="multipart/form-data">
                     <div class="mb-4 input-group ">
@@ -30,8 +31,8 @@ include "init.php";
                         <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
                             name="description" rows="3"></textarea>
                     </div>
-                    <div class="input-group  mb-4">
-                        <select class="form-select input-lg " id="inputGroupSelect02" name="category">
+                    <div class="input-group mb-4">
+                        <select class="form-select  " id="inputGroupSelect02" name="category">
                             <option selected>Choose Categories...</option>
                             <option value="1 ">Plastic</option>
                             <option value="2">Paper</option>
@@ -44,20 +45,20 @@ include "init.php";
                             name="address" required>
                     </div>
                     <div class="input-group  mb-4">
-                        <input placeholder="Price" name="priceOfItem" type="text" required class="form-control  "
+                        <input placeholder="Price" name="priceOfItem" type="text" required class="form-control"
                             aria-label="Dollar amount (with dot and two decimal places)">
                         <span class="input-group-text bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">0.00</span>
                     </div>
-                    <div class="input-group   mb-4">
-                        <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number"
+                    <div class="input-group  mb-4">
+                        <input placeholder="Discount" min=0 max=100 name="discountOfItem" type="number" required
                             class="form-control">
-                        <span class=" input-group-text  bg-success text-light">&#163</span>
+                        <span class=" input-group-text bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
                     <div class="input-group  mb-4 ">
                         <input name="file" type="file" class="form-control " id="inputGroupFile04"
-                            aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
+                            aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
                         <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
                             multiple>
                             Upload
@@ -69,12 +70,13 @@ include "init.php";
                         <!-- <input class=" bg-success text-light" type="button" value="-" id="moins" onclick="minus()">
                         <input class=" bg-success text-light" type="button" value="+" id="pluss" onclick="plus()"> -->
                     </div>
-                    <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="done">Add
-                        item</button>
+                    <button class="btn btn-success text-align-light mt-2 mb-4" type="submit" name="done">save
+                        item
+                    </button>
                 </form>
             </div>
             <div class="col-lg-6 col-md-12">
-                <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
+                <img src="<?php echo $imgs . "editing.png" ?>" alt=" item's photo" class="img-fluid">
             </div>
         </div>
     </div>

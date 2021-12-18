@@ -188,7 +188,7 @@ section {
 /* End ReviewItem */
 
 /* add item */
-.bottles {
+/* .bottles {
   width: 400px;
   height: 310px;
   margin: 80px;
@@ -210,14 +210,14 @@ section {
   .bottles {
     font-size: 13px;
   }
-}
+} */
 /* .container {
   position: relative;
 } */
 /* body {
   background-color: #eee;
 } */
-.edit-item {
+/* .edit-item {
   color: #fff;
   background-color: #198754;
 }
@@ -227,22 +227,11 @@ section {
   justify-content: center;
   align-items: center;
   padding: 35px;
-}
+} */
 
 /* end add item */
 
 /* startCart */
-.arr-item {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 10px;
-  padding: 10px;
-}
-.edit-item-in-card {
-  text-align: center;
-  height: 100%;
-  margin: 20px;
-}
 /* end cart */
 /* start item card */
 .card {
