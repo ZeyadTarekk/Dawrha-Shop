@@ -77,3 +77,9 @@ if (myMedia.matches) {
 }
 
 // End NavBar
+
+//Start profileSeller page
+function permanentlyDeleteItem(){
+  return  confirm("You are going to delete this item permanently, are you sure?");
+}
+//Start profileSeller page
