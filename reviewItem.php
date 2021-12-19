@@ -4,7 +4,7 @@ $pageTitle = 'the name of the item';
 include 'init.php';
 ?>
 
-<div class="container">
+<div class="container shadow mt-5 mb-5">
   <section>
     <div class="gallery">
       <!-- the main image -->

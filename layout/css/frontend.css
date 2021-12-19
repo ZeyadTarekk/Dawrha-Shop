@@ -47,7 +47,7 @@
 
 /* Start ReviewItem */
 section {
-  margin: 70px 0;
+  padding: 70px;
   display: grid;
   grid-template-columns: 0.7fr 1fr;
   column-gap: 100px;
@@ -151,7 +151,7 @@ section {
   color: rgb(117, 53, 53);
   font-weight: bold;
 }
-@media (max-width: 576px) {
+@media (max-width: 992px) {
   .order-section .counter .left-btn,
   .order-section .counter .right-btn {
     font-size: 13px;
