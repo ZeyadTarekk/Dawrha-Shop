@@ -137,18 +137,18 @@ include "init.php";
             <div class="col-sm-12">
 
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static " style="gap: 60px;" >
-
                     <?php
                     for ($i = 0;
                     $i < 10;
                     $i++) {
                     echo '
-                    <div class="col-lg-3 text-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <a href="#" class="btn btn-danger rounded-pill position-absolute"
+                    <div class="col-lg-3 m-0 text-center">
+                        <div class="card m-md-auto shadow" style="width: 18rem;">
+                             <a href="#" class="btn btn-danger rounded-pill position-absolute"
                                style="width: fit-content; top: 0;right: 0">
                                 <span class="badge">0</span></a>
                                 '; ?>
+
                     <a href="reviewItem.php" style="text-decoration: none;color: black">
 
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
@@ -164,12 +164,13 @@ include "init.php";
                                     <a href="#" class="btn btn-success">Edit</a>
                                     <a href="#" class="btn btn-danger">Delete</a>
                                 </div>
-                    </div>
-                    </a>
+                            </div>
+                            </a>
                         </div>
                     </div>
                     ';
                         } ?>
+
                         <div class="col-lg-3 m-0 text-center">
                             <div class="card m-md-auto shadow" style="width: 18rem;">
                                 <a href="#" class="btn btn-danger rounded-pill position-absolute"
