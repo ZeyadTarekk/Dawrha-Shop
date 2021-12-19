@@ -45,7 +45,7 @@ include "init.php";
                                 <i class="bi bi-people-fill fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
                                 <p class="text-muted mb-1 text-center">Review</p>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-up fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
                                 <p class="text-muted mb-1 text-center">Like</p>
                             </div>
                         </div>
@@ -77,8 +77,24 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-down fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
                                 <p class="text-muted mb-1 text-center">Dislike</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title mt-0 mb-4">Total transactions</h4>
+                        <div class="row flex-row flex-nowrap justify-content-evenly">
+                            <div style="width: fit-content">
+                                <i class="bi bi-cash-coin fa-4x"></i>
+                            </div>
+                            <div class="text-end" style="width: fit-content">
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <p class="text-muted mb-1 text-center">Transaction</p>
                             </div>
                         </div>
                     </div>
