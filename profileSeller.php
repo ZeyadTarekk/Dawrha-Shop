@@ -136,15 +136,15 @@ include "init.php";
             </div>
             <div class="col-sm-12">
 
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static " style="gap: 60px;" >
 
                     <?php
                     for ($i = 0;
                     $i < 10;
                     $i++) {
                     echo '
-                    <div class="col-lg-3 m-0 text-center">
-                        <div class="card m-md-auto shadow" style="width: 18rem;">
+                    <div class="col-lg-3 text-center">
+                        <div class="card shadow" style="width: 18rem;">
                             <a href="#" class="btn btn-danger rounded-pill position-absolute"
                                style="width: fit-content; top: 0;right: 0">
                                 <span class="badge">0</span></a>
@@ -224,7 +224,7 @@ include "init.php";
                 </div>
             </div>
             <div class="col-sm-12 ">
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
                     <?php
                     for ($i = 0;
                     $i < 10;
@@ -272,7 +272,7 @@ include "init.php";
                         <p class="lead">List of all deleted items.</p>
                     </div>
                 </div>
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static" style="gap: 60px;">
 
                     <?php
                     for ($i = 0;
