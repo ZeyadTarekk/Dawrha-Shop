@@ -15,9 +15,9 @@ include 'init.php';
                 <tr>
                   <th scope="col" class="table-dark">#ID</th>
                   <th scope="col" class="table-dark">Username</th>
-                  <th scope="col" class="table-dark">Email</th>
                   <th scope="col" class="table-dark">Fullname</th>
-                  <th scope="col" class="table-dark">Phone</th>
+                  <th scope="col" class="table-dark">Email</th>
+                  <th scope="col" class="table-dark">Phones</th>
                   <th scope="col" class="table-dark">Control</th>
                 </tr>
                 </thead>
@@ -27,7 +27,7 @@ include 'init.php';
                   <td>beshoy</td>
                   <td>Beshoy Morad</td>
                   <td>besh0morta@gmail.com</td>
-                  <td>01273311810</td>
+                  <td>01273311810 <br> 01273311810<br> 01273311810</td>
                   <td>
                     <!-- here we need to send the admin id to edit or delete -->
                     <a href="?do=Edit&adminId=5" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
@@ -42,8 +42,8 @@ include 'init.php';
 <?php
   } elseif ($do == 'Add') {
     //define the error messages and input values
-    $usernameErr = $fnameErr = $lnameErr = $emailErr = $cemailErr = $passErr = $cpassErr = '';
-    $userName = $fName = $lName = $email = $cEmail = $pass = $cPass = '';
+    $usernameErr = $fnameErr = $lnameErr = $phoneErr = $emailErr = $cemailErr = $passErr = $cpassErr = '';
+    $userName = $fName = $lName = $phone = $email = $cEmail = $pass = $cPass = '';
 
     // get the data from the form and validate it then insert into admin table
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -51,16 +51,18 @@ include 'init.php';
       $userName = $_POST['username'];
       $fName = $_POST['firstname'];
       $lName = $_POST['secondname'];
+      $phone = $_POST['phonenum'];
       $email = $_POST['email'];
       $cEmail = $_POST['confirmemail'];
       $pass = $_POST['password'];
       $cPass = $_POST['confirmpassword'];
-      
+
       //start the validations
       //first we have to filter the input then validate it with the proper function
       $userName = input_data($userName);
       $fName = input_data($fName);
       $lName = input_data($lName);
+      $phone = input_data($phone);
       $email = input_data($email);
       $cEmail = input_data($cEmail);
       $pass = input_data($pass);
@@ -70,33 +72,50 @@ include 'init.php';
       $usernameErr = validateString($userName);
       $fnameErr = validateString($fName);
       $lnameErr = validateString($lName);
+      $phoneErr = validateNumber($phone);
       $emailErr = validateEmail($email);
       $cemailErr = validateEmail($cEmail);
       $passErr = validatePassword($pass);
       $cpassErr = validatePassword($cPass);
       //check all of the errors
-      if ($usernameErr == "" && $fnameErr == "" && $lnameErr == "" && $emailErr == "" &&
-          $cemailErr == "" && $passErr == "" && $cpassErr == "") { 
-        //every thing good and ready to insert the data to db
-        echo $userName;
-        echo '<br>';
-        echo $fName;
-        echo '<br>';
-        echo $lName;
-        echo '<br>';
-        echo $email;
-        echo '<br>';
-        echo $cEmail;
-        echo '<br>';
-        echo $pass;
-        echo '<br>';
-        echo $cPass;
+      if ($usernameErr == "" && $fnameErr == "" && $lnameErr == "" && $phoneErr == "" && $emailErr == "" &&
+          $cemailErr == "" && $passErr == "" && $cpassErr == "") {
+        //try to get the username and email from the database
+        $userResult = isUsedUserName($userName, $db);
+        $emailResult = isUsedEmail($email, $db);
+        //check if the user name or email is already used by another admin
+        if ($userResult || $emailResult) {
+          if ($userResult) {
+            $usernameErr = "This user name is already used! Try another one";
+          }
+          if ($emailResult) {
+            $emailErr = "This email is already used! Try another one";
+          }
+        } else {
+          //check for the confirm email and pass
+          if ($cEmail != $email || $cPass != $pass) {
+            if ($cEmail != $email) {
+              $cemailErr = "Emails must be the same";
+            }
+            if ($cPass != $pass) {
+              $cpassErr = "Passwords must be the same";
+            }
+          } else {
+            //every thing good and ready to insert the data to db
+            AddNewAdmin($userName, $fName, $lName, $email, $pass, $db);
+            if ($phone) {
+              InsertNewPhone($userName, $phone, $db);
+            }
+            $userName = $fName = $lName = $phone = $email = $cEmail = $pass = $cPass = '';
+          }
+        } 
       }
     }
 ?>
     <div class="AdminsForm container mb-5">
       <h1 class="text-center">Add New Admins</h1>
       <form class="col-lg-8 m-auto" action="?do=Add" method="POST">
+        <!-- User Name -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
           <input type="text" class="form-control" name="username" 
@@ -104,6 +123,7 @@ include 'init.php';
                   value="<?php echo $userName; ?>" required>
         </div>
         <span class="error"><?php echo $usernameErr; ?></span>
+        <!-- First Name -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
           <input type="text" class="form-control" name="firstname"
@@ -111,13 +131,23 @@ include 'init.php';
                   value="<?php echo $fName; ?>" required>
         </div>
         <span class="error"><?php echo $fnameErr; ?></span>
+        <!-- Last Name -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
           <input type="text" class="form-control" name="secondname" 
-                  placeholder="Second Name" aria-label="SecondName" aria-describedby="basic-addon1"
+                  placeholder="Last Name" aria-label="LastName" aria-describedby="basic-addon1"
                   value="<?php echo $lName; ?>" required>
         </div>
         <span class="error"><?php echo $lnameErr; ?></span>
+        <!-- Phone -->
+        <div class="input-group mb-2">
+          <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+          <input type="tel" class="form-control" name="phonenum" 
+                  placeholder="Phone Number" aria-label="PhoneNumber" aria-describedby="basic-addon1"
+                  value="<?php echo $phone; ?>">
+        </div>
+        <span class="error"><?php echo $phoneErr; ?></span>
+        <!-- Email -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1">@</span>
           <input type="email" class="form-control" name="email" 
@@ -125,6 +155,7 @@ include 'init.php';
                   value="<?php echo $email; ?>" required>
         </div>
         <span class="error"><?php echo $emailErr; ?></span>
+        <!-- Confirm Email -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1">@</span>
           <input type="email" class="form-control" name="confirmemail"
@@ -132,6 +163,7 @@ include 'init.php';
                   value="<?php echo $cEmail; ?>" required>
         </div>
         <span class="error"><?php echo $cemailErr; ?></span>
+        <!-- Password -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
           <input type="password" class="form-control" name="password" id="password1"
@@ -141,6 +173,7 @@ include 'init.php';
                                                                                   id="eyeIcon1"></i></span>
         </div>
         <span class="error"><?php echo $passErr; ?></span>
+        <!-- Confirm Password -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
           <input type="password" class="form-control" name="confirmpassword" id="password2"
