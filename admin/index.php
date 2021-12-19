@@ -6,6 +6,9 @@ include 'init.php';
   $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 
   if($do == 'Manage') { //manage page to show all the admins
+    //get all of the admins and their phone numbers to list them in the table
+    $admins = GetAdmins($db);
+    $phones = GetAdminPhones($db);
 ?>
     <div class="container admin">
           <h1 class="text-center">Manage Admins</h1>
@@ -22,18 +25,28 @@ include 'init.php';
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>beshoy</td>
-                  <td>Beshoy Morad</td>
-                  <td>besh0morta@gmail.com</td>
-                  <td>01273311810 <br> 01273311810<br> 01273311810</td>
-                  <td>
-                    <!-- here we need to send the admin id to edit or delete -->
-                    <a href="?do=Edit&adminId=5" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
-                    <a href="?do=Delete&adminId=5" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
-                  </td>
-                </tr>
+                <?php 
+                  foreach($admins as $admin) {
+                    echo '<tr>';
+                    echo '<th scope="row">' . $admin['ID'] . '</th>';
+                    echo '<td>' . $admin['userName'] . '</td>';
+                    echo '<td>' . $admin['fName'] . ' ' . $admin['lName'] . '</td>';
+                    echo '<td>' . $admin['email'] . '</td>';
+                    //only print the phones of that admin using his ID
+                    echo '<td>';
+                    foreach($phones as $phone) {
+                      if($phone['adminId'] == $admin['ID']) {
+                        echo $phone['phone'] . '<br>';
+                      }
+                    }
+                    echo '</td>';
+                    echo '<td>
+                            <a href="?do=Edit&adminId=' . $admin['ID'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="?do=Delete&adminId=' . $admin['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
+                          </td>';
+                    echo '</tr>';
+                  }
+                ?>
               </tbody>
             </table>
           </div>

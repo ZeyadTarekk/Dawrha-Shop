@@ -37,9 +37,23 @@ function isUsedEmail($email, $db) {
   return count($result);
 }
 //End Add Admin
+//Start Manage Admin
 
+function GetAdmins($db) {
+  $sql = "SELECT * FROM admin";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 
+function GetAdminPhones($db) {
+  $sql = "SELECT * FROM mobileadmin";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 
+//End Manage Admin
 
 
 
