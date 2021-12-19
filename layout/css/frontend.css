@@ -46,7 +46,7 @@
 /* End NavBar */
 
 /* Start ReviewItem */
-section {
+.review-item {
   padding: 70px;
   display: grid;
   grid-template-columns: 0.7fr 1fr;

@@ -5,7 +5,7 @@ include 'init.php';
 ?>
 
 <div class="container shadow mt-5 mb-5">
-  <section>
+  <section class="review-item">
     <div class="gallery">
       <!-- the main image -->
       <div id="screen">
