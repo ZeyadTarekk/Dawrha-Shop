@@ -2,9 +2,6 @@
 $pageTitle = "Admins";
 include 'init.php';
 
-  //define the error messages
-  $usernameErr = $fnameErr = $lnameErr = $emailErr = $cemailErr = $passErr = $cpassErr = '';
-
   //check the wanted page [Manage | Edit(Update) | Add(Insert) | Delete] before going there
   $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 

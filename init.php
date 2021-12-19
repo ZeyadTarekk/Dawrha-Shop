@@ -11,6 +11,7 @@ $dataimages = "data/uploads/items/";
 
 
 include $func . 'functions.php';
+include $func . 'controller.php';
 include $tpl . "header.php";
 
 if(!isset($noNavbar)) { include $tpl . "navbar.php"; }
