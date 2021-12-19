@@ -79,7 +79,27 @@ if (myMedia.matches) {
 // End NavBar
 
 //Start profileSeller page
-function permanentlyDeleteItem(){
-  return  confirm("You are going to delete this item permanently, are you sure?");
+function permanentlyDeleteItem() {
+  return confirm(
+    "You are going to delete this item permanently, are you sure?"
+  );
 }
 //Start profileSeller page
+// Start Scroll to top
+let scrollToTopElement = document.querySelector(".scroll-to-top");
+window.onscroll = function () {
+  if (this.scrollY >= 100) {
+    scrollToTopElement.classList.add("scroll-to-top-show");
+  } else {
+    scrollToTopElement.classList.remove("scroll-to-top-show");
+  }
+};
+
+scrollToTopElement.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
+
+// End Scroll to top
