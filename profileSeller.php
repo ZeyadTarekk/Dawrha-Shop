@@ -42,10 +42,10 @@ include "init.php";
                         <h4 class="header-title mt-0 mb-4">Total Reviews</h4>
                         <div class="row flex-row flex-nowrap justify-content-evenly">
                             <div style="width: fit-content">
-                                <i class="bi bi-people-fill fa-4x" ></i>
+                                <i class="bi bi-people-fill fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
                                 <p class="text-muted mb-1 text-center">Review</p>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-up fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
                                 <p class="text-muted mb-1 text-center">Like</p>
                             </div>
                         </div>
@@ -77,8 +77,24 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-down fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
                                 <p class="text-muted mb-1 text-center">Dislike</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title mt-0 mb-4">Total transactions</h4>
+                        <div class="row flex-row flex-nowrap justify-content-evenly">
+                            <div style="width: fit-content">
+                                <i class="bi bi-cash-coin fa-4x"></i>
+                            </div>
+                            <div class="text-end" style="width: fit-content">
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <p class="text-muted mb-1 text-center">Transaction</p>
                             </div>
                         </div>
                     </div>
@@ -95,25 +111,46 @@ include "init.php";
                 <a href="#sold" class="btn btn-success m-2 rounded-pill btn-lg">Sold</a>
                 <a href="#deleted" class="btn btn-success m-2 rounded-pill btn-lg">Deleted</a>
             </div>
-            <div class="jumbotron jumbotron-fluid m-3">
-                <div class="container">
-                    <h1 class="display-4">For sale</h1>
-                    <hr class="my-4">
 
-                    <p class="lead">List of all items that are offered for sale.</p>
+            <div class="row justify-content-between m-3">
+                <div class="col-lg-8 jumbotron m-3">
+                    <div class="container">
+                        <h1 class="display-4">For sale</h1>
+                        <hr class="my-4">
+
+                        <p class="lead">List of all items that are offered for sale.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 m-0" style="position: sticky; right: 0;">
+                    <a href="add_item.php" class="link-dark">
+                        <div class="card m-md-auto shadow" style="width: 18rem;">
+                            <div class="m-auto">
+                                <i class="bi bi-plus-circle fa-6x"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Add Item</h5>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="col-sm-12">
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
+
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static " style="gap: 60px;" >
                     <?php
-                    for($i=0;$i<10;$i++){
-                        echo '
+                    for ($i = 0;
+                    $i < 10;
+                    $i++) {
+                    echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
-                            <a href="#" class="btn btn-danger rounded-pill position-absolute"
+                             <a href="#" class="btn btn-danger rounded-pill position-absolute"
                                style="width: fit-content; top: 0;right: 0">
                                 <span class="badge">0</span></a>
-                                ';?>
+                                '; ?>
+
+                    <a href="reviewItem.php" style="text-decoration: none;color: black">
+
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
@@ -128,42 +165,49 @@ include "init.php";
                                     <a href="#" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
+                            </a>
                         </div>
                     </div>
-                    ';}?>
-                    <div class="col-lg-3 m-0 text-center">
-                        <div class="card m-md-auto shadow" style="width: 18rem;">
-                            <a href="#" class="btn btn-danger rounded-pill position-absolute"
-                               style="width: fit-content; top: 0;right: 0">
-                                <span class="badge">0</span></a>
-                            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                            <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card's
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
-                                <div class="card-body">
-                                    <a href="#" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    ';
+                        } ?>
 
-                    <div class="col-lg-3 m-0 " style="position: sticky; right: 0;">
-                        <a href="add_item.php" class="link-dark">
+                        <div class="col-lg-3 m-0 text-center">
                             <div class="card m-md-auto shadow" style="width: 18rem;">
-                                <div class="m-auto">
-                                    <i class="bi bi-plus-circle fa-9x"></i>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Add Item</h5>
-                                </div>
+                                <a href="#" class="btn btn-danger rounded-pill position-absolute"
+                                   style="width: fit-content; top: 0;right: 0">
+                                    <span class="badge">0</span></a>
+                                <a href="reviewItem.php" style="text-decoration: none;color: black">
+
+                                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Item Name</h5>
+                                        <h6 class="card-title">Category</h6>
+                                        <p class="card-text">Some quick example text to build on the card title and make
+                                            up
+                                            the bulk of the card's
+                                            content.</p>
+                                        <h4 class="card-title">$30</h4>
+                                        <div class="card-body">
+                                            <a href="#" class="btn btn-success">Edit</a>
+                                            <a href="#" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+
+<!--                        <div class="col-lg-3 m-0 " style="position: sticky; right: 0;">-->
+<!--                            <a href="add_item.php" class="link-dark">-->
+<!--                                <div class="card m-md-auto shadow" style="width: 18rem;">-->
+<!--                                    <div class="m-auto">-->
+<!--                                        <i class="bi bi-plus-circle fa-9x"></i>-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5 class="card-title text-center">Add Item</h5>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
                 </section>
             </div>
         </div>
@@ -181,15 +225,19 @@ include "init.php";
                 </div>
             </div>
             <div class="col-sm-12 ">
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
-                <?php
-                for($i=0;$i<10;$i++){
-                echo '
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
+                    <?php
+                    for ($i = 0;
+                    $i < 10;
+                    $i++) {
+                    echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
-                                ';?>
-                            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                    <?php echo '       
+                                '; ?>
+                    <a href="reviewItem.php" style="text-decoration: none;color: black">
+
+                        <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                        <?php echo '       
                     <div class="card-body">
                                 <h5 class="card-title">Item Name</h5>
                                 <h6 class="card-title">Category</h6>
@@ -202,22 +250,12 @@ include "init.php";
                                     <a href="#" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
+                            </a>
                         </div>
                     </div>
-                    ';}?>
+                    ';
+                        } ?>
 
-                    <div class="col-lg-3 m-0" style="position: sticky; right: 0;">
-                        <a href="add_item.php" class="link-dark">
-                            <div class="card m-md-auto shadow" style="width: 18rem;">
-                                <div class="m-auto">
-                                    <i class="bi bi-plus-circle fa-9x"></i>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Add Item</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </section>
             </div>
         </div>
@@ -235,14 +273,18 @@ include "init.php";
                         <p class="lead">List of all deleted items.</p>
                     </div>
                 </div>
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static" style="gap: 60px;">
 
                     <?php
-                    for($i=0;$i<10;$i++){
-                        echo '
+                    for ($i = 0;
+                    $i < 10;
+                    $i++) {
+                    echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
-                                ';?>
+                                '; ?>
+                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(100%)">
+
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
@@ -257,22 +299,12 @@ include "init.php";
                                     <a href="profileSeller.php?x=1"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
                                 </div>
                             </div>
+                    </a>
                         </div>
                     </div>
-                    ';}?>
+                    ';
+                        } ?>
 
-                    <div class="col-lg-3 m-0" style="position: sticky; right: 0;">
-                        <a href="add_item.php" class="link-dark">
-                            <div class="card m-md-auto shadow" style="width: 18rem;">
-                                <div class="m-auto">
-                                    <i class="bi bi-plus-circle fa-9x"></i>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Add Item</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </section>
             </div>
         </div>
