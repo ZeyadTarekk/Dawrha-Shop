@@ -1,7 +1,7 @@
 <?php  ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
   <div class="container-fluid ">
-    <a class="navbar-brand" href="#" style=" order:1">Logo</a>
+    <a class="navbar-brand" href="index.php" style=" order:1">Logo</a>
     <a class="navbar-brand ms-1 mt-3 m-lg-auto notification-icon me-lg-2" href="#" id="navbarDropdown11" role="button"
       data-bs-toggle="dropdown" aria-expanded="false" style="position: relative; display:inline-block; ">
       <i class="fa fa-bell" style="font-size: 23px; color: white; "></i>

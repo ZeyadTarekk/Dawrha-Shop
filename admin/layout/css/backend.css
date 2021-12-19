@@ -52,6 +52,12 @@ body {
   margin-top: 20px;
   font-size: 20px;
 }
+.AdminsForm .error {
+  color: #962121;
+  margin-bottom: 8px;
+  margin-left: 50px;
+  display: block;
+}
 /* End Admins Page */
 /*  */
 .items h1 {
