@@ -41,6 +41,7 @@ include 'init.php';
                     }
                     echo '</td>';
                     echo '<td>
+                            <a href="?do=AddPhone&adminUN=' . $admin['userName'] . '" class="btn btn-primary"><i class="fas fa-phone"></i> Add Phone</a>
                             <a href="?do=Edit&adminId=' . $admin['ID'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
                             <a href="?do=Delete&adminId=' . $admin['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                           </td>';
@@ -200,6 +201,44 @@ include 'init.php';
       </form>
     </div>
 <?php
+  }elseif ($do == 'AddPhone') {
+    $phoneErr = '';
+    $phone = '';
+    $userName = isset($_GET['adminUN']) ?  $_GET['adminUN'] : "NotFound";
+    if ($userName == "NotFound") {
+      header('Location: index.php');
+    } else {
+      if(isset($_POST['submit'])) {
+        $phone = $_POST['phonenum'];
+        $phone = input_data($phone);
+        $phoneErr = validateNumber($phone);
+
+        if ($phoneErr == "") {
+          if ($phone) {
+            InsertNewPhone($userName, $phone, $db);
+            $phone = "";
+            header('Location: index.php');
+          }
+        }
+      }
+    }
+?>
+    <div class="AdminsForm container mb-5">
+      <h1 class="text-center">Add New Phone</h1>
+      <form class="col-lg-6 m-auto" action="<?php echo '?do=AddPhone' . '&adminUN=' . $userName?>" method="POST">
+        <!-- Phone -->
+        <div class="input-group mb-2">
+        <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+        <input type="tel" class="form-control" name="phonenum" 
+                placeholder="Phone Number" aria-label="PhoneNumber" aria-describedby="basic-addon1"
+                value="<?php echo $phone; ?>">
+        </div>
+        <span class="error"><?php echo $phoneErr; ?></span>
+        <button type="submit" name="submit" class="btn btn-primary form-btn">Add</button>
+      </form>
+    </div>
+
+<?php
   } elseif ($do == 'Edit') {
 ?>
     <!-- need to get the data of that admin and put it as value attribute for all the inputs -->
@@ -249,3 +288,5 @@ include 'init.php';
 <?php 
 include $tpl . 'footer.php';
 ?>
+<!-- to do later -->
+<!-- Search with id for admin or item or member -->
