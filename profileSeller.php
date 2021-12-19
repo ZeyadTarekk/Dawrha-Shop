@@ -214,12 +214,12 @@ include "init.php";
 
 
         <!------------------------------------------------>
-        <!--   Sold   -->
+        <!--   Sold  out  -->
         <!------------------------------------------------>
         <div class="row justify-content-around" id="sold">
             <div class="jumbotron jumbotron-fluid m-3">
                 <div class="container">
-                    <h1 class="display-4">Sold</h1>
+                    <h1 class="display-4">Sold Out</h1>
                     <hr class="my-4">
                     <p class="lead">List of all Sold items.</p>
                 </div>
@@ -234,7 +234,7 @@ include "init.php";
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php" style="text-decoration: none;color: black">
+                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(100%)">
 
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
@@ -283,7 +283,7 @@ include "init.php";
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(100%)">
+                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(70%)">
 
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
