@@ -4,7 +4,7 @@
   $items = getItems($db);
   $categories = getCategories($db);
   $itemImages = getItemsImages($db);
-
+  $categories = array_reverse($categories);
   // Linking item cateogry to each item
     for($i=0,$j=count($categories); $i < $j ; ++$i) {
       for($k=0,$l=count($items);$k < $l;++$k){
