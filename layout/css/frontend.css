@@ -245,6 +245,7 @@
 .card-img-top {
   border-top-left-radius: calc(1.25rem - 1px);
   border-top-right-radius: calc(1.25rem - 1px);
+  min-height: 300px;
 }
 @media (max-width: 470px) {
   .card {
