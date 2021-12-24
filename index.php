@@ -1,6 +1,6 @@
 <?php
   $pageTitle = 'Home Page';
-  include "init.php";
+  require "init.php";
   $items = getItems($db);
   $categories = getCategories($db);
   $itemImages = getItemsImages($db);
@@ -24,7 +24,7 @@
           } 
         }
     }
-
+    
 ?>
 
 <div class="main-page pt-5 pb-5 bg-light">

@@ -19,19 +19,4 @@ function getCategories($db) {
   return $result;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

@@ -13,8 +13,8 @@
       </form>
       <ul class="navbar-nav text-center">
         <!-- Start Difference -->
-        <a class="btn btn-outline-light mt-3 mt-lg-0  me-lg-3  " href="#" role="button">Sign Up</a>
-        <a class="btn btn-outline-light mt-3 mb-3 mb-lg-0 mt-lg-0  me-lg-3 " href="#" role="button">Log In</a>
+        <a class="btn btn-outline-light mt-3 mt-lg-0  me-lg-3  " href="signup.php" role="button">Sign Up</a>
+        <a class="btn btn-outline-light mt-3 mb-3 mb-lg-0 mt-lg-0  me-lg-3 " href="signin.php" role="button">Log In</a>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Guest</a>
         </li>

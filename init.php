@@ -1,5 +1,5 @@
 <?php 
-include 'admin/connect.php';
+require 'admin/connect.php';
 
 //Routes 
 $tpl = "includes/temps/";
@@ -10,10 +10,10 @@ $imgs = "layout/images/";
 $dataimages = "data/uploads/items/";
 
 
-include $func . 'functions.php';
-include $func . 'controller.php';
-include $tpl . "header.php";
+require $func . 'functions.php';
+require $func . 'controller.php';
+require $tpl . "header.php";
 
-if(!isset($noNavbar)) { include $tpl . "navbar.php"; }
+if(!isset($noNavbar)) { require $tpl . "navbar.php"; }
 
 ?>
