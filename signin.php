@@ -2,6 +2,39 @@
 $noNavbar = '';
 $pageTitle = 'SignIn';
 include "init.php";
+
+session_start();
+if (isset($_POST['username']))
+    $_SESSION["printUserName"] = htmlentities($_POST['username']);
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    if (isset($_SESSION["username"]))
+        unset($_SESSION["username"]);
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        $password = htmlentities($_POST['password']);
+        if ($password == 123) {
+            $_SESSION['username'] = htmlentities($_POST['username']);
+            header("Location: index.php");
+            return;
+        } else {
+            $_SESSION['error'] = "Incorrect password or username";
+            header("Location: signin.php");
+            return;
+        }
+    } elseif (!empty($_POST['username']) && empty($_POST['password'])) {
+        $_SESSION['error'] = "Please enter your password";
+        header("Location: signin.php");
+        return;
+    } elseif (empty($_POST['username']) && !empty($_POST['password'])) {
+        $_SESSION['error'] = "Please enter your username";
+        header("Location: signin.php");
+        return;
+    } else {
+        $_SESSION['error'] = "Please enter your username and password";
+        header("Location: signin.php");
+        return;
+    }
+}
+
 ?>
     <div class="container-fluid text-center shadow p-2">
         <h3>Logo</h3>
@@ -9,18 +42,37 @@ include "init.php";
     <div class="row justify-content-evenly container-fluid">
         <div class="col-md-10 row justify-content-center m-5 text-center shadow">
             <div class="col-lg-5 col-md-12">
-                <form class="form-signin p-5">
+                <form method="POST" action="signin.php" class="form-signin p-5">
                     <h3 class="m-3">Sign in to your account</h3>
                     <p class="lead m-3">Dawrha </p>
                     <div class="input-group mb-4">
-                        <input type="text" id="username" class="form-control" placeholder="Username" required>
+                        <input type="text" id="username" class="form-control" placeholder="Username"
+                               name="username"
+                               value="<?php
+                               if(isset($_SESSION["printUserName"])){
+                                   echo $_SESSION["printUserName"];
+                                   unset($_SESSION["printUserName"]);
+                               }
+                               else{
+                                   echo "";
+                               }?>">
                         <span class="input-group-text">@</span>
                     </div>
                     <div class="input-group mb-4">
-                        <input type="password" id="password" class="form-control" placeholder="Password" required>
+                        <input type="password" id="password" class="form-control" placeholder="Password"
+                               name="password">
                         <span class="input-group-text" onclick="togglePasswordVisibility()">
             <i class="bi bi-eye" id="eyeIcon"></i>
           </span>
+                    </div>
+                    <div class="text-danger">
+                        <?php
+                        // Flash Message
+                        if (isset($_SESSION['error'])) {
+                            echo $_SESSION['error'];
+                            unset($_SESSION['error']);
+                        }
+                        ?>
                     </div>
                     <p class="mb-4 text-secondary">By clicking Sign In, you agree to our <a href="#"
                                                                                             class="link-primary">Terms
