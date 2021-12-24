@@ -10,6 +10,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (isset($_SESSION["username"]))
         unset($_SESSION["username"]);
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        if (isset($_SESSION["printUserName"]))
+            unset($_SESSION["printUserName"]);
         $password = htmlentities($_POST['password']);
         if ($password == 123) {
             $_SESSION['username'] = htmlentities($_POST['username']);
