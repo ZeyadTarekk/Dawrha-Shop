@@ -14,7 +14,7 @@ function AddNewAdmin($username, $fname, $lname, $email, $pass, $db) {
   $db->exec($sql);
 }
 
-function InsertNewPhone($username, $phone, $db) {
+function InsertPhone($username, $phone, $db) {
   $sql = "SELECT ID FROM admin WHERE userName='" . $username . "';";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,8 +37,8 @@ function isUsedEmail($email, $db) {
   return count($result);
 }
 //End Add Admin
-//Start Manage Admin
 
+//Start Manage Admin
 function GetAdmins($db) {
   $sql = "SELECT * FROM admin";
   $stmt = $db->query($sql);
@@ -46,15 +46,46 @@ function GetAdmins($db) {
   return $result;
 }
 
-function GetAdminPhones($db) {
-  $sql = "SELECT * FROM mobileadmin";
+function GetAdminPhones($db, $id) {
+  $sql = "SELECT * FROM mobileadmin WHERE adminId=" . $id . ";";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
 
+function CheckPhone($id, $phone, $db) {
+  $sql = "SELECT * FROM mobileadmin WHERE adminId=" . $id . " AND phone='" . $phone . "';";
+  $stmt = $db->query($sql);
+  $count = $stmt->rowCount();
+  return $count;
+}
+
+function InsertNewPhone($id, $phone, $db) {
+  $insertSql = "INSERT INTO mobileadmin VALUES(" . $id . ",'" . $phone . "')";
+  $db->exec($insertSql);
+}
 //End Manage Admin
 
+//Start Edit Admin
+function GetAdminByID($id, $db) {
+  $sql = "SELECT * FROM admin WHERE ID=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function UpdateAdmin($id, $username, $fname, $lname, $email, $pass, $db) {
+  $hashedPass = sha1($pass);
+  $insertSql = "UPDATE admin as A SET A.fName='" . $fname . "', A.lName='" . $lname . "', A.userName='" . $username . "', A.email='" . $email . "', A.password='" . $hashedPass . "' WHERE A.ID = " . $id . ";";
+  $db->exec($insertSql);
+}
+//End Edit Admin
+
+//Delete Admin
+function DeleteAdminByID($id, $db) {
+  $insertSql = "DELETE FROM admin WHERE ID=" . $id . "";
+  $db->exec($insertSql);
+}
 
 
 
