@@ -35,7 +35,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $_SESSION['username'] = htmlentities($_POST['username']);
             $_SESSION['typeOfUser'] = $typeOfUser;
             if($typeOfUser=="admin"){
-                header("Location: admin/init.php");
+                header("Location: admin/index.php");
                 return;
             }
             header("Location: index.php");
