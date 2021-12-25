@@ -1,7 +1,7 @@
 <?php 
 //this file will be used to write sql commands like insert a new buyer or select items or etc..
 
-//Start Add Admin
+//Start Admin
 function AddNewAdmin($username, $fname, $lname, $email, $pass, $db) {
   $hashedPass = sha1($pass);
   $sql = "SET @fName='" . $fname . "';
@@ -36,9 +36,7 @@ function isUsedEmail($email, $db) {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return count($result);
 }
-//End Add Admin
 
-//Start Manage Admin
 function GetAdmins($db) {
   $sql = "SELECT * FROM admin";
   $stmt = $db->query($sql);
@@ -64,9 +62,7 @@ function InsertNewPhone($id, $phone, $db) {
   $insertSql = "INSERT INTO mobileadmin VALUES(" . $id . ",'" . $phone . "')";
   $db->exec($insertSql);
 }
-//End Manage Admin
 
-//Start Edit Admin
 function GetAdminByID($id, $db) {
   $sql = "SELECT * FROM admin WHERE ID=" . $id . ";";
   $stmt = $db->query($sql);
@@ -79,16 +75,41 @@ function UpdateAdmin($id, $username, $fname, $lname, $email, $pass, $db) {
   $insertSql = "UPDATE admin as A SET A.fName='" . $fname . "', A.lName='" . $lname . "', A.userName='" . $username . "', A.email='" . $email . "', A.password='" . $hashedPass . "' WHERE A.ID = " . $id . ";";
   $db->exec($insertSql);
 }
-//End Edit Admin
 
-//Delete Admin
 function DeleteAdminByID($id, $db) {
-  $insertSql = "DELETE FROM admin WHERE ID=" . $id . "";
+  $deleteSql = "DELETE FROM admin WHERE ID=" . $id . "";
+  $db->exec($deleteSql);
+}
+//End Admin
+
+//Start Categories Section
+function GetCategories($db) {
+  $sql = "SELECT * FROM category;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function AddNewCategory($name, $des, $db) {
+  $insertSql = "INSERT INTO category (categoryName, categoryDescription) VALUES ('" . $name . "', '" . $des . "');";
   $db->exec($insertSql);
 }
 
+function GetCategoryByID($id, $db) {
+  $sql = "SELECT * FROM category WHERE cateogryId=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 
+function UpdateCategory($id, $name, $des, $db) {
+  $insertSql = "UPDATE category SET categoryName='" . $name . "', categoryDescription='" . $des . "' WHERE cateogryId=" . $id . ";";
+  $db->exec($insertSql);
+}
 
-
-
+function DeleteCategoryByID($id, $db) {
+  $deleteSql = "DELETE FROM category WHERE cateogryId=" . $id . ";";
+  $db->exec($deleteSql);
+}
+//End Categories
 ?>

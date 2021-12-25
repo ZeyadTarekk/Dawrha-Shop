@@ -10,7 +10,13 @@
           <a class="nav-link" aria-current="page" href="index.php">Admins</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="members.php">Members</a>
+          <a class="nav-link" href="buyers.php">Buyers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sellers.php">Sellers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="categories.php">Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="items.php">Items</a>
@@ -24,7 +30,7 @@
           </a>
           <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
             <!-- put the id of the session -->
-            <li><a class="dropdown-item" href="index.php?do=Edit&userid=<?php if(isset($_SESSION['id'])) {echo $_SESSION['id'];} ?>">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="index.php?do=Edit&adminId=<?php if(isset($_SESSION['id'])) {echo $_SESSION['id'];} ?>">Edit Profile</a></li>
             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
           </ul>
         </li>
