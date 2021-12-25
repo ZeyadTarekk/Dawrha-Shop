@@ -1,11 +1,19 @@
 <?php
-  $loggedin = true;
   require 'admin/connect.php' ;
   $func = "includes/functions/";
   require $func . 'controllerForNavbar.php';
-  $User = getBuyer($db,'ZeyadTarek');
+
+  session_start();
+  // $_SESSION["username"]= 'ZeyadTarek';
+  // unset($_SESSION["username"]);
+  // $_SESSION["typeOfUser"] = 'seller';
+  // unset($_SESSION["typeOfUser"]);
+  if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer")
+    $User = getBuyer($db,$_SESSION["username"]);
+  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller")
+    $User = getSeller($db,$_SESSION["username"]);
 ?>
-<?php if($loggedin): ?>
+<?php if(isset($_SESSION["username"])): ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
   <div class="container-fluid ">
     <a class="navbar-brand" href="index.php" style=" order:1">Logo</a>
@@ -61,7 +69,7 @@
 <?php else: ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
   <div class="container-fluid ">
-    <a class="navbar-brand" href="#">Logo</a>
+    <a class="navbar-brand" href="index.php">Logo</a>
     <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
