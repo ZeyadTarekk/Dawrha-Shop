@@ -6,7 +6,7 @@ function getTitle() {
   if(isset($pageTitle)) {
     echo $pageTitle;
   }else {
-    echo "Default";
+    echo "Dawarha";
   }
 }
 
@@ -22,7 +22,7 @@ function input_data($data) {
 function validateString($string) {
   $pattern = "/^[a-zA-z]*$/";
   if (!preg_match ($pattern, $string) ) {
-    return "* Only alphabets and white space are allowed";
+    return "* Only alphabets are allowed";
   } else {
     return "";
   }

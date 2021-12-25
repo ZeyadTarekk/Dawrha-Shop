@@ -1,10 +1,10 @@
 <?php
-$pageTitle = "Admins";
-include 'init.php';
+  $pageTitle = "Admins";
+  include 'init.php';
 
-if (!isset($_SESSION['username'])) {
-  header("Location: ../signin.php");
-}
+  if (!isset($_SESSION['id'])) {
+    header("Location: ../signin.php");
+  }
   //check the wanted page [Manage | Edit | Add | Delete] before going there
   $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 
@@ -34,14 +34,13 @@ if (!isset($_SESSION['username'])) {
                     echo '<td>' . $admin['userName'] . '</td>';
                     echo '<td>' . $admin['fName'] . ' ' . $admin['lName'] . '</td>';
                     echo '<td>' . $admin['email'] . '</td>';
-                    //only print the phones of that admin using his ID
                     echo '<td>';
-                    $phones = GetAdminPhones($db, $admin['ID']);
+                    $phones = GetAdminPhones($admin['ID'], $db);
                     foreach($phones as $phone) {
                       echo $phone['phone'] . '<br>';}
                     echo '</td>';
                     echo '<td>
-                            <a href="?do=AddPhone&adminId=' . $admin['ID'] . '" class="btn btn-primary"><i class="fas fa-phone"></i> Add Phone</a>
+                            <a href="?do=Phones&adminId=' . $admin['ID'] . '" class="btn btn-primary"><i class="fas fa-phone"></i> Phones</a>
                             <a href="?do=Edit&adminId=' . $admin['ID'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
                             <a href="?do=Delete&adminId=' . $admin['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                           </td>';
@@ -201,7 +200,7 @@ if (!isset($_SESSION['username'])) {
       </form>
     </div>
 <?php
-  }elseif ($do == 'AddPhone') {
+  }elseif ($do == 'Phones') {
     $phoneErr = '';
     $phone = '';
     $ID = isset($_GET['adminId']) ?  $_GET['adminId'] : "NotFound";
@@ -227,7 +226,7 @@ if (!isset($_SESSION['username'])) {
 ?>
     <div class="AdminsForm container mb-5">
       <h1 class="text-center">Add New Phone</h1>
-      <form class="col-lg-6 m-auto" action="?do=AddPhone&adminId=<?php echo $ID; ?>" method="POST">
+      <form class="col-lg-6 m-auto" action="?do=Phones&adminId=<?php echo $ID; ?>" method="POST">
         <!-- Phone -->
         <div class="input-group mb-2">
         <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
@@ -370,7 +369,7 @@ if (!isset($_SESSION['username'])) {
       <h1 class="text-center">Delete Admin</h1>
       <div class="delete-box shadow">
         <h3 class="text-center">Are you Sure You Want To Delete <b><?php echo $admin[0]['userName'] ?></b></h3>
-        <form action="?do=Delete&adminId=<?php echo $adminId; ?>" method="POST" class="delete-buttons text-center">
+        <form action="?do=Delete&adminId=<?php echo $adminId; ?>" method="POST" class="text-center">
           <button type="submit" name="submit" class="btn btn-danger">Yes</button>
           <a class="btn btn-success" href="?do=Manage">No</a>
         </form>
@@ -381,3 +380,4 @@ if (!isset($_SESSION['username'])) {
 
 include $tpl . 'footer.php';
 ?>
+<!-- need to do delete phone -->
