@@ -6,18 +6,20 @@
   $itemImages = getItemsImages($db);
   $categories = array_reverse($categories);
   // Linking item cateogry to each item
-    for($i=0,$j=count($categories); $i < $j ; ++$i) {
-      for($k=0,$l=count($items);$k < $l;++$k){
+  $iterI1 = count($categories);
+  $iterk1 = count($items);
+    for($i=0; $i < $iterI1 ; ++$i) {
+      for($k=0;$k < $iterk1;++$k){
         if($items[$k]['categoryId']==$categories[$i]['cateogryId']){
           $items[$k]["categoryName"]=$categories[$i]['categoryName'];
           // echo $items[$k]["categoryName"];
           } 
         }
     }
-
+    $iterI1 = count($itemImages);
     // linking items image to each item
-    for($i=0,$j=count($itemImages); $i < $j ; ++$i) {
-      for($k=0,$l=count($items);$k < $l;++$k){
+    for($i=0; $i < $iterI1 ; ++$i) {
+      for($k=0;$k < $iterk1;++$k){
         if($items[$k]['itemId']==$itemImages[$i]['itemId']){
           $items[$k]["image"]=$itemImages[$i]['image'];
           // echo $items[$k]["image"];
