@@ -44,7 +44,7 @@ function GetAdmins($db) {
   return $result;
 }
 
-function GetAdminPhones($db, $id) {
+function GetAdminPhones($id, $db) {
   $sql = "SELECT * FROM mobileadmin WHERE adminId=" . $id . ";";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -112,4 +112,60 @@ function DeleteCategoryByID($id, $db) {
   $db->exec($deleteSql);
 }
 //End Categories
+
+//Start Buyer
+function GetBuyers($db) {
+  $sql = "SELECT * FROM buyer";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetBuyerPhones($id, $db) {
+  $sql = "SELECT * FROM mobilebuyer WHERE buyerId=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetBuyerByID($id, $db) {
+  $sql = "SELECT * FROM buyer WHERE ID=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function DeleteBuyerByID($id, $db) {
+  $deleteSql = "DELETE FROM buyer WHERE ID=" . $id . "";
+  $db->exec($deleteSql);
+}
+//End Buyer
+
+//Start Seller
+function GetSellers($db) {
+  $sql = "SELECT * FROM seller";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetSellerPhones($id, $db) {
+  $sql = "SELECT * FROM mobileseller WHERE sellerId=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetSellerByID($id, $db) {
+  $sql = "SELECT * FROM seller WHERE ID=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function DeleteSellerByID($id, $db) {
+  $deleteSql = "DELETE FROM seller WHERE ID=" . $id . "";
+  $db->exec($deleteSql);
+}
+//End Seller
 ?>

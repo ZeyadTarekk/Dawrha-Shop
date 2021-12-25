@@ -27,12 +27,16 @@ body {
 /* End NavBar */
 
 /* Start Admins Page */
-.admin h1 {
+.admin h1,
+.buyer h1,
+.category h1 {
   margin: 60px 0;
   font-weight: bold;
   letter-spacing: 2px;
 }
-.admin .add-btn {
+.admin .add-btn,
+.buyer .add-btn,
+.category .add-btn {
   display: block;
   width: fit-content;
   margin: 15px auto;
@@ -42,13 +46,15 @@ body {
   font-weight: 400;
 }
 .AdminsForm h1,
-.CategoriesForms h1 {
+.CategoriesForms h1,
+.Users h1 {
   margin: 50px 0;
   font-weight: bold;
   letter-spacing: 2px;
 }
 .AdminsForm .form-btn,
-.CategoriesForms .form-btn {
+.CategoriesForms .form-btn,
+.Users .form-btn {
   display: block;
   width: 100%;
   margin-top: 20px;
@@ -62,28 +68,19 @@ body {
   display: block;
 }
 .AdminsForm .delete-box,
-.CategoriesForms .delete-box {
+.CategoriesForms .delete-box,
+.Users .delete-box {
   padding: 30px;
   border-radius: 10px;
+  width: fit-content;
+  margin: 0 auto;
 }
 .AdminsForm .delete-box h3,
-.CategoriesForms .delete-box h3 {
+.CategoriesForms .delete-box h3,
+.Users .delete-box h3 {
   margin-bottom: 30px;
 }
 /* End Admins Page */
-
-/* Start Category */
-.category h1 {
-  margin: 60px 0;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-.category .add-btn {
-  display: block;
-  width: fit-content;
-  margin: 15px auto;
-}
-/* End Category */
 /*  */
 .items h1 {
   margin: 60px 0;

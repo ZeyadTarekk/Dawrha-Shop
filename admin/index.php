@@ -1,10 +1,10 @@
 <?php
-$pageTitle = "Admins";
-include 'init.php';
+  $pageTitle = "Admins";
+  include 'init.php';
 
-if (!isset($_SESSION['id'])) {
-  header("Location: ../signin.php");
-}
+  if (!isset($_SESSION['id'])) {
+    header("Location: ../signin.php");
+  }
   //check the wanted page [Manage | Edit | Add | Delete] before going there
   $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 
@@ -34,9 +34,8 @@ if (!isset($_SESSION['id'])) {
                     echo '<td>' . $admin['userName'] . '</td>';
                     echo '<td>' . $admin['fName'] . ' ' . $admin['lName'] . '</td>';
                     echo '<td>' . $admin['email'] . '</td>';
-                    //only print the phones of that admin using his ID
                     echo '<td>';
-                    $phones = GetAdminPhones($db, $admin['ID']);
+                    $phones = GetAdminPhones($admin['ID'], $db);
                     foreach($phones as $phone) {
                       echo $phone['phone'] . '<br>';}
                     echo '</td>';
