@@ -6,7 +6,7 @@
   session_start();
   // $_SESSION["username"]= 'ZeyadTarek';
   // unset($_SESSION["username"]);
-  // $_SESSION["typeOfUser"] = 'seller';
+  // $_SESSION["typeOfUser"] = 'buyer';
   // unset($_SESSION["typeOfUser"]);
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer")
     $User = getBuyer($db,$_SESSION["username"]);
@@ -49,8 +49,14 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-profile mt-3 mt-lg-0 mb-2 mb-lg-0" aria-labelledby="navbarDropdown1"
             style="top: 52px; left: -50px;">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Cart </a></li>
+            <?php if($_SESSION["typeOfUser"]==="buyer"): ?>
+            <li><a class="dropdown-item" href="profileBuyer.php">Profile</a></li>
+            <?php elseif($_SESSION["typeOfUser"]==="seller"): ?>
+            <li><a class="dropdown-item" href="profileSeller.php">Profile</a></li>
+            <?php endif; ?>
+            <?php if($_SESSION["typeOfUser"]==="buyer"): ?>
+            <li><a class="dropdown-item" href="<?php echo "cart.php?username=".$User[0]['userName']?>">Cart </a></li>
+            <?php endif; ?>
             <li>
               <hr class="dropdown-divider">
             </li>
