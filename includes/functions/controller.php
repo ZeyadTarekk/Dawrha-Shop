@@ -19,4 +19,26 @@ function getCategories($db) {
   return $result;
 }
 
+// Signin functions
+function getBuyerPassword($username,$db){
+    $sql = "SELECT password FROM buyer WHERE userName = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":username"=>$username));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getSellerPassword($username,$db){
+    $sql = "SELECT password FROM seller WHERE userName = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":username"=>$username));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getAdminPassword($username,$db){
+    $sql = "SELECT password FROM admin WHERE userName = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":username"=>$username));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
 ?>

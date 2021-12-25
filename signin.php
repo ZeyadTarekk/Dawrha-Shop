@@ -5,17 +5,35 @@ include "init.php";
 //$_SESSION["typeOfUser"] =["buyer","seller","admin"];
 //$_SESSION["username"]="username";
 session_start();
+//var_dump($_SESSION);
 if (isset($_POST['username']))
     $_SESSION["printUserName"] = htmlentities($_POST['username']);
 if (isset($_POST['username']) && isset($_POST['password'])) {
-    if (isset($_SESSION["username"]))
+    if (isset($_SESSION["username"])) {
         unset($_SESSION["username"]);
+        unset($_SESSION['typeOfUser']);
+    }
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         if (isset($_SESSION["printUserName"]))
             unset($_SESSION["printUserName"]);
-        $password = htmlentities($_POST['password']);
-        if ($password == 123) {
+        $username = htmlentities($_POST['username']);
+        $password = sha1($_POST['password']);
+        $truePassword = getBuyerPassword($username,$db);
+        if($truePassword!=false)
+            $typeOfUser = "buyer";
+        else{
+            $truePassword = getSellerPassword($username,$db);
+            if($truePassword!=false)
+                $typeOfUser = "seller";
+            else{
+                $truePassword = getAdminPassword($username,$db);
+                if($truePassword!=false)
+                    $typeOfUser = "admin";
+            }
+        }
+        if ($password == $truePassword[0]->password) {
             $_SESSION['username'] = htmlentities($_POST['username']);
+            $_SESSION['typeOfUser'] = $typeOfUser;
             header("Location: index.php");
             return;
         } else {
