@@ -73,7 +73,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     <h3 class="m-3">Sign in to your account</h3>
                     <p class="lead m-3">Dawrha </p>
                     <div class="input-group mb-4">
-                        <input type="text" id="username" class="form-control" placeholder="Username"
+                        <input type="text" required id="username" class="form-control" placeholder="Username"
                                name="username"
                                value="<?php
                                if(isset($_SESSION["printUserName"])){
@@ -86,7 +86,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                         <span class="input-group-text">@</span>
                     </div>
                     <div class="input-group mb-4">
-                        <input type="password" id="password" class="form-control" placeholder="Password"
+                        <input type="password" required id="password" class="form-control" placeholder="Password"
                                name="password">
                         <span class="input-group-text" onclick="togglePasswordVisibility()">
             <i class="bi bi-eye" id="eyeIcon"></i>
