@@ -2,7 +2,8 @@
 $noNavbar = '';
 $pageTitle = 'SignIn';
 include "init.php";
-
+//$_SESSION["typeOfUser"] =["buyer","seller","admin"];
+//$_SESSION["username"]="username";
 session_start();
 if (isset($_POST['username']))
     $_SESSION["printUserName"] = htmlentities($_POST['username']);
