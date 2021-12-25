@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION["missingError"] = "";
     $_SESSION['userNameError'] = "";
     $_SESSION['emailError'] = "";
+    $_SESSION['firstNameError'] = "";
+    $_SESSION['lastNameError'] = "";
+    $_SESSION['passwordError'] = "";
     $_SESSION["missingError"] = $_SESSION["missingError"] . (empty($_POST['email']) ? " email" : "");
     $_SESSION["missingError"] = $_SESSION["missingError"] . (empty($_POST['username']) ? " username" : "");
     $_SESSION["missingError"] = $_SESSION["missingError"] . (empty($_POST['firstName']) ? " first name" : "");
@@ -34,6 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['buyeremail'] =$buyerEmail = isBuyerEmailExist($_POST["email"], $db);
     $_SESSION['selleremail']=$sellerEmail = isSellerEmailExist($_POST["email"], $db);
     $_SESSION['adminemail'] =$adminEmail = isAdminEmailExist($_POST["email"], $db);
+
+    $_SESSION['userNameError'] = validateUserName($_POST['username']);
+    $_SESSION['emailError'] = validateEmail($_POST['email']);
+    $_SESSION['firstNameError'] = validateName($_POST['firstName']);
+    $_SESSION['lastNameError'] = validateName($_POST['lastName']);
+    $_SESSION['passwordError'] = validatePassword($_POST['password']);
+    $_SESSION['phoneError'] = validateNumber($_POST['phone']);
     if ($buyerUsername || $sellerUsername || $adminUsername) {
         $_SESSION['userNameError'] = $_SESSION['signup_username'] . " already exists";
     }
@@ -42,7 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ((!isset($_SESSION['missingError']) || empty($_SESSION['missingError']))
         &&(!isset($_SESSION['userNameError']) || empty($_SESSION['userNameError']))
-        && (!isset($_SESSION['emailError']) || empty($_SESSION['emailError']))) {
+        && (!isset($_SESSION['emailError']) || empty($_SESSION['emailError']))
+        && (!isset($_SESSION['firstNameError']) || empty($_SESSION['firstNameError']))
+        && (!isset($_SESSION['lastNameError']) || empty($_SESSION['lastNameError']))
+        && (!isset($_SESSION['passwordError']) || empty($_SESSION['passwordError']))
+        && (!isset($_SESSION['phoneError']) || empty($_SESSION['phoneError']))) {
         header("Location: index.php");
         return;
     }
@@ -104,6 +118,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                }
                                ?>">
                     </div>
+                    <?php
+                    if(isset($_SESSION['firstNameError']) && !empty($_SESSION['firstNameError'])){
+                        echo' <div class="alert alert-danger" role="alert">'.$_SESSION["firstNameError"].'</div> ';
+                        unset($_SESSION['firstNameError']);
+                    }
+                    ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-file-person"></i></span>
                         <input type="text" id="lastName" class="form-control" placeholder="Last Name" name="lastName"
@@ -115,6 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                ?>"
                         >
                     </div>
+                    <?php
+                    if(isset($_SESSION['lastNameError']) && !empty($_SESSION['lastNameError'])){
+                        echo' <div class="alert alert-danger" role="alert">'.$_SESSION["lastNameError"].'</div> ';
+                        unset($_SESSION['lastNameError']);
+                    }
+                    ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-phone"></i></span>
                         <input type="tel" id="typePhone" class="form-control" placeholder="Phone Number" name="phone"
@@ -126,6 +152,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                ?>">
 
                     </div>
+                    <?php
+                    if(isset($_SESSION['phoneError'])&& !empty($_SESSION['phoneError'])){
+                        echo' <div class="alert alert-danger" role="alert">'.$_SESSION["phoneError"].'</div> ';
+                        unset($_SESSION['phoneError']);
+                    }
+                    ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
                         <input type="password" id="password" class="form-control" placeholder="Password" name="password"
@@ -138,6 +170,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span class="input-group-text" onclick="togglePasswordVisibility()"><i class="bi bi-eye"
                                                                                                id="eyeIcon"></i></span>
                     </div>
+                    <?php
+                    if(isset($_SESSION['passwordError']) && !empty($_SESSION['passwordError'])){
+                        echo' <div class="alert alert-danger" role="alert">'.$_SESSION["passwordError"].'</div> ';
+                        unset($_SESSION['passwordError']);
+                    }
+                    ?>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="userType" id="buyerCheck" value="buyer"
                             <?php

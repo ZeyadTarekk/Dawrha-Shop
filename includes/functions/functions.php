@@ -60,4 +60,20 @@ function validatePassword($pass) {
     return "";
   }
 }
+// Function to validate strings (allow alphabets and numbers only)
+function validateUserName($string){
+    if(!ctype_alnum($string))
+        return "* must be alphanumeric (consists of numbers and letters only)";
+    return "";
+}
+//function to validate a string (allow alphabets and white spaces only)
+function validateName($string) {
+    $pattern = "/^[a-zA-Z\s]*$/";
+    if (!preg_match ($pattern, $string) ) {
+        return "* Only alphabets and white space are allowed";
+    } else {
+        return "";
+    }
+}
+
 ?>
