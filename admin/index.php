@@ -82,7 +82,7 @@
       $cPass = input_data($cPass);
 
       //then we call the validation function
-      $usernameErr = validateString($userName);
+      $usernameErr = validateUserName($userName);
       $fnameErr = validateString($fName);
       $lnameErr = validateString($lName);
       $phoneErr = validateNumber($phone);
@@ -272,11 +272,10 @@
       $nPass = input_data($nPass);
 
       //then we call the validation function
-      $usernameErr = validateString($userName);
+      $usernameErr = validateUserName($userName);
       $fnameErr = validateString($fName);
       $lnameErr = validateString($lName);
       $emailErr = validateEmail($email);
-      $opassErr = validatePassword($oPass);
       $npassErr = validatePassword($nPass);
 
       //check all of the errors

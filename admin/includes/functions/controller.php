@@ -169,3 +169,7 @@ function DeleteSellerByID($id, $db) {
 }
 //End Seller
 ?>
+
+
+<!-- To do -->
+<!-- Gm3 ele mtkrr ben el seller buyer and admin -->

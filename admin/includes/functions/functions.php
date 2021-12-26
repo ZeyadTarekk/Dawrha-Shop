@@ -28,6 +28,16 @@ function validateString($string) {
   }
 }
 
+//function to validate usernames
+function validateUserName($string) {
+  $pattern = "/^[a-zA-Z\d]+$/";
+  if (!preg_match ($pattern, $string) ) {
+    return "* Only alphabets and numbers are allowed";
+  } else {
+    return "";
+  }
+}
+
 //function to validate a number 
 function validateNumber($num) {
   $pattern = "/^[0-9]*$/";
