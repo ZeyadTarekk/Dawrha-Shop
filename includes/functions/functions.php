@@ -60,4 +60,18 @@ function validatePassword($pass) {
     return "";
   }
 }
+
+//fucntion validate location
+function validate_street_address($address) {
+  $check_pattern = '/\d+ [0-9a-zA-Z ]+/';
+  $has_error = !preg_match($check_pattern, $address);
+  if(!$has_error)
+  {
+  return "";
+  }
+  else{
+    return "* location address must be contain number,st name,zip code,city,country";  
+  }
+  
+  }
 ?>

@@ -41,4 +41,34 @@ function getAdminPassword($username,$db){
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+
+// Add Item
+function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$db){
+  $sql="INSERT INTO `item` ( `title`, `description`, `price`, `quantity`, `addDate`,  `categoryId`,`sellerId`, `comission`, `homeNumber`, `street`, `city`, `country`) 
+  VALUES ('".$titlee."', '".$Des."', ".$price.", ".$quantity.", current_timestamp(), '1', ".$sellerid.",".$discount." ,'32', 'fgdssadzsfd', 'fdd', 'dsaf')";
+   $stmt=$db->prepare($sql);
+   $stmt->execute();
+}
+// $sql="INSERT INTO item (sellerId,itemId,title,description,price,quantity,comission,homeNumber,street,city,country)
+  // --  VALUES (".$var4.",".$var5.",'".$titlee."','".$Dess."',".$pricee.",".$quantityy.",".$discount.",".$var.",'".$var1."','".$var2."','".$var3."')";
+  //  ":title"=>$title,"Des"=>$Des,"price"=>$price,"quantity"=>$quantity,"cat"=>$cat,"discount"=>$discount
+  // if($sql!=null&& $db->query($sql)){
+  //   echo "Data is inserted Successfully in DataBase";
+  // }
+  //   else{
+  //     echo "There is an manga";}
+  // }
+   
+  // $stmt->bind_param($title,$Des,$price,$quantity,1,5,$discount,143,,)
+
+  //image uploading
+function insertImage($imageName){
+  $sql = $db->query("INSERT into itemimage (1, image) VALUES ('".$imageName."', NOW())");
+  if ($db->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error";
+  }
+          
+          }
 ?>

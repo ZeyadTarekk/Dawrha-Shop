@@ -1,18 +1,105 @@
 <?php
 $pageTitle = 'Add Item';
 include "init.php";
- if(isset($_POST['upload-img']))
-  { 
-      $filepath= $_FILES["file"]["name"];
-    if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) 
-    { 
-        //echo "<img src=" .$filepath."  />";
-      //  echo "DONEEE";
+
+//  if(isset($_POST['upload-img']))
+//   { 
+//       $filepath= $_FILES["file"]["name"];
+//     if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) 
+//     { 
+//         //echo "<img src=" .$filepath."  />";
+//       //  echo "DONEEE";
+//     }
+//     else
+//         {
+//         echo "Error !!";
+//         }
+// }
+print_r($_SESSION);
+//main variables
+$item_name="";
+$desription_item="";
+$category_item="";
+$price="";
+$location_item="";
+$disocunt_item="";
+$quantity_item="";
+$filepath="";
+
+//main error variables
+$pricerr="";
+$item_namerr="";
+$discount_er="";
+$quantity_item_er="";
+$desription_item_er="";
+$filepath_er="";
+$cat_er="";
+$location_item_er="";
+
+if(isset($_POST['done']))
+{
+    $item_name=$_POST['name'];
+    $desription_item=$_POST['description'];
+    $category_item=$_POST['category'];
+    $price=$_POST['priceOfItem'];
+    $location_item=$_POST['address'];
+    $disocunt_item=$_POST['discountOfItem'];
+    $quantity_item=$_POST['quantity'];
+    $filepath=basename($_FILES['file']['name']);
+    
+        //filter data
+$item_name= input_data($item_name);
+$price=input_data($price);
+$disocunt_item=input_data($disocunt_item);
+$quantity_item=input_data($quantity_item);
+$location_item=input_data($location_item);
+$desription_item=input_data($desription_item);
+$filepath=input_data($filepath);
+$category_item=input_data($category_item);
+
+        //validate data
+//$item_namerr=validateString($item_name);
+// $pricerr=validateNumber($price);
+// $discount_er=validateNumber($disocunt_item);
+// $quantity_item_er=validateNumber($quantity_item);
+// $desription_item_er=validateString($desription_item);
+
+
+if($item_namerr=="" && $pricerr=="" && $discount_er=="" && $quantity_item_er=="" && $desription_item_er==""){
+
+    if(isset($_SESSION['sellerID'])){
+    insertItemName($item_name,$desription_item,$price,$quantity_item,$category_item,$disocunt_item,$_SESSION['id'],$db);
+    header("Location: add_item.php");
+    return ;}
+    else{
+        echo "Manga";
     }
-    else
-        {
-        echo "Error !!";
-        }
+    
+//upload image
+$targetDir = "uploads/";
+$targetFilePath = $targetDir . $filepath;
+$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+if(!empty($_FILES['file']['name']))
+ {
+    $allowTypes = array('jpg','png','jpeg','gif','pdf');
+    if(in_array($fileType, $allowTypes))
+    {
+        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath))
+            {
+                insertImage($filepath);
+            }
+            else
+            {
+                $statusMsg = "Sorry, there was an error uploading your file.";
+            }
+    }
+ }
+}
+else{
+    header("Location: add_item.php");
+    return ;
+}
 }
 ?>
 <div class="container-fluid ">
@@ -20,18 +107,19 @@ include "init.php";
         <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
             <div class="display h1 mt-4 mb-4">Add Item</div>
             <div class=" col-lg-5 col-md-12 col-sm-6">
-                <form action="profileSeller.php" method="POST" target=" _self" id="contactFrom"
-                    enctype="multipart/form-data">
+                <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data">
                     <div class="mb-4 input-group ">
                         <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name" required
-                            autofocus>
+                            autofocus value="<?php echo $item_name?>">
                     </div>
-                    <div class="mb-4 input-group">
+                    <p class="diplay text-danger mb-2"><?php echo $item_namerr ?></p>
+                    <div class=" mb-4 input-group">
                         <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
-                            name="description" rows="3"></textarea>
+                            name="description" value="<?php $desription_item?>" rows="3"></textarea>
                     </div>
                     <div class="input-group  mb-4">
-                        <select class="form-select input-lg " id="inputGroupSelect02" name="category">
+                        <select required value="<?php echo $category_item?>" class="form-select "
+                            id="inputGroupSelect02" name="category" required>
                             <option selected>Choose Categories...</option>
                             <option value="1 ">Plastic</option>
                             <option value="2">Paper</option>
@@ -41,20 +129,22 @@ include "init.php";
                     </div>
                     <div class="mb-4 input-group">
                         <input type="address" class="form-control" id="address" placeholder="Location Item"
-                            name="address" required>
+                            name="address" required value="<?php echo $location_item?>">
                     </div>
                     <div class="input-group  mb-4">
-                        <input placeholder="Price" name="priceOfItem" type="text" required class="form-control  "
-                            aria-label="Dollar amount (with dot and two decimal places)">
+                        <input value="<?php echo $price?>" placeholder=" Price" name="priceOfItem" type="text" required
+                            class="form-control  " aria-label="Dollar amount (with dot and two decimal places)">
                         <span class="input-group-text bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">0.00</span>
                     </div>
-                    <div class="input-group   mb-4">
+                    <p class="diplay text-danger mb-2"><?php echo $pricerr ?></p>
+                    <div class=" input-group mb-4">
                         <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number"
                             class="form-control">
                         <span class=" input-group-text  bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
+
                     <div class="input-group  mb-4 ">
                         <input name="file" type="file" class="form-control " id="inputGroupFile04"
                             aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
