@@ -84,12 +84,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Log Out</a></li>
+            <li><a class="dropdown-item" href="logout.php">Log Out</a></li>
           </ul>
         </li>
         <li class="nav-item ">
           <a class="nav-link active me-lg-3" aria-current="page"
-            href="#"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
+            href="index.php"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
         </li>
         <!-- End Difference-->
       </ul>
