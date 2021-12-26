@@ -2,16 +2,32 @@
   require 'admin/connect.php' ;
   $func = "includes/functions/";
   require $func . 'controllerForNavbar.php';
-
+  $unSeenFlag = false;
   session_start();
   // $_SESSION["username"]= 'ZeyadTarek';
   // unset($_SESSION["username"]);
   // $_SESSION["typeOfUser"] = 'seller';
   // unset($_SESSION["typeOfUser"]);
-  if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer")
+  if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
     $User = getBuyer($db,$_SESSION["username"]);
-  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller")
+    $Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
+    foreach($Notifications as $noti){
+      if($noti['seen']==='0'){
+        $unSeenFlag = true;
+        break;
+      }
+    }
+  }
+  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller"){
     $User = getSeller($db,$_SESSION["username"]);
+    $Notifications = getNotificationsForSeller($db,$User[0]['ID']);
+    foreach($Notifications as $noti){
+      if($noti['seen']==='0'){
+        $unSeenFlag = true;
+        break;
+      }
+    }
+  }
 ?>
 <?php if(isset($_SESSION["username"])): ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
@@ -19,15 +35,23 @@
     <a class="navbar-brand" href="index.php" style=" order:1">Logo</a>
     <a class="navbar-brand ms-1 mt-3 m-lg-auto notification-icon me-lg-2" href="#" id="navbarDropdown11" role="button"
       data-bs-toggle="dropdown" aria-expanded="false" style="position: relative; display:inline-block; ">
-      <i class="fa fa-bell" style="font-size: 23px; color: white; "></i>
+      <i class="fa fa-bell <?php if($unSeenFlag) echo 'add-red'; else echo 'add-white'; ?>" style="font-size: 23px;"
+        id='Notification-bell'></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-notification" aria-labelledby="navbarDropdown11" style="right: 0;">
-      <li><a class="dropdown-item" href="#">First Notification</a></li>
-      <li><a class="dropdown-item" href="#">First Notification</a></li>
+      <?php foreach($Notifications as $noti): ?>
+      <?php if($noti['seen']==='0'): ?>
+      <li><a class="dropdown-item add-red noti-items-red" href="#"><?php echo $noti['message']; ?></a></li>
+      <?php endif; ?>
+      <?php endforeach; ?>
       <li>
         <hr class="dropdown-divider">
       </li>
-      <li><a class="dropdown-item" href="#">Older Notification</a></li>
+      <?php foreach($Notifications as $noti): ?>
+      <?php if($noti['seen']==='1'): ?>
+      <li><a class="dropdown-item" href="#"><?php echo $noti['message']; ?></a></li>
+      <?php endif; ?>
+      <?php endforeach; ?>
     </ul>
 
     <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -49,8 +73,14 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-profile mt-3 mt-lg-0 mb-2 mb-lg-0" aria-labelledby="navbarDropdown1"
             style="top: 52px; left: -50px;">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Cart </a></li>
+            <?php if($_SESSION["typeOfUser"]==="buyer"): ?>
+            <li><a class="dropdown-item" href="profileBuyer.php">Profile</a></li>
+            <?php elseif($_SESSION["typeOfUser"]==="seller"): ?>
+            <li><a class="dropdown-item" href="profileSeller.php">Profile</a></li>
+            <?php endif; ?>
+            <?php if($_SESSION["typeOfUser"]==="buyer"): ?>
+            <li><a class="dropdown-item" href="<?php echo "cart.php?username=".$User[0]['userName']?>">Cart </a></li>
+            <?php endif; ?>
             <li>
               <hr class="dropdown-divider">
             </li>

@@ -43,6 +43,14 @@
     width: 500px;
   }
 }
+
+.add-red {
+  color: red;
+}
+.add-white {
+  color: white;
+}
+
 /* End NavBar */
 
 /* Start ReviewItem */

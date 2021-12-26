@@ -11,6 +11,7 @@ if (isset($_POST['username']))
 if (isset($_POST['username']) && isset($_POST['password'])) {
     if (isset($_SESSION["username"])) {
         unset($_SESSION["username"]);
+        unset($_SESSION["id"]);
         unset($_SESSION['typeOfUser']);
     }
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
@@ -18,21 +19,22 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             unset($_SESSION["printUserName"]);
         $username = htmlentities($_POST['username']);
         $password = sha1($_POST['password']);
-        $truePassword = getBuyerPassword($username,$db);
-        if($truePassword!=false)
+        $truePassword_id = getBuyerPassword_ID($username,$db);
+        if($truePassword_id!=false)
             $typeOfUser = "buyer";
         else{
-            $truePassword = getSellerPassword($username,$db);
-            if($truePassword!=false)
+            $truePassword_id = getSellerPassword_ID($username,$db);
+            if($truePassword_id!=false)
                 $typeOfUser = "seller";
             else{
-                $truePassword = getAdminPassword($username,$db);
-                if($truePassword!=false)
+                $truePassword_id = getAdminPassword_ID($username,$db);
+                if($truePassword_id!=false)
                     $typeOfUser = "admin";
             }
         }
-        if ($password == $truePassword[0]->password) {
+        if ($password == $truePassword_id[0]->password) {
             $_SESSION['username'] = htmlentities($_POST['username']);
+            $_SESSION['id'] = $truePassword_id[0]->ID;
             $_SESSION['typeOfUser'] = $typeOfUser;
             if($typeOfUser=="admin"){
                 header("Location: admin/index.php");
@@ -71,7 +73,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     <h3 class="m-3">Sign in to your account</h3>
                     <p class="lead m-3">Dawrha </p>
                     <div class="input-group mb-4">
-                        <input type="text" id="username" class="form-control" placeholder="Username"
+                        <input type="text" required id="username" class="form-control" placeholder="Username"
                                name="username"
                                value="<?php
                                if(isset($_SESSION["printUserName"])){
@@ -84,7 +86,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                         <span class="input-group-text">@</span>
                     </div>
                     <div class="input-group mb-4">
-                        <input type="password" id="password" class="form-control" placeholder="Password"
+                        <input type="password" required id="password" class="form-control" placeholder="Password"
                                name="password">
                         <span class="input-group-text" onclick="togglePasswordVisibility()">
             <i class="bi bi-eye" id="eyeIcon"></i>

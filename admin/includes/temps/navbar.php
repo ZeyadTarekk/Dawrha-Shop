@@ -10,21 +10,27 @@
           <a class="nav-link" aria-current="page" href="index.php">Admins</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="members.php">Members</a>
+          <a class="nav-link" href="buyers.php">Buyers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sellers.php">Sellers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="categories.php">Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="items.php">Items</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <?php 
-              if(isset($_SESSION['Username']))
-              { echo ucfirst($_SESSION['Username']); }
-              else { echo "test"; }?>
+            <?php
+              session_start();
+              if(isset($_SESSION['username']))
+              { echo ucfirst($_SESSION['username']); }?>
           </a>
           <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
             <!-- put the id of the session -->
-            <li><a class="dropdown-item" href="index.php?do=Edit&userid=5">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="index.php?do=Edit&adminId=<?php if(isset($_SESSION['id'])) {echo $_SESSION['id'];} ?>">Edit Profile</a></li>
             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
           </ul>
         </li>

@@ -76,6 +76,26 @@ if (myMedia.matches) {
   myElement.classList.add("show");
 }
 
+const bellElement = document.querySelector("#Notification-bell");
+if (bellElement) {
+  bellElement.addEventListener("click", function () {
+    if (bellElement.classList.contains("add-red")) {
+      bellElement.classList.remove("add-red");
+      bellElement.classList.add("add-white");
+    }
+  });
+}
+
+const NotiItemsAll = document.querySelectorAll(".noti-items-red");
+if (NotiItemsAll) {
+  for (let i = 0; i < NotiItemsAll.length; i++) {
+    NotiItemsAll[i].addEventListener("click", function () {
+      if (NotiItemsAll[i].classList.contains("add-red"))
+        NotiItemsAll[i].classList.remove("add-red");
+    });
+  }
+}
+
 // End NavBar
 
 //Start profileSeller page
