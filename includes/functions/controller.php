@@ -146,4 +146,13 @@ function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$h
     $stmt->execute();
     }
 
+// Seller's profile functions
+    function getSellerMobiles($id,$db){
+        $sql = "SELECT phoneNo FROM mobileseller WHERE sellerId = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array(":id"=>$id));
+        $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+        return $rows;
+    }
+
 ?>
