@@ -85,6 +85,41 @@ function isSellerEmailExist($email,$db){
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+function insertCart($db){
+    $sql = "insert into cart (itemCount,payment) values (0,0)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $last_id = $db->lastInsertId();
+    return $last_id;
+}
+function insertBuyer($username,$password,$email,$fname,$lname,$db){
+    $cartID = insertCart($db);
+    $sql = "insert into buyer (userName,password,email,fName,lName,cartId) values (:username,:password,:email,:fname,:lname,:cartid)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":username"=>$username,
+        ":password"=>$password,
+        ":email"=>$email,
+        ":fname"=>$fname,
+        ":lname"=>$lname,
+        ":cartid"=>$cartID
+    ));
+    $last_id = $db->lastInsertId();
+    return $last_id;
+}
+function insertSeller($username,$password,$email,$fname,$lname,$db){
+    $sql = "insert into seller (userName,password,email,fName,lName) values (:username,:password,:email,:fname,:lname)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":username"=>$username,
+        ":password"=>$password,
+        ":email"=>$email,
+        ":fname"=>$fname,
+        ":lname"=>$lname
+    ));
+    $last_id = $db->lastInsertId();
+    return $last_id;
+}
 
 // Add Item
 
@@ -106,9 +141,9 @@ function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$d
     // else{
     // echo "There is an manga";}
     // }
-    
+
     // $stmt->bind_param($title,$Des,$price,$quantity,1,5,$discount,143,,)
-    
+
     //image uploading
     function insertImage($imageName){
     $sql = $db->query("INSERT into itemimage (1, image) VALUES ('".$imageName."', NOW())");
@@ -118,5 +153,6 @@ function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$d
     echo "Error";
     }
     }
+
 
 ?>

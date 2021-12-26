@@ -5,7 +5,7 @@ include "init.php";
 //session_start();
 //session_destroy();
 session_start();
-var_dump($_SESSION);
+//var_dump($_SESSION);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // For printing
     $_SESSION['signup_email'] = htmlentities($_POST['email']);
@@ -57,6 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         && (!isset($_SESSION['lastNameError']) || empty($_SESSION['lastNameError']))
         && (!isset($_SESSION['passwordError']) || empty($_SESSION['passwordError']))
         && (!isset($_SESSION['phoneError']) || empty($_SESSION['phoneError']))) {
+        if($_SESSION['signup_userType']=="buyer") {
+            $_SESSION['signup_password'] = sha1($_SESSION['signup_password']);
+            $_SESSION['id'] = insertBuyer($_SESSION['signup_username'], $_SESSION['signup_password'], $_SESSION['signup_email'], $_SESSION['signup_firstName'], $_SESSION['signup_lastName'], $db);
+            $_SESSION['typeOfUser'] = 'buyer';
+        }
+        else {
+            $_SESSION['signup_password'] = sha1($_SESSION['signup_password']);
+            $_SESSION['id'] = insertSeller($_SESSION['signup_username'], $_SESSION['signup_password'], $_SESSION['signup_email'], $_SESSION['signup_firstName'], $_SESSION['signup_lastName'], $db);
+            $_SESSION['typeOfUser'] = 'seller';
+        }
+        $_SESSION['username'] = $_SESSION['signup_username'];
         header("Location: index.php");
         return;
     }
