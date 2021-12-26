@@ -131,31 +131,19 @@ function insertSeller($username,$password,$email,$fname,$lname,$db){
 // Add Item
 
 function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
-    // $homeNum="";
-    // $st="";
-    // for(int $i=$i<sizeof($loc);$i++){
-    //     if($loc[i]==
-    // }
-    
-    $sql="INSERT INTO `item` ( `title`, `description`, `price`, `quantity`, `addDate`,`categoryId`,`sellerId`,`comission`,`homeNumber`,`street`,`city`,`country`)
+    $sql="INSERT INTO item ( title, description, price, quantity, addDate,categoryId,sellerId,comission,homeNumber,street,city,country)
     VALUES ('".$title."', '".$Des."', ".$price.", ".$quantity.", current_timestamp(), '1','21',".$discount.", ".$homeNum.",'".$street."','".$city."','".$country."')";
     $stmt=$db->prepare($sql);
     $stmt->execute();
     }
-    
+
     //image uploading
     function insertImage($imageName,$db){
     $itemID=$db->lastInsertId();
-    echo "Last-ID: {$itemID}";
-    $sql="INSERT INTO `itemimage` ( `itemId`,`image`) 
+    $sql="INSERT INTO itemimage ( itemId,image) 
     VALUES (".$itemID.",'".$imageName."')";
     $stmt=$db->prepare($sql);
     $stmt->execute();
     }
-    // if ($db->query($sql) === TRUE) {
-    // echo "New record created successfully";
-    // } else {
-    // echo "Error";
-    // }
 
 ?>

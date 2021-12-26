@@ -2,19 +2,6 @@
 $pageTitle = 'Add Item';
 include "init.php";
 
-//  if(isset($_POST['upload-img']))
-//   { 
-//       $filepath= $_FILES["file"]["name"];
-//     if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) 
-//     { 
-//         //echo "<img src=" .$filepath."  />";
-//       //  echo "DONEEE";
-//     }
-//     else
-//         {
-//         echo "Error !!";
-//         }
-// }
 //print_r($_SESSION);
 //main variables
 $item_name="";
@@ -81,9 +68,6 @@ $country=input_data($country);
 
 if($item_namerr=="" && $pricerr=="" && $discount_er=="" && $quantity_item_er=="" && $desription_item_er=="" &&$city_er=="" && $country_er=="" && $location_item_er==""){
 
-    // $idSeller=$_SESSION['id'];
-    // echo "idSeller: {$idSeller}";
-    //  if($idSeller!=null){
     $homeNum = strtok($location_item,  ' ');
     $st = substr($location_item, strpos($location_item, " ") + 1);    
     insertItemName($item_name,$desription_item,$price,$quantity_item,$category_item,$disocunt_item,$_SESSION['id'],$homeNum,$st,$city,$country,$db);
@@ -92,9 +76,6 @@ if($item_namerr=="" && $pricerr=="" && $discount_er=="" && $quantity_item_er==""
         header("Location: add_item.php");
         return;
     }
-    // else{
-    //     echo "Manga";
-    // }
     
     $targetDir = "uploads/";
     $targetFilePath = $targetDir . $filepath;
@@ -104,10 +85,6 @@ if($item_namerr=="" && $pricerr=="" && $discount_er=="" && $quantity_item_er==""
         {
             if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)){
                     insertImage($filepath,$db);
-                }
-                else
-                {
-                    echo  " Error!!!";
                 }
         }
 }
