@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="lead m-3">Dawrha </p>
                     <div class="input-group mb-4">
                         <span class="input-group-text">@</span>
-                        <input type="email" id="email" class="form-control" placeholder="Email Address" name="email"
+                        <input type="email" required id="email" class="form-control" placeholder="Email Address" name="email"
                                value="<?php
                                if (isset($_SESSION['signup_email'])) {
                                    echo $_SESSION['signup_email'];
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                        <input type="text" id="username" class="form-control" placeholder="Username" name="username"
+                        <input type="text" required id="username" class="form-control" placeholder="Username" name="username"
                                value="<?php
                                if (isset($_SESSION['signup_username'])) {
                                    echo $_SESSION['signup_username'];
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-file-person"></i></span>
-                        <input type="text" id="firstName" class="form-control" placeholder="First Name" name="firstName"
+                        <input type="text" required id="firstName" class="form-control" placeholder="First Name" name="firstName"
                                value="<?php
                                if (isset($_SESSION['signup_firstName'])) {
                                    echo $_SESSION['signup_firstName'];
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-file-person"></i></span>
-                        <input type="text" id="lastName" class="form-control" placeholder="Last Name" name="lastName"
+                        <input type="text" required id="lastName" class="form-control" placeholder="Last Name" name="lastName"
                                value="<?php
                                if (isset($_SESSION['signup_lastName'])) {
                                    echo $_SESSION['signup_lastName'];
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                        <input type="tel" id="typePhone" class="form-control" placeholder="Phone Number" name="phone"
+                        <input type="tel" required id="typePhone" class="form-control" placeholder="Phone Number" name="phone"
                                value="<?php
                                if (isset($_SESSION['signup_phone'])) {
                                    echo $_SESSION['signup_phone'];
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input type="password" id="password" class="form-control" placeholder="Password" name="password"
+                        <input type="password" required id="password" class="form-control" placeholder="Password" name="password"
                                value="<?php
                                if (isset($_SESSION['signup_password'])) {
                                    echo $_SESSION['signup_password'];
