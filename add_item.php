@@ -15,7 +15,7 @@ include "init.php";
 //         echo "Error !!";
 //         }
 // }
-print_r($_SESSION);
+//print_r($_SESSION);
 //main variables
 $item_name="";
 $desription_item="";
@@ -25,6 +25,8 @@ $location_item="";
 $disocunt_item="";
 $quantity_item="";
 $filepath="";
+$city="";
+$country="";
 
 //main error variables
 $pricerr="";
@@ -33,8 +35,15 @@ $discount_er="";
 $quantity_item_er="";
 $desription_item_er="";
 $filepath_er="";
+$city_er="";
+$country_er="";
 $cat_er="";
 $location_item_er="";
+
+if(!isset($_SESSION['username'])){
+    header("Location: signin.php");
+    return;
+}
 
 if(isset($_POST['done']))
 {
@@ -46,6 +55,8 @@ if(isset($_POST['done']))
     $disocunt_item=$_POST['discountOfItem'];
     $quantity_item=$_POST['quantity'];
     $filepath=basename($_FILES['file']['name']);
+    $city=$_POST['city'];
+    $country=$_POST['country'];
     
         //filter data
 $item_name= input_data($item_name);
@@ -56,6 +67,8 @@ $location_item=input_data($location_item);
 $desription_item=input_data($desription_item);
 $filepath=input_data($filepath);
 $category_item=input_data($category_item);
+$city=input_data($city);
+$country=input_data($country);
 
         //validate data
 //$item_namerr=validateString($item_name);
@@ -65,36 +78,38 @@ $category_item=input_data($category_item);
 // $desription_item_er=validateString($desription_item);
 
 
-if($item_namerr=="" && $pricerr=="" && $discount_er=="" && $quantity_item_er=="" && $desription_item_er==""){
 
-    if(isset($_SESSION['sellerID'])){
-    insertItemName($item_name,$desription_item,$price,$quantity_item,$category_item,$disocunt_item,$_SESSION['id'],$db);
-    header("Location: add_item.php");
-    return ;}
-    else{
-        echo "Manga";
-    }
+if($item_namerr=="" && $pricerr=="" && $discount_er=="" && $quantity_item_er=="" && $desription_item_er=="" &&$city_er=="" && $country_er=="" && $location_item_er==""){
+
+    // $idSeller=$_SESSION['id'];
+    // echo "idSeller: {$idSeller}";
+    //  if($idSeller!=null){
+    $homeNum = strtok($location_item,  ' ');
+    $st = substr($location_item, strpos($location_item, " ") + 1);    
+    insertItemName($item_name,$desription_item,$price,$quantity_item,$category_item,$disocunt_item,$_SESSION['id'],$homeNum,$st,$city,$country,$db);
     
-//upload image
-$targetDir = "uploads/";
-$targetFilePath = $targetDir . $filepath;
-$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
-if(!empty($_FILES['file']['name']))
- {
-    $allowTypes = array('jpg','png','jpeg','gif','pdf');
-    if(in_array($fileType, $allowTypes))
-    {
-        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath))
-            {
-                insertImage($filepath);
-            }
-            else
-            {
-                $statusMsg = "Sorry, there was an error uploading your file.";
-            }
+    if(empty($_FILES['file']['name'])){
+        header("Location: add_item.php");
+        return;
     }
- }
+    // else{
+    //     echo "Manga";
+    // }
+    
+    $targetDir = "uploads/";
+    $targetFilePath = $targetDir . $filepath;
+    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+        $allowTypes = array('jpg','png','jpeg','gif','pdf');
+        if(in_array($fileType, $allowTypes))
+        {
+            if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)){
+                    insertImage($filepath,$db);
+                }
+                else
+                {
+                    echo  " Error!!!";
+                }
+        }
 }
 else{
     header("Location: add_item.php");
@@ -103,7 +118,7 @@ else{
 }
 ?>
 <div class="container-fluid ">
-    <div class=" row justify-content-center m-5 ">
+    <div class=" row justify-content-center  ">
         <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
             <div class="display h1 mt-4 mb-4">Add Item</div>
             <div class=" col-lg-5 col-md-12 col-sm-6">
@@ -124,12 +139,24 @@ else{
                             <option value="1 ">Plastic</option>
                             <option value="2">Paper</option>
                             <option value="3">Glass</option>
+                            <option value="4">others</option>
                         </select>
                         <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
                     </div>
                     <div class="mb-4 input-group">
-                        <input type="address" class="form-control" id="address" placeholder="Location Item"
-                            name="address" required value="<?php echo $location_item?>">
+                        <input type="address" class="form-control" id="address"
+                            placeholder="Location@exmaple: 1234 main st" name="address" required
+                            value="<?php echo $location_item?>">
+                    </div>
+                    <div class="row g-2 mb-4">
+                        <div class="col-sm-6">
+                            <input required type="text" name="city" class="form-control" placeholder="City"
+                                aria-label="City">
+                        </div>
+                        <div class="col-sm-6">
+                            <input required name="country" type="text" class="form-control" placeholder="Country"
+                                aria-label="country">
+                        </div>
                     </div>
                     <div class="input-group  mb-4">
                         <input value="<?php echo $price?>" placeholder=" Price" name="priceOfItem" type="text" required
