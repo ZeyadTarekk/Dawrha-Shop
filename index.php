@@ -5,6 +5,13 @@
   $categories = getCategories($db);
   $itemImages = getItemsImages($db);
   $categories = array_reverse($categories);
+
+  if(isset($_GET['cat']))
+    $items = getItemsByCategory($db,$_GET['cat']);
+
+  $noItems = false;
+  if(count($items)==0)
+    $noItems = true;
   // Linking item cateogry to each item
   $iterI1 = count($categories);
   $iterk1 = count($items);
@@ -33,14 +40,21 @@
   <div class="container-lg ">
     <div class="text-center ">
       <ol class="item-categories ">
-        <li class=""><button class="btn btn-success active"><a href="#">All</a></button>
+        <li class=""><button class="btn btn-success <?php if(!isset($_GET['cat'])) echo "active"?> "><a
+              href="index.php">All</a></button>
         </li>
         <?php foreach($categories as $cat): ?>
-        <li><button class="btn btn-success"><a href="#"><?php echo $cat['categoryName'] ?></a></button></li>
+        <li><button
+            class="btn btn-success <?php if(isset($_GET['cat'])&&$cat['categoryName']===$_GET['cat']) echo "active" ?> "><a
+              href="<?php echo "index.php?cat=".$cat['categoryName'] ?>"><?php echo $cat['categoryName'] ?></a></button>
+        </li>
         <?php endforeach; ?>
       </ol>
     </div>
     <div class="text-center">
+      <?php if($noItems): ?>
+      <p class="alert-danger ms-auto me-auto pt-5 pb-5" style="width:50%">No items in this Category</p>
+      <?php else: ?>
       <div class="row row-of-card g-5 justify-content-center align-items-center">
         <?php foreach($items as $ite): ?>
         <div class="col-8 col-lg-4 col-xl-3 ">
@@ -60,6 +74,7 @@
           </a>
         </div>
         <?php endforeach; ?>
+        <?php endif; ?>
       </div>
     </div>
   </div>

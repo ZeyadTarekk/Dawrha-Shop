@@ -73,7 +73,7 @@ thumbArray.forEach((element) => {
 let myMedia = window.matchMedia("(max-width: 991px)");
 if (myMedia.matches) {
   let myElement = document.querySelector(".dropdown-menu-profile");
-  myElement.classList.add("show");
+  if (myElement) myElement.classList.add("show");
 }
 
 const bellElement = document.querySelector("#Notification-bell");
@@ -106,7 +106,7 @@ function permanentlyDeleteItem() {
 }
 //Start profileSeller page
 // Start Scroll to top
-let scrollToTopElement = document.querySelector(".scroll-to-top");
+const scrollToTopElement = document.querySelector(".scroll-to-top");
 window.onscroll = function () {
   if (this.scrollY >= 100) {
     scrollToTopElement.classList.add("scroll-to-top-show");
