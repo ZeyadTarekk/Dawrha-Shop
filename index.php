@@ -36,7 +36,7 @@
     
 ?>
 
-<div class="main-page pt-5 pb-5 bg-light">
+<div class="main-page pt-5 pb-0 bg-light">
   <div class="container-lg ">
     <div class="text-center ">
       <ol class="item-categories ">
