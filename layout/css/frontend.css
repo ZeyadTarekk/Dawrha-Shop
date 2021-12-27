@@ -321,3 +321,14 @@ ol.item-categories li a {
   right: 10px;
 }
 /* End Scroll to top */
+/* start Footer */
+@media (max-width: 991px) {
+  .class-for-footer {
+    /* flex-direction: column; */
+    margin-left: 25%;
+    gap: 40px;
+    text-align: center;
+  }
+}
+
+/* End Footer */
