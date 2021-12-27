@@ -6,8 +6,13 @@ if(!isset($_SESSION['username'])){
     header("Location: signin.php");
     return;
 }
+
 $sellerData = getSeller($db,$_SESSION['username'])[0];
 $sellerMobiles = getSellerMobiles($_SESSION['id'],$db);
+$forSaleItems = getSellerForSaleItems($_SESSION['id'],$db) ;
+$soldItems = "" ;
+$deletedItems = "" ;
+
 var_dump($sellerData);
 var_dump($sellerMobiles);
 ?>
@@ -156,9 +161,8 @@ var_dump($sellerMobiles);
 
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static " style="gap: 60px;" >
                     <?php
-                    for ($i = 0;
-                    $i < 10;
-                    $i++) {
+                    foreach ($forSaleItems as $forSaleItem) {
+                    $category = getCategory($forSaleItem->categoryId,$db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -168,18 +172,16 @@ var_dump($sellerMobiles);
                                 '; ?>
 
                     <a href="reviewItem.php" style="text-decoration: none;color: black">
-
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card\'s
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
+                                <h5 class="card-title">'.$forSaleItem->title.'</h5>
+                                
+                                <h6 class="card-title">'.$category->categoryName.'</h6>
+                                <p class="card-text">'.$category->categoryDescription.'</p>
+                                <h4 class="card-title">'.$forSaleItem->price.'</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Edit</a>
+                                    <a href="editItem.php?id='.$forSaleItem->itemId.'" class="btn btn-success">Edit</a>
                                     <a href="#" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
@@ -188,44 +190,6 @@ var_dump($sellerMobiles);
                     </div>
                     ';
                         } ?>
-
-                        <div class="col-lg-3 m-0 text-center">
-                            <div class="card m-md-auto shadow" style="width: 18rem;">
-                                <a href="#" class="btn btn-danger rounded-pill position-absolute"
-                                   style="width: fit-content; top: 0;right: 0">
-                                    <span class="badge">0</span></a>
-                                <a href="reviewItem.php" style="text-decoration: none;color: black">
-
-                                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Item Name</h5>
-                                        <h6 class="card-title">Category</h6>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's
-                                            content.</p>
-                                        <h4 class="card-title">$30</h4>
-                                        <div class="card-body">
-                                            <a href="#" class="btn btn-success">Edit</a>
-                                            <a href="#" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-<!--                        <div class="col-lg-3 m-0 " style="position: sticky; right: 0;">-->
-<!--                            <a href="add_item.php" class="link-dark">-->
-<!--                                <div class="card m-md-auto shadow" style="width: 18rem;">-->
-<!--                                    <div class="m-auto">-->
-<!--                                        <i class="bi bi-plus-circle fa-9x"></i>-->
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h5 class="card-title text-center">Add Item</h5>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
                 </section>
             </div>
         </div>
