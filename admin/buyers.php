@@ -2,7 +2,7 @@
   $pageTitle = "Buyers";
   include 'init.php';
 
-  if (!isset($_SESSION['id'])) {
+  if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
     header("Location: ../signin.php");
   }
   //check the wanted page [Manage | Edit | Add | Delete] before going there
@@ -21,6 +21,9 @@
                   <th scope="col" class="table-dark">Username</th>
                   <th scope="col" class="table-dark">Fullname</th>
                   <th scope="col" class="table-dark">Email</th>
+                  <th scope="col" class="table-dark">Likes</th>
+                  <th scope="col" class="table-dark">DisLikes</th>
+                  <th scope="col" class="table-dark">Transactions</th>
                   <th scope="col" class="table-dark">Phones</th>
                   <th scope="col" class="table-dark">Control</th>
                 </tr>
@@ -33,6 +36,9 @@
                     echo '<td>' . $buyer['userName'] . '</td>';
                     echo '<td>' . $buyer['fName'] . ' ' . $buyer['lName'] . '</td>';
                     echo '<td>' . $buyer['email'] . '</td>';
+                    echo '<td>' . $buyer['likes'] . '</td>';
+                    echo '<td>' . $buyer['disLikes'] . '</td>';
+                    echo '<td>' . $buyer['transactions'] . '</td>';
                     echo '<td>';
                     $phones = GetBuyerPhones($buyer['ID'], $db);
                     foreach($phones as $phone) {

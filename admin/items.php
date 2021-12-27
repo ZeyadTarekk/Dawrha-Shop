@@ -2,11 +2,16 @@
 $pageTitle = "Items";
 include 'init.php';
 
+if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
+  header("Location: ../signin.php");
+}
   //check the wanted page [Manage | Edit(Update) | Add(Insert) | Delete] before going there
   $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 
-  if($do == 'Manage') { //manage page to show all the admins
+  if($do == 'Manage') {
+    $items = GetItems($db);
 ?>
+
     <div class="container items">
           <h1 class="text-center">Manage Items</h1>
           <div class="table-responsive">
@@ -23,49 +28,94 @@ include 'init.php';
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>shose</td>
-                  <td>most3ml</td>
-                  <td>Beshoy Morad</td>
-                  <td>$250</td>
-                  <td>3</td>
-                  <td>
-                    <!-- here we need to send the item id to edit or delete -->
-                    <a href="?do=View&itemId=5" class="btn btn-primary"><i class="fas fa-eye"></i> View</a>
-                    <a href="?do=Edit&itemId=5" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
-                    <a href="?do=Delete&itemId=5" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
-                  </td>
-                </tr>
+                  <?php 
+                  foreach ($items as $item) {
+                    echo '<tr>';
+                    echo '<th scope="row">' . $item['itemId'] . '</th>';
+                    echo '<td>' . $item['title'] . '</td>';
+                    echo '<td>' . $item['categoryName'] . '</td>';
+                    echo '<td>' . $item['fName'] . ' ' . $item['lName'] . '</td>';
+                    echo '<td>' . $item['price'] . ' $</td>';
+                    echo '<td>' . $item['quantity'] . '</td>';
+                    echo '</td>';
+                    echo '<td>
+                            <a href="?do=View&itemId=' . $item['itemId'] . '" class="btn btn-primary"><i class="fas fa-eye"></i> View</a>
+                            <a href="?do=Delete&itemId=' . $item['itemId'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
+                          </td>';
+                    echo '</tr>';
+                  }
+                  ?>
               </tbody>
             </table>
           </div>
     </div>
+
 <?php
-  } elseif ($do == 'Edit') {
+  } elseif ($do == 'Delete') {
+    $itemId = isset($_GET['itemId']) && is_numeric($_GET['itemId']) ? intval($_GET['itemId']) : 0;
+    if (!$itemId) {
+      header("Location: items.php");
+    }else {
+      $item = GetItemByID($itemId, $db);
+      if(isset($_POST['submit'])) {
+        DeleteItemByID($itemId, $db);
+        header("Location: items.php");
+      }
+    }
 ?>
-    <!-- need to get the data of that admin and put it as value attribute for all the inputs -->
+
     <div class="ItemsForm container mb-5">
-        <h1 class="text-center">Edit Items</h1>
-        <form class="col-lg-6 m-auto" action="?do=Update" method="POST">
-          <div class="mb-3">
-            <label for="Username" class="form-label">Example</label>
-            <input type="text" class="form-control" name="username" id="Username" aria-describedby="emailHelp" required>
-          </div>
-          <button type="submit" class="btn btn-primary form-btn">Edit</button>
+      <h1 class="text-center">Delete Item</h1>
+      <div class="delete-box shadow">
+        <h3 class="text-center">Are you Sure You Want To Delete <b><?php echo $item[0]['title'] ?></b></h3>
+        <form action="?do=Delete&itemId=<?php echo $itemId; ?>" method="POST" class="text-center">
+          <button type="submit" name="submit" class="btn btn-danger">Yes</button>
+          <a class="btn btn-success" href="?do=Manage">No</a>
         </form>
+      </div>
     </div>
 
 <?php
-  } elseif ($do == 'Update') {
-    // get the data from the form and validate it then update the admin table
-  } elseif ($do == 'Delete') {
-    // get the data from the form and validate it then delete the admin
   } elseif ($do == 'View') {
-    // view the item and put a button to view the owner of that item
-  }
+    $itemId = isset($_GET['itemId']) && is_numeric($_GET['itemId']) ? intval($_GET['itemId']) : 0;
+    if (!$itemId) {
+      header("Location: items.php");
+    } else {
+      $item = GetItemViewByID($itemId, $db);
 ?>
 
-<?php 
-include $tpl . 'footer.php';
+    <div class="ItemsForm container mb-5 shadow">
+      <section class="review-item">
+        <div class="gallery">
+          <!-- the main image -->
+          <div id="screen">
+            <!-- remember to put each image in var then swap between them if any of the thumbnails picked -->
+            <img src="../data/uploads/items/magna-1.jfif" alt="">
+          </div>
+          <div class="thumbnails">
+            <!-- loop to get the number of images of the product -->
+            <img src="../data/uploads/items/magna-1.jfif" alt="">
+            <img src="../data/uploads/items/magna-2.jfif" alt="">
+          </div>
+          </div>
+            <div class="product">
+              <a href="?do=Manage" class="seller-name">(ask)<?php echo $item[0]['fName'] . ' ' . $item[0]['lName']; ?></a>
+              <hr>
+              <span class="date-of-item"><?php echo $item[0]['addDate']; ?></span>
+              <p class="item-name"><?php echo $item[0]['title']; ?></p>
+              <p class="description"><?php echo $item[0]['description']; ?></p>
+              <div class="price">
+              <!-- here we need to get the discount then know the new price -->
+              <div class="new-price"><?php echo $item[0]['price'] - ($item[0]['price'] * $item[0]['discount']) . " $"; ?></div>
+              <div class="discount"><?php echo $item[0]['discount'] . "%"; ?></div>
+              <div class="old-price"><?php echo $item[0]['price'] . " $"; ?></div>
+            </div>
+          </div>
+      </section>
+    </div>
+
+<?php
+      }
+    }
+  include $tpl . 'footer.php';
 ?>
