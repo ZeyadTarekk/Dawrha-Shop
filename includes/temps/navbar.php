@@ -6,7 +6,7 @@
   session_start();
   // $_SESSION["username"]= 'ZeyadTarek';
   // unset($_SESSION["username"]);
-  // $_SESSION["typeOfUser"] = 'seller';
+  // $_SESSION["typeOfUser"] = 'admin';
   // unset($_SESSION["typeOfUser"]);
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
     $User = getBuyer($db,$_SESSION["username"]);
@@ -27,6 +27,9 @@
         break;
       }
     }
+  }
+  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="admin"){
+    header("Location: signin.php");
   }
 ?>
 <?php if(isset($_SESSION["username"])): ?>
