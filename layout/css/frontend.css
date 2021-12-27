@@ -61,12 +61,12 @@
   column-gap: 100px;
 }
 @media (max-width: 992px) {
-  section {
+  .review-item {
     grid-template-columns: 1fr 1fr;
   }
 }
 @media (max-width: 768px) {
-  section {
+  .review-item {
     grid-template-columns: 1fr;
   }
 }
@@ -156,7 +156,7 @@
 .order-section .counter .right-btn {
   cursor: pointer;
   font-size: 18px;
-  color: rgb(117, 53, 53);
+  color: rgb(25 135 84);
   font-weight: bold;
 }
 @media (max-width: 992px) {
@@ -183,7 +183,7 @@
   -moz-appearance: textfield;
 }
 .order-section .add-to-cart-btn {
-  background-color: rgb(117, 53, 53);
+  background-color: rgb(25 135 84);
   border: none;
   padding: 15px 30px;
   text-align: center;
@@ -321,14 +321,3 @@ ol.item-categories li a {
   right: 10px;
 }
 /* End Scroll to top */
-/* start Footer */
-@media (max-width: 991px) {
-  .class-for-footer {
-    /* flex-direction: column; */
-    margin-left: 25%;
-    gap: 40px;
-    text-align: center;
-  }
-}
-
-/* End Footer */
