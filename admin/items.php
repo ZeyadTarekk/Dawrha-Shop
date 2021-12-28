@@ -10,10 +10,50 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
 
   if($do == 'Manage') {
     $items = GetItems($db);
+
+    //for the searching
+    $name = $id = '';
+    $idErr = '';
+    if (isset($_POST['search'])) {
+      $name = $_POST['name'];
+      $id = $_POST['id'];
+      $name = input_data($name);
+      $id = input_data($id);
+      $idErr = validateNumber($id);
+
+      //the priority for the id so first check the id
+      if ($id != '' && $idErr == '') {
+        $items = GetItemBySellerID($id, $db);
+      } elseif ($name != "") {
+        $items = GetItemBySellerUserName($name, $db);
+      } else {
+        $items = array();
+      }
+    }
+    if (isset($_POST['showall'])) {
+      $items = GetItems($db);
+    }
 ?>
 
+    <div class="searching-area container items">
+      <h1 class="text-center">Manage Items</h1>
+      <form action="?do=Manage" method="POST" class="search-form">
+        <div class="name">
+          <div>Seller UserName:</div>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="id">
+          <div>ID:</div>
+          <input type="text" name="id" class="form-control">
+        </div>
+        <div class="search-btns">
+          <input type="submit" name="search" value="Search" class="btn btn-primary me-1 ms-1">
+          <input type="submit" name="showall" value="Show All" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+
     <div class="container items">
-          <h1 class="text-center">Manage Items</h1>
           <div class="table-responsive">
             <table class="table table-bordered text-center">
               <thead class="thead-dark">
@@ -28,7 +68,12 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
                 </tr>
                 </thead>
                 <tbody>
-                  <?php 
+                  <?php
+                  if (empty($items)) {
+                    echo '<tr>';
+                    echo '<td scope="row" colspan="7" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+                    echo '</tr>';
+                  } else {
                   foreach ($items as $item) {
                     echo '<tr>';
                     echo '<th scope="row">' . $item['itemId'] . '</th>';
@@ -43,7 +88,7 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
                             <a href="?do=Delete&itemId=' . $item['itemId'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                           </td>';
                     echo '</tr>';
-                  }
+                  } }
                   ?>
               </tbody>
             </table>

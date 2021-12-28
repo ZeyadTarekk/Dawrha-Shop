@@ -224,6 +224,24 @@ function GetItemViewByID($id, $db) {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
+
+function GetItemBySellerID($id, $db) {
+  $sql = "SELECT I.itemId,I.title,C.categoryName,S.fName,S.lName,I.price,I.quantity 
+          FROM item as I,category as C,seller as S 
+          WHERE I.categoryId=C.cateogryId AND I.sellerId=S.ID AND I.sellerId=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetItemBySellerUserName($username, $db) {
+  $sql = "SELECT I.itemId,I.title,C.categoryName,S.fName,S.lName,I.price,I.quantity 
+          FROM item as I, category as C, seller as S
+          WHERE I.categoryId=C.cateogryId AND I.sellerId=S.ID AND S.userName LIKE '" . $username . "%';";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 //End Item
 
 ?>
