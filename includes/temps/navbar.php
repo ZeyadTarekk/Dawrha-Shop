@@ -11,6 +11,8 @@
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
     $User = getBuyer($db,$_SESSION["username"]);
     $Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
+    $_SESSION['userID'] = $User[0]['ID'];
+    $_SESSION['not'] = $Notifications;
     foreach($Notifications as $noti){
       if($noti['seen']==='0'){
         $unSeenFlag = true;
@@ -21,6 +23,8 @@
   else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller"){
     $User = getSeller($db,$_SESSION["username"]);
     $Notifications = getNotificationsForSeller($db,$User[0]['ID']);
+    $_SESSION['userID'] = $User[0]['ID'];
+    $_SESSION['not'] = $Notifications;
     foreach($Notifications as $noti){
       if($noti['seen']==='0'){
         $unSeenFlag = true;
@@ -44,7 +48,9 @@
     <ul class="dropdown-menu dropdown-menu-notification" aria-labelledby="navbarDropdown11" style="right: 0;">
       <?php foreach($Notifications as $noti): ?>
       <?php if($noti['seen']==='0'): ?>
-      <li><a class="dropdown-item add-red noti-items-red" href="#"><?php echo $noti['message']; ?></a></li>
+      <li><a class="dropdown-item add-red noti-items-red" href="notification.php"><?php echo
+       "Notification From ". $noti['fName']." ".$noti['lName']; ?></a>
+      </li>
       <?php endif; ?>
       <?php endforeach; ?>
       <li>
@@ -52,7 +58,8 @@
       </li>
       <?php foreach($Notifications as $noti): ?>
       <?php if($noti['seen']==='1'): ?>
-      <li><a class="dropdown-item" href="#"><?php echo $noti['message']; ?></a></li>
+      <li><a class="dropdown-item" href="notification.php"><?php echo
+       "Notification From ". $noti['fName']." ".$noti['lName']; ?></a></li>
       <?php endif; ?>
       <?php endforeach; ?>
     </ul>

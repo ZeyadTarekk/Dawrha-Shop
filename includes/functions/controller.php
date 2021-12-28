@@ -263,4 +263,18 @@ function permanentlyDeleteItem($id, $db)
     $stmt->execute(array(":id" => $id));
 }
 
+// Start notifications
+function setNotificationsSeenForBuyer($db,$ownerID){
+    $sql = "UPDATE notification set seen = 1 where id in (SELECT notificationId from buyernotification WHERE ownerID = :ownerId)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":ownerId" => $ownerID));
+    
+}
+function setNotificationsSeenForSeller($db,$ownerID){
+    $sql = "UPDATE notification set seen = 1 where id in (SELECT notificationId from sellernotifications WHERE ownerID = :ownerId)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":ownerId" => $ownerID));
+}
+// End notifications
+
 ?>
