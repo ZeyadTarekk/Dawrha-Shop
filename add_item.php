@@ -3,8 +3,8 @@ $pageTitle = 'Add Item';
 include "init.php";
 
 
-if(!isset($_SESSION['username'])){
-    header("Location: signin.php");
+if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
+    header("Location: logout.php");
     return;
 }
 if(isset($_POST['done']))
@@ -73,118 +73,114 @@ else{
 }
 ?>
 <div class="container-fluid ">
-    <div class=" row justify-content-center  ">
-        <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
-            <div class="display h1 mt-4 mb-4">Add Item</div>
-            <div class=" col-lg-5 col-md-12 col-sm-6">
-                <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data">
-                    <div class="mb-4 input-group ">
-                        <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name" required
-                            autofocus value="<?php 
+  <div class=" row justify-content-center  ">
+    <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
+      <div class="display h1 mt-4 mb-4">Add Item</div>
+      <div class=" col-lg-5 col-md-12 col-sm-6">
+        <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data">
+          <div class="mb-4 input-group ">
+            <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name" required autofocus
+              value="<?php 
                              if(isset($_SESSION["item_name"])){
                              echo $_SESSION["item_name"];
                             unset($_SESSION["item_name"]);
                             }
                              ?>">
-                    </div>
-                    <p class="diplay text-danger mb-2">
-                        <?php if(isset($_SESSION["item_namerr"])){
+          </div>
+          <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["item_namerr"])){
                             echo $_SESSION["item_namerr"] ;
                             unset($_SESSION["item_namerr"]);
                         }?></p>
-                    <div class=" mb-4 input-group">
-                        <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
-                            name="description" value="<?php if(isset($_SESSION["desription_item"])){
+          <div class=" mb-4 input-group">
+            <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1" name="description"
+              value="<?php if(isset($_SESSION["desription_item"])){
                             echo $_SESSION["desription_item"] ;
                             unset($_SESSION["desription_item"]);
                         } ;?>" rows="3"></textarea>
-                    </div>
-                    <div class="input-group  mb-4">
-                        <select required value="<?php if(isset($_SESSION["category_item"])){
+          </div>
+          <div class="input-group  mb-4">
+            <select required value="<?php if(isset($_SESSION["category_item"])){
                                 echo $_SESSION["category_item"]; 
                                 unset($_SESSION["category_item'"]);
                         }?>" class="form-select " id="inputGroupSelect02" name="category" required>
-                            <option selected>Choose Categories...</option>
-                            <option value="1">Plastic</option>
-                            <option value="2">Paper</option>
-                            <option value="3">Glass</option>
-                            <option value="4">others</option>
-                        </select>
-                        <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
-                    </div>
-                    <p class="diplay text-danger "><?php 
+              <option selected>Choose Categories...</option>
+              <option value="1">Plastic</option>
+              <option value="2">Paper</option>
+              <option value="3">Glass</option>
+              <option value="4">others</option>
+            </select>
+            <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
+          </div>
+          <p class="diplay text-danger "><?php 
                     if(isset($_SESSION["cat_er"])){
                         echo $_SESSION["cat_er"]; 
                         unset($_SESSION["cat_er"]);
                 } ?></p>
-                    <div class="mb-4 input-group">
-                        <input type="address" class="form-control" id="address"
-                            placeholder="Location@exmaple: 1234 main st" name="address" required value="<?php if(isset($_SESSION["location_item"])){
+          <div class="mb-4 input-group">
+            <input type="address" class="form-control" id="address" placeholder="Location@exmaple: 1234 main st"
+              name="address" required value="<?php if(isset($_SESSION["location_item"])){
                                 echo $_SESSION["location_item"]; 
                                 unset($_SESSION["location_item"]);
                         }?>">
-                    </div>
-                    <p class="diplay text-danger "><?php 
+          </div>
+          <p class="diplay text-danger "><?php 
                     if(isset($_SESSION["location_item_er"])){
                         echo $_SESSION["location_item_er"]; 
                         unset($_SESSION["location_item_er"]);
                 } ?></p>
-                    <div class="row g-2 mb-4">
-                        <div class="col-sm-6">
-                            <input required type="text" name="city" class="form-control" placeholder="City"
-                                aria-label="City">
-                        </div>
-                        <div class="col-sm-6">
-                            <input required name="country" type="text" class="form-control" placeholder="Country"
-                                aria-label="country">
-                        </div>
-                    </div>
-                    <p class="diplay text-danger "><?php if(isset($_SESSION["country_er"])){
+          <div class="row g-2 mb-4">
+            <div class="col-sm-6">
+              <input required type="text" name="city" class="form-control" placeholder="City" aria-label="City">
+            </div>
+            <div class="col-sm-6">
+              <input required name="country" type="text" class="form-control" placeholder="Country"
+                aria-label="country">
+            </div>
+          </div>
+          <p class="diplay text-danger "><?php if(isset($_SESSION["country_er"])){
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
-                    <div class="input-group  mb-4">
-                        <input value="<?php if(isset($_SESSION["price"])){
+          <div class="input-group  mb-4">
+            <input value="<?php if(isset($_SESSION["price"])){
                                 echo $_SESSION["price"]; 
                                 unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
-                            required class="form-control  "
-                            aria-label="Dollar amount (with dot and two decimal places)">
-                        <span class="input-group-text bg-success text-light">&#163</span>
-                        <span class="input-group-text bg-success text-light">0.00</span>
-                    </div>
-                    <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
+              required class="form-control  " aria-label="Dollar amount (with dot and two decimal places)">
+            <span class="input-group-text bg-success text-light">&#163</span>
+            <span class="input-group-text bg-success text-light">0.00</span>
+          </div>
+          <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
                         echo $_SESSION["pricerr"]; 
                         unset($_SESSION["pricerr"]);
                 } ?></p>
-                    <div class=" input-group mb-4">
-                        <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number"
-                            class="form-control">
-                        <span class=" input-group-text  bg-success text-light">&#163</span>
-                        <span class="input-group-text bg-success text-light">%</span>
-                    </div>
+          <div class=" input-group mb-4">
+            <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number" class="form-control">
+            <span class=" input-group-text  bg-success text-light">&#163</span>
+            <span class="input-group-text bg-success text-light">%</span>
+          </div>
 
-                    <div class="input-group  mb-4 ">
-                        <input name="file" type="file" class="form-control " id="inputGroupFile04"
-                            aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
-                        <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
-                            multiple>
-                            Upload
-                        </button>
-                    </div>
-                    <div class="input-group mb-4" id="input_div">
-                        <input required class="form-control " type="number" placeholder="Quantity" name="quantity"
-                            size="25" min=0 id=" counting">
-                        <!-- <input class=" bg-success text-light" type="button" value="-" id="moins" onclick="minus()">
+          <div class="input-group  mb-4 ">
+            <input name="file" type="file" class="form-control " id="inputGroupFile04"
+              aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
+            <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04" multiple>
+              Upload
+            </button>
+          </div>
+          <div class="input-group mb-4" id="input_div">
+            <input required class="form-control " type="number" placeholder="Quantity" name="quantity" size="25" min=0
+              id=" counting">
+            <!-- <input class=" bg-success text-light" type="button" value="-" id="moins" onclick="minus()">
                         <input class=" bg-success text-light" type="button" value="+" id="pluss" onclick="plus()"> -->
-                    </div>
-                    <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="done">Add
-                        item</button>
-                </form>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
-            </div>
-        </div>
+          </div>
+          <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="done">Add
+            item</button>
+        </form>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
+      </div>
     </div>
+  </div>
 </div>
 <?php include $tpl . "footer.php" ?>
