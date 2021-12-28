@@ -186,9 +186,9 @@ function insertSellerPhoneNumber($id,$mobile,$db){
 }
 // Add Item
 
-function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
+function insertItemName($title,$Des,$price,$quantity,$catId,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
     $sql="INSERT INTO item ( title, description, price, quantity, addDate,categoryId,sellerId,comission,homeNumber,street,city,country)
-    VALUES ('".$title."', '".$Des."', ".$price.", ".$quantity.", current_timestamp(), ".$cat.",".$sellerid.",".$discount.", ".$homeNum.",'".$street."','".$city."','".$country."')";
+    VALUES ('".$title."', '".$Des."', ".$price.", ".$quantity.", current_timestamp(), ".$catId.",".$sellerid.",".$discount.", ".$homeNum.",'".$street."','".$city."','".$country."')";
     $stmt=$db->prepare($sql);
     $stmt->execute();
     }
@@ -284,4 +284,51 @@ function setNotificationsSeenForSeller($db,$ownerID){
 }
 // End notifications
 
+// start edit item
+function updateTitle($db,$itemID,$title){
+    $sql="UPDATE `item` SET `title` = '".$title."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateDescription($db,$itemID,$Des){
+    $sql="UPDATE `item` SET `description` = '".$Des."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updatePrice($db,$itemID,$price){
+    $sql="UPDATE `item` SET `price` = '".$price."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateCategory($db,$itemID,$cat){
+    $sql="UPDATE `item` SET `category` = '".$cat."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateDiscount($db,$itemID,$discount){
+    $sql="UPDATE `item` SET `comission` = '".$discount."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateHomeNumber($db,$itemID,$homeNum){
+    $sql="UPDATE `item` SET `homeNumber` = '".$homeNum."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateStreet($db,$itemID,$street){
+    $sql="UPDATE `item` SET `street` = '".$street."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateCity($db,$itemID,$city){
+    $sql="UPDATE `item` SET `city` = '".$city."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+function updateCountry($db,$itemID,$country){
+    $sql="UPDATE `item` SET `country` = '".$country."' WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
+//end edit item
 ?>
