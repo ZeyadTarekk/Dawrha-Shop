@@ -168,6 +168,37 @@ function DeleteSellerByID($id, $db) {
   $db->exec($deleteSql);
 }
 //End Seller
+
+//Start Item
+function GetItems($db) {
+  $sql = "SELECT I.itemId,I.title,C.categoryName,S.fName,S.lName,I.price,I.quantity 
+          FROM item as I,category as C,seller as S 
+          WHERE I.categoryId=C.cateogryId AND I.sellerId=S.ID;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetItemByID($id, $db) {
+  $sql = "SELECT * FROM item WHERE itemId=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function DeleteItemByID($id, $db) {
+  $deleteSql = "DELETE FROM item WHERE itemId=" . $id . "";
+  $db->exec($deleteSql);
+}
+
+function GetItemViewByID($id, $db) {
+  $sql = "SELECT * FROM item,seller WHERE item.sellerId=seller.ID;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+//End Item
+
 ?>
 
 

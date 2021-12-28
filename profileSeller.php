@@ -1,29 +1,67 @@
 <?php
 $pageTitle = 'Profile';
 include "init.php";
+// if not signed in redirect to sign-in page
+if (!isset($_SESSION['username'])) {
+    header("Location: signin.php");
+    return;
+}
+if (isset($_GET['delete_id'])) {
+    shallowDeleteItem($_GET['delete_id'], $db);
+    header("Location: profileSeller.php");
+    return;
+}
+if (isset($_GET['retrieve_id'])) {
+    retrieveItem($_GET['retrieve_id'], $db);
+    header("Location: profileSeller.php");
+    return;
+}
+if (isset($_GET['permanentlyDelete_id'])) {
+    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
+    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
+    header("Location: profileSeller.php");
+    return;
+}
+$sellerData = getSeller($db, $_SESSION['username'])[0];
+$sellerMobiles = getSellerMobiles($_SESSION['id'], $db);
+$forSaleItems = getSellerForSaleItems($_SESSION['id'], $db);
+$soldItems = getSellerSoldOutItems($_SESSION['id'], $db);
+$deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
+
+//var_dump($sellerData);
+//var_dump($sellerMobiles);
 ?>
 
 
     <div class="container p-3 position-static">
         <div class="row shadow rounded p-3 m-5 text-lg-start text-md-center text-sm-center border-start border-5 border-success">
             <div class="col-lg-3 m-auto">
-                <h1 class="card-title">UserName</h1>
+                <h1 class="card-title"><?= $sellerData["userName"] ?></h1>
             </div>
             <div class="col-lg-7 m-auto">
                 <div class="m-2">
                     <h4 class="d-inline-block">Email: </h4>
-                    <a href="mailto:a.m.hamza156@gmail.com" class="mb-2 link-dark fa-1x "><h5
+                    <a href="mailto:<?= $sellerData["email"] ?>" class="mb-2 link-dark fa-1x "><h5
                                 class="text-muted d-inline-block">
-                            a.m.hamza156@gmail.com
+                            <?= $sellerData["email"] ?>
                         </h5></a>
                 </div>
                 <div class="m-2">
                     <h4 class="d-inline-block">Mobile: </h4>
-                    <h5 class="mb-2 text-muted d-inline-block ">0123456789</h5>
+                    <h5 class="mb-2 text-muted d-inline-block ">
+                        <ul class="list-group list-group-flush profile_scroll" style="max-height: 120px;overflow: auto">
+                            <?php
+                            foreach ($sellerMobiles as $mobile) {
+                                echo "<li class='list-group-item'> $mobile->phoneNo</li>";
+                            }
+                            ?>
+
+                        </ul>
+                    </h5>
                 </div>
                 <div class="m-2">
                     <h4 class="d-inline-block">Join date: </h4>
-                    <h5 class=" mb-2 text-muted d-inline-block">11-22-2022</h5>
+                    <h5 class=" mb-2 text-muted d-inline-block"><?= $sellerData["joinDate"] ?></h5>
                 </div>
             </div>
             <div class="col-lg-2 m-auto">
@@ -45,7 +83,7 @@ include "init.php";
                                 <i class="bi bi-people-fill fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $sellerData["likes"] + $sellerData["disLikes"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Review</p>
                             </div>
                         </div>
@@ -61,7 +99,7 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-up fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $sellerData["likes"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Like</p>
                             </div>
                         </div>
@@ -77,7 +115,7 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-down fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $sellerData["disLikes"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Dislike</p>
                             </div>
                         </div>
@@ -93,7 +131,7 @@ include "init.php";
                                 <i class="bi bi-cash-coin fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $sellerData["transactions"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Transaction</p>
                             </div>
                         </div>
@@ -136,11 +174,13 @@ include "init.php";
             </div>
             <div class="col-sm-12">
 
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static " style="gap: 60px;" >
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "
+                         style="gap: 60px;">
                     <?php
-                    for ($i = 0;
-                    $i < 10;
-                    $i++) {
+                    foreach ($forSaleItems
+
+                    as $forSaleItem) {
+                    $category = getCategory($forSaleItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -150,19 +190,17 @@ include "init.php";
                                 '; ?>
 
                     <a href="reviewItem.php" style="text-decoration: none;color: black">
-
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card\'s
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
+                                <h5 class="card-title">' . $forSaleItem->title . '</h5>
+                                
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $forSaleItem->description . '</p>
+                                <h4 class="card-title">' . $forSaleItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="editItem.php?id=' . $forSaleItem->itemId . '" class="btn btn-success">Edit</a>
+                                    <a href="profileSeller.php?delete_id=' . $forSaleItem->itemId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                             </a>
@@ -170,44 +208,6 @@ include "init.php";
                     </div>
                     ';
                         } ?>
-
-                        <div class="col-lg-3 m-0 text-center">
-                            <div class="card m-md-auto shadow" style="width: 18rem;">
-                                <a href="#" class="btn btn-danger rounded-pill position-absolute"
-                                   style="width: fit-content; top: 0;right: 0">
-                                    <span class="badge">0</span></a>
-                                <a href="reviewItem.php" style="text-decoration: none;color: black">
-
-                                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Item Name</h5>
-                                        <h6 class="card-title">Category</h6>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's
-                                            content.</p>
-                                        <h4 class="card-title">$30</h4>
-                                        <div class="card-body">
-                                            <a href="#" class="btn btn-success">Edit</a>
-                                            <a href="#" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-<!--                        <div class="col-lg-3 m-0 " style="position: sticky; right: 0;">-->
-<!--                            <a href="add_item.php" class="link-dark">-->
-<!--                                <div class="card m-md-auto shadow" style="width: 18rem;">-->
-<!--                                    <div class="m-auto">-->
-<!--                                        <i class="bi bi-plus-circle fa-9x"></i>-->
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h5 class="card-title text-center">Add Item</h5>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
                 </section>
             </div>
         </div>
@@ -225,11 +225,13 @@ include "init.php";
                 </div>
             </div>
             <div class="col-sm-12 ">
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "
+                         style="gap: 60px;">
                     <?php
-                    for ($i = 0;
-                    $i < 10;
-                    $i++) {
+                    foreach ($soldItems
+
+                    as $soldItem) {
+                    $category = getCategory($soldItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -239,15 +241,13 @@ include "init.php";
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card\'s
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
+                                <h5 class="card-title">' . $soldItem->title . '</h5>
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $soldItem->description . '</p>
+                                <h4 class="card-title">' . $soldItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="editItem.php?id=' . $soldItem->itemId . '" class="btn btn-success">Edit</a>
+                                    <a href="profileSeller.php?delete_id=' . $soldItem->itemId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                             </a>
@@ -273,12 +273,14 @@ include "init.php";
                         <p class="lead">List of all deleted items.</p>
                     </div>
                 </div>
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static" style="gap: 60px;">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static"
+                         style="gap: 60px;">
 
                     <?php
-                    for ($i = 0;
-                    $i < 10;
-                    $i++) {
+                    foreach ($deletedItems
+
+                    as $deletedItem) {
+                    $category = getCategory($deletedItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -288,15 +290,13 @@ include "init.php";
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card\'s
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
+                                <h5 class="card-title">' . $deletedItem->title . '</h5>
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $deletedItem->description . '</p>
+                                <h4 class="card-title">' . $deletedItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Retrieve</a>
-                                    <a href="profileSeller.php?x=1"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
+                                    <a href="profileSeller.php?retrieve_id=' . $deletedItem->itemId . '" class="btn btn-success">Retrieve</a>
+                                    <a href="profileSeller.php?permanentlyDelete_id=' . $deletedItem->itemId . '"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
                                 </div>
                             </div>
                     </a>

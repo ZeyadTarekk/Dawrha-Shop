@@ -6,7 +6,7 @@
   session_start();
   // $_SESSION["username"]= 'ZeyadTarek';
   // unset($_SESSION["username"]);
-  // $_SESSION["typeOfUser"] = 'seller';
+  // $_SESSION["typeOfUser"] = 'admin';
   // unset($_SESSION["typeOfUser"]);
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
     $User = getBuyer($db,$_SESSION["username"]);
@@ -27,6 +27,9 @@
         break;
       }
     }
+  }
+  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="admin"){
+    header("Location: signin.php");
   }
 ?>
 <?php if(isset($_SESSION["username"])): ?>
@@ -84,12 +87,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Log Out</a></li>
+            <li><a class="dropdown-item" href="logout.php">Log Out</a></li>
           </ul>
         </li>
         <li class="nav-item ">
           <a class="nav-link active me-lg-3" aria-current="page"
-            href="#"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
+            href="index.php"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
         </li>
         <!-- End Difference-->
       </ul>

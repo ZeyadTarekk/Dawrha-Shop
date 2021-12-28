@@ -35,3 +35,13 @@ function addPhoneInput() {
   
   phonesContainer.appendChild(divCont);
 }
+
+let thumbArray = document.querySelectorAll(".thumbnails img");
+let mainImage = document.querySelector("#screen img");
+thumbArray.forEach((element) => {
+  element.addEventListener("click", function () {
+    //change the main image src with this src
+    let newsrc = element.getAttribute("src");
+    mainImage.setAttribute("src", newsrc);
+  });
+});

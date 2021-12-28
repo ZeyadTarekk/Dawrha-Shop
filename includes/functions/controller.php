@@ -160,21 +160,97 @@ function insertSeller($username, $password, $email, $fname, $lname, $db)
 
 // Add Item
 
+<<<<<<< HEAD
 function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
     $sql="INSERT INTO item ( title, description, price, quantity, addDate,categoryId,sellerId,comission,homeNumber,street,city,country)
     VALUES ('".$title."', '".$Des."', ".$price.", ".$quantity.", current_timestamp(), ".$cat.",".$sellerid.",".$discount.", ".$homeNum.",'".$street."','".$city."','".$country."')";
     $stmt=$db->prepare($sql);
+=======
+function insertItemName($title, $Des, $price, $quantity, $cat, $discount, $sellerid, $homeNum, $street, $city, $country, $db)
+{
+    $sql = "INSERT INTO item ( title, description, price, quantity, addDate,categoryId,sellerId,comission,homeNumber,street,city,country)
+    VALUES ('" . $title . "', '" . $Des . "', " . $price . ", " . $quantity . ", current_timestamp(), '1','21'," . $discount . ", " . $homeNum . ",'" . $street . "','" . $city . "','" . $country . "')";
+    $stmt = $db->prepare($sql);
+>>>>>>> da89b10b24bd6b9a2af265b7fdba0b8d0ecebe48
     $stmt->execute();
-    }
+}
 
-    //image uploading
-    function insertImage($imageName,$db){
-    $itemID=$db->lastInsertId();
-    $sql="INSERT INTO itemimage ( itemId,image) 
-    VALUES (".$itemID.",'".$imageName."')";
-    $stmt=$db->prepare($sql);
+//image uploading
+function insertImage($imageName, $db)
+{
+    $itemID = $db->lastInsertId();
+    $sql = "INSERT INTO itemimage ( itemId,image) 
+    VALUES (" . $itemID . ",'" . $imageName . "')";
+    $stmt = $db->prepare($sql);
     $stmt->execute();
-    }
+}
+
+// Seller's profile functions
+function getSellerMobiles($id, $db)
+{
+    $sql = "SELECT phoneNo FROM mobileseller WHERE sellerId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getSellerForSaleItems($id, $db)
+{
+    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.quantity != 0 AND seller.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getSellerDeletedItems($id, $db)
+{
+    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 1 AND seller.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getSellerSoldOutItems($id, $db)
+{
+    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.quantity = 0  AND seller.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getCategory($catId, $db)
+{
+    $sql = "SELECT * from category WHERE category.cateogryId = :catId";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":catId" => $catId));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function shallowDeleteItem($id, $db)
+{
+    $sql = "UPDATE item set item.isDeleted = 1 WHERE itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
+
+function retrieveItem($id, $db)
+{
+    $sql = "UPDATE item set item.isDeleted = 0 WHERE itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
+
+function permanentlyDeleteItem($id, $db)
+{
+    $sql = "DELETE FROM item WHERE item.itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
 
 
 // Seller's profile functions
