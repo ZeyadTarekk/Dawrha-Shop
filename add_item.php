@@ -20,8 +20,10 @@ $_SESSION["filepath"]=input_data( basename($_FILES['file']['name']));
 $_SESSION["city"]=input_data($_POST['city']);
 $_SESSION["country"]=input_data( $_POST['country']);
 $_SESSION["category_item"]=input_data($_POST['category']);
-
-
+$_SESSION["pricerr"] = "";
+$_SESSION["cat_er"]="";
+$_SESSION["city_er"]="";
+$_SESSION["country_er"]="";
         //validate priceItem
 if(!ctype_digit($_SESSION["price"])){
     $_SESSION["pricerr"]="* Only numeric value is allowed";
