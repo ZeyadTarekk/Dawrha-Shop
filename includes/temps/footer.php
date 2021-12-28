@@ -17,7 +17,7 @@
           <li class="nav-item mb-2"><a target="_blank" href="https://github.com/Abd-ELrahmanHamza"
               class="nav-link p-0 text-muted">Abdelrahman Mohamed</a></li>
           <li class="nav-item mb-2"><a href="https://github.com/BeshoyMorad" target="_blank"
-              class="nav-link p-0 text-muted">Bechoy
+              class="nav-link p-0 text-muted">Beshoy
               Morad</a></li>
           <li class="nav-item mb-2"><a target="_blank" href="https://github.com/ZeyadTarekk"
               class="nav-link p-0 text-muted">Zeyad

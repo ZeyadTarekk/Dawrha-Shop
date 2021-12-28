@@ -63,6 +63,11 @@ function InsertNewPhone($id, $phone, $db) {
   $db->exec($insertSql);
 }
 
+function DeletePhone($id, $phone, $db) {
+  $deleteSql = "DELETE FROM mobileadmin WHERE mobileadmin.adminId=" . $id . " AND mobileadmin.phone ='" . $phone . "';";
+  $db->exec($deleteSql);
+}
+
 function GetAdminByID($id, $db) {
   $sql = "SELECT * FROM admin WHERE ID=" . $id . ";";
   $stmt = $db->query($sql);

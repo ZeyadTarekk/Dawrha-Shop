@@ -89,11 +89,9 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
         <div class="gallery">
           <!-- the main image -->
           <div id="screen">
-            <!-- remember to put each image in var then swap between them if any of the thumbnails picked -->
             <img src="../data/uploads/items/magna-1.jfif" alt="">
           </div>
           <div class="thumbnails">
-            <!-- loop to get the number of images of the product -->
             <img src="../data/uploads/items/magna-1.jfif" alt="">
             <img src="../data/uploads/items/magna-2.jfif" alt="">
           </div>
@@ -105,17 +103,20 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
               <p class="item-name"><?php echo $item[0]['title']; ?></p>
               <p class="description"><?php echo $item[0]['description']; ?></p>
               <div class="price">
-              <!-- here we need to get the discount then know the new price -->
-              <div class="new-price"><?php echo $item[0]['price'] - ($item[0]['price'] * $item[0]['discount']) . " $"; ?></div>
-              <div class="discount"><?php echo $item[0]['discount'] . "%"; ?></div>
-              <div class="old-price"><?php echo $item[0]['price'] . " $"; ?></div>
-            </div>
+                <div class="new-price"><?php echo $item[0]['price'] - ($item[0]['price'] * $item[0]['discount']) . " $"; ?></div>
+                <div class="discount"><?php echo $item[0]['discount'] . "%"; ?></div>
+                <div class="old-price"><?php echo $item[0]['price'] . " $"; ?></div>
+              </div>
+              <p class="loctaion">Location: <?php echo $item[0]['homeNumber'] . ', ' .
+                                  $item[0]['street'] . ' ' . $item[0]['city'] . ' ' . $item[0]['country'];?></p>
           </div>
       </section>
     </div>
 
 <?php
       }
+    }else {
+      header("Location: index.php");
     }
   include $tpl . 'footer.php';
 ?>

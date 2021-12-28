@@ -79,6 +79,8 @@ if ($do == 'Manage') {
       </div>
     </div>
 <?php
+  }else {
+    header("Location: index.php");
   }
 include $tpl . 'footer.php';
 ?>

@@ -138,6 +138,8 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
       </div>
     </div>
 <?php
+  }else {
+    header("Location: index.php");
   }
 include $tpl . 'footer.php';
 ?>

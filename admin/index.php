@@ -13,45 +13,57 @@
     $admins = GetAdmins($db);
 ?>
     <div class="container admin">
-          <h1 class="text-center">Manage Admins</h1>
-          <div class="table-responsive">
-            <table class="table table-bordered text-center">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col" class="table-dark">#ID</th>
-                  <th scope="col" class="table-dark">Username</th>
-                  <th scope="col" class="table-dark">Fullname</th>
-                  <th scope="col" class="table-dark">Email</th>
-                  <th scope="col" class="table-dark">Phones</th>
-                  <th scope="col" class="table-dark">Control</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php 
-                  foreach($admins as $admin) {
-                    echo '<tr>';
-                    echo '<th scope="row">' . $admin['ID'] . '</th>';
-                    echo '<td>' . $admin['userName'] . '</td>';
-                    echo '<td>' . $admin['fName'] . ' ' . $admin['lName'] . '</td>';
-                    echo '<td>' . $admin['email'] . '</td>';
-                    echo '<td>';
-                    $phones = GetAdminPhones($admin['ID'], $db);
-                    foreach($phones as $phone) {
-                      echo $phone['phone'] . '<br>';}
-                    echo '</td>';
-                    echo '<td>
-                            <a href="?do=Phones&adminId=' . $admin['ID'] . '" class="btn btn-primary"><i class="fas fa-phone"></i> Phones</a>
-                            <a href="?do=Edit&adminId=' . $admin['ID'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="?do=Delete&adminId=' . $admin['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
-                          </td>';
-                    echo '</tr>';
+      <h1 class="text-center">Manage Admins</h1>
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" class="table-dark">#ID</th>
+              <th scope="col" class="table-dark">Username</th>
+              <th scope="col" class="table-dark">Fullname</th>
+              <th scope="col" class="table-dark">Email</th>
+              <th scope="col" class="table-dark">Phones</th>
+              <th scope="col" class="table-dark">Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if (empty($admins)) {
+                echo '<tr>';
+                echo '<td scope="row" colspan="2" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+                echo '</tr>';
+              } else {
+              foreach($admins as $admin) {
+                echo '<tr>';
+                echo '<th scope="row">' . $admin['ID'] . '</th>';
+                echo '<td>' . $admin['userName'] . '</td>';
+                echo '<td>' . $admin['fName'] . ' ' . $admin['lName'] . '</td>';
+                echo '<td>' . $admin['email'] . '</td>';
+                echo '<td>';
+                $phones = GetAdminPhones($admin['ID'], $db);
+                $phoneCount = count($phones);
+                for($i = 0; $i < $phoneCount; $i++) {
+                  if ($i == $phoneCount - 1) {
+                    echo $phones[$i]['phone'];
+                  }else {
+                    echo $phones[$i]['phone'] . '<br>';
                   }
-                ?>
-              </tbody>
-            </table>
-          </div>
-          <a href="?do=Add" class="btn btn-primary add-btn"><i class="fa fa-plus"></i> Add New Admin</a>
+                }
+                echo '</td>';
+                echo '<td>
+                        <a href="?do=Phones&adminId=' . $admin['ID'] . '" class="btn btn-primary"><i class="fas fa-phone"></i> Phones</a>
+                        <a href="?do=Edit&adminId=' . $admin['ID'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="?do=Delete&adminId=' . $admin['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
+                      </td>';
+                echo '</tr>';
+              } }
+            ?>
+          </tbody>
+        </table>
+      </div>
+      <a href="?do=Add" class="btn btn-primary add-btn"><i class="fa fa-plus"></i> Add New Admin</a>
     </div>
+
 <?php
   } elseif ($do == 'Add') {
     //define the error messages and input values
@@ -203,8 +215,8 @@
   }elseif ($do == 'Phones') {
     $phoneErr = '';
     $phone = '';
-    $ID = isset($_GET['adminId']) ?  $_GET['adminId'] : "NotFound";
-    if ($ID == "NotFound") {
+    $adminId = isset($_GET['adminId']) ?  $_GET['adminId'] : "NotFound";
+    if ($adminId == "NotFound") {
       header('Location: index.php');
     } else {
       if(isset($_POST['submit'])) {
@@ -213,9 +225,9 @@
         $phoneErr = validateNumber($phone);
         if ($phoneErr == "") {
           if ($phone) {
-            $check = CheckPhone($ID, $phone, $db);
+            $check = CheckPhone($adminId, $phone, $db);
             if (!$check) {
-              InsertNewPhone($ID, $phone, $db);
+              InsertNewPhone($adminId, $phone, $db);
             }
             $phone = "";
             header("Location: index.php");
@@ -225,8 +237,43 @@
     }
 ?>
     <div class="AdminsForm container mb-5">
+      <h1 class="text-center">Delete A Phone</h1>
+      <div class="table-responsive w-75 m-auto">
+        <table class="table table-bordered text-center">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col" class="table-dark">Phone</th>
+            <th scope="col" class="table-dark">Control</th>
+          </tr>
+          </thead>
+          <tbody>
+            <?php
+            $flag = 1;
+            $phones = GetAdminPhones($adminId, $db);
+            if (empty($phones)) {
+              echo '<tr>';
+              echo '<td scope="row" colspan="2" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+              echo '</tr>';
+            } else {
+            foreach($phones as $Printphone) {
+              echo '<tr>';
+              if ($flag) {
+                echo '<th scope="row">' . $Printphone['phone'] . '</th>';
+              }else {
+                echo '<td>' . $Printphone['phone'] . '</td>';
+              }
+              echo '<td><a href="?do=DeleteP&adminId=' . $adminId . '&phone=' . $Printphone['phone'] . '" class="btn btn-danger">
+                        <i class="fas fa-user-minus"></i> Delete</a>
+                    </td>';
+              echo '</tr>';
+            }}
+            ?>
+          </tbody>
+        </table>
+      </div>
+
       <h1 class="text-center">Add New Phone</h1>
-      <form class="col-lg-6 m-auto" action="?do=Phones&adminId=<?php echo $ID; ?>" method="POST">
+      <form class="col-lg-6 m-auto" action="?do=Phones&adminId=<?php echo $adminId; ?>" method="POST">
         <!-- Phone -->
         <div class="input-group mb-2">
         <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
@@ -239,6 +286,19 @@
       </form>
     </div>
 <?php
+  } elseif ($do == 'DeleteP') {
+    $adminId = isset($_GET['adminId']) ?  $_GET['adminId'] : "NotFound";
+    $phone = isset($_GET['phone']) ? $_GET['phone'] : "NotFound";
+    if ($adminId == "NotFound" || $phone == "NotFound") {
+      header('Location: index.php');
+    } else {
+      $check = CheckPhone($adminId, $phone, $db);
+      if ($check) {
+        DeletePhone($adminId, $phone, $db);
+        echo 'deleted';
+        header("Location: index.php?do=Phones&adminId=" . $adminId . "");
+      }
+    }
   } elseif ($do == 'Edit') {
     $adminId = isset($_GET['adminId']) && is_numeric($_GET['adminId']) ? intval($_GET['adminId']) : 0;
     if (!$adminId) {
@@ -269,14 +329,20 @@
       $lName = input_data($lName);
       $email = input_data($email);
       $oPass = input_data($oPass);
-      $nPass = input_data($nPass);
+      if ($nPass != ""){
+        $nPass = input_data($nPass);
+      }
 
       //then we call the validation function
       $usernameErr = validateUserName($userName);
       $fnameErr = validateString($fName);
       $lnameErr = validateString($lName);
       $emailErr = validateEmail($email);
-      $npassErr = validatePassword($nPass);
+      if ($nPass != ""){
+        $npassErr = validatePassword($nPass);
+      }else {
+        $nPass = $oPass;
+      }
 
       //check all of the errors
       if ($usernameErr == "" && $fnameErr == "" && $lnameErr == "" && $emailErr == "" &&
@@ -296,33 +362,37 @@
       <h1 class="text-center">Edit Admin</h1>
       <form class="col-lg-8 m-auto" action="?do=Edit&adminId=<?php echo $adminId ?>" method="POST">
         <!-- User Name -->
+        <label for="username" class="form-label ms-3">User Name</label>
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
-          <input type="text" class="form-control" name="username" 
+          <input type="text" class="form-control" name="username" id="username"
                   placeholder="User Name" aria-label="Username" aria-describedby="basic-addon1" 
                   value="<?php echo $userName; ?>" required>
         </div>
         <span class="error"><?php echo $usernameErr; ?></span>
         <!-- First Name -->
+        <label for="fname" class="form-label ms-3">First Name</label>
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
-          <input type="text" class="form-control" name="firstname"
+          <input type="text" class="form-control" name="firstname" id="fname"
                   placeholder="First Name" aria-label="FirstName" aria-describedby="basic-addon1"
                   value="<?php echo $fName; ?>" required>
         </div>
         <span class="error"><?php echo $fnameErr; ?></span>
         <!-- Last Name -->
+        <label for="lname" class="form-label ms-3">Last Name</label>
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
-          <input type="text" class="form-control" name="secondname" 
+          <input type="text" class="form-control" name="secondname" id="lname"
                   placeholder="Last Name" aria-label="LastName" aria-describedby="basic-addon1"
                   value="<?php echo $lName; ?>" required>
         </div>
         <span class="error"><?php echo $lnameErr; ?></span>
         <!-- Email -->
+        <label for="email" class="form-label ms-3">Email</label>
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1">@</span>
-          <input type="email" class="form-control" name="email" 
+          <input type="email" class="form-control" name="email" id="email"
                   placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" 
                   value="<?php echo $email; ?>" required>
         </div>
@@ -337,12 +407,12 @@
                                                                                   id="eyeIcon1"></i></span>
         </div>
         <span class="error"><?php echo $opassErr; ?></span>
-        <!-- Confirm Password -->
+        <!-- New Password -->
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
           <input type="password" class="form-control" name="newpassword" id="password2"
                   placeholder="New Password" aria-label="NewPassword" aria-describedby="basic-addon1"
-                  value="<?php echo $nPass; ?>" required>
+                  value="<?php echo $nPass; ?>">
           <span class="input-group-text" onclick="togglePasswordVisibility(2)"><i class="bi bi-eye"
                                                                           id="eyeIcon2"></i></span>
         </div>
@@ -375,8 +445,9 @@
       </div>
     </div>
 <?php
+  } else {
+    header("Location: index.php");
   }
 
 include $tpl . 'footer.php';
 ?>
-<!-- need to do delete phone -->
