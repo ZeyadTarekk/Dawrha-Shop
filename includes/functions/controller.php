@@ -188,7 +188,21 @@ function getSellerMobiles($id, $db)
     return $rows;
 }
 function getSellerForSaleItems($id,$db){
-    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.isSoldOut = 0 AND seller.ID = :id";
+    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.quantity != 0 AND seller.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getSellerDeletedItems($id,$db){
+    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 1 AND seller.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getSellerSoldOutItems($id,$db){
+    $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.quantity = 0  AND seller.ID = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
