@@ -6,7 +6,7 @@
   session_start();
   // $_SESSION["username"]= 'ZeyadTarek';
   // unset($_SESSION["username"]);
-  // $_SESSION["typeOfUser"] = 'admin';
+  // $_SESSION["typeOfUser"] = 'buyer';
   // unset($_SESSION["typeOfUser"]);
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
     $User = getBuyer($db,$_SESSION["username"]);
