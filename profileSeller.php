@@ -6,15 +6,30 @@ if (!isset($_SESSION['username'])) {
     header("Location: signin.php");
     return;
 }
-
+if (isset($_GET['delete_id'])) {
+    shallowDeleteItem($_GET['delete_id'], $db);
+    header("Location: profileSeller.php");
+    return;
+}
+if (isset($_GET['retrieve_id'])) {
+    retrieveItem($_GET['retrieve_id'], $db);
+    header("Location: profileSeller.php");
+    return;
+}
+if (isset($_GET['permanentlyDelete_id'])) {
+    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
+    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
+    header("Location: profileSeller.php");
+    return;
+}
 $sellerData = getSeller($db, $_SESSION['username'])[0];
 $sellerMobiles = getSellerMobiles($_SESSION['id'], $db);
 $forSaleItems = getSellerForSaleItems($_SESSION['id'], $db);
 $soldItems = getSellerSoldOutItems($_SESSION['id'], $db);
 $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
 
-var_dump($sellerData);
-var_dump($sellerMobiles);
+//var_dump($sellerData);
+//var_dump($sellerMobiles);
 ?>
 
 
@@ -181,11 +196,11 @@ var_dump($sellerMobiles);
                                 <h5 class="card-title">' . $forSaleItem->title . '</h5>
                                 
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
-                                <p class="card-text">' . $category->categoryDescription . '</p>
+                                <p class="card-text">' . $forSaleItem->description . '</p>
                                 <h4 class="card-title">' . $forSaleItem->price . '</h4>
                                 <div class="card-body">
                                     <a href="editItem.php?id=' . $forSaleItem->itemId . '" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="profileSeller.php?delete_id=' . $forSaleItem->itemId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                             </a>
@@ -228,11 +243,11 @@ var_dump($sellerMobiles);
                     <div class="card-body">
                                 <h5 class="card-title">' . $soldItem->title . '</h5>
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
-                                <p class="card-text">' . $category->categoryDescription . '</p>
+                                <p class="card-text">' . $soldItem->description . '</p>
                                 <h4 class="card-title">' . $soldItem->price . '</h4>
                                 <div class="card-body">
                                     <a href="editItem.php?id=' . $soldItem->itemId . '" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="profileSeller.php?delete_id=' . $soldItem->itemId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                             </a>
@@ -262,7 +277,9 @@ var_dump($sellerMobiles);
                          style="gap: 60px;">
 
                     <?php
-                    foreach ($deletedItems as $deletedItem) {
+                    foreach ($deletedItems
+
+                    as $deletedItem) {
                     $category = getCategory($deletedItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
@@ -273,13 +290,13 @@ var_dump($sellerMobiles);
                         <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
                         <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">'.$deletedItem->title.'</h5>
+                                <h5 class="card-title">' . $deletedItem->title . '</h5>
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
-                                <p class="card-text">' . $category->categoryDescription . '</p>
-                                <h4 class="card-title">'.$deletedItem->price.'</h4>
+                                <p class="card-text">' . $deletedItem->description . '</p>
+                                <h4 class="card-title">' . $deletedItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Retrieve</a>
-                                    <a href="profileSeller.php?x=1"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
+                                    <a href="profileSeller.php?retrieve_id=' . $deletedItem->itemId . '" class="btn btn-success">Retrieve</a>
+                                    <a href="profileSeller.php?permanentlyDelete_id=' . $deletedItem->itemId . '"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
                                 </div>
                             </div>
                     </a>

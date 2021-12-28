@@ -187,32 +187,62 @@ function getSellerMobiles($id, $db)
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
-function getSellerForSaleItems($id,$db){
+
+function getSellerForSaleItems($id, $db)
+{
     $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.quantity != 0 AND seller.ID = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
-function getSellerDeletedItems($id,$db){
+
+function getSellerDeletedItems($id, $db)
+{
     $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 1 AND seller.ID = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
-function getSellerSoldOutItems($id,$db){
+
+function getSellerSoldOutItems($id, $db)
+{
     $sql = "SELECT * FROM seller,item WHERE seller.ID = item.sellerId AND item.isDeleted = 0 AND item.quantity = 0  AND seller.ID = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
-function getCategory($catId,$db){
+
+function getCategory($catId, $db)
+{
     $sql = "SELECT * from category WHERE category.cateogryId = :catId";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":catId" => $catId));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+
+function shallowDeleteItem($id, $db)
+{
+    $sql = "UPDATE item set item.isDeleted = 1 WHERE itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
+
+function retrieveItem($id, $db)
+{
+    $sql = "UPDATE item set item.isDeleted = 0 WHERE itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
+
+function permanentlyDeleteItem($id, $db)
+{
+    $sql = "DELETE FROM item WHERE item.itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
+
 ?>
