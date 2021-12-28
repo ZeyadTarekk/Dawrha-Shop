@@ -29,6 +29,7 @@ body {
 /* Start Admins Page */
 .admin h1,
 .buyer h1,
+.seller h1,
 .category h1 {
   margin: 60px 0;
   font-weight: bold;

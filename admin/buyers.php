@@ -10,9 +10,49 @@
 
   if ($do == 'Manage') {
     $buyers = GetBuyers($db);
+
+    //for the searching
+    $name = $id = '';
+    $idErr = '';
+    if (isset($_POST['search'])) {
+      $name = $_POST['name'];
+      $id = $_POST['id'];
+      $name = input_data($name);
+      $id = input_data($id);
+      $idErr = validateNumber($id);
+
+      //the priority for the id so first check the id
+      if ($id != '' && $idErr == '') {
+        $buyers = GetBuyerByID($id, $db);
+      } elseif ($name != "") {
+        $buyers = GetBuyerByUserName($name, $db);
+      } else {
+        $buyers = array();
+      }
+    }
+    if (isset($_POST['showall'])) {
+      $buyers = GetBuyers($db);
+    }
 ?>
+    <div class="searching-area container buyer">
+      <h1 class="text-center">Manage Buyers</h1>
+      <form action="?do=Manage" method="POST" class="search-form">
+        <div class="name">
+          <div>UserName:</div>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="id">
+          <div>ID:</div>
+          <input type="text" name="id" class="form-control">
+        </div>
+        <div class="search-btns">
+          <input type="submit" name="search" value="Search" class="btn btn-primary me-1 ms-1">
+          <input type="submit" name="showall" value="Show All" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+    
     <div class="container buyer">
-          <h1 class="text-center">Manage Buyers</h1>
           <div class="table-responsive">
             <table class="table table-bordered text-center">
               <thead class="thead-dark">
@@ -29,7 +69,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php 
+                <?php
+                  if (empty($buyers)) {
+                    echo '<tr>';
+                    echo '<td scope="row" colspan="9" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+                    echo '</tr>';
+                  } else {
                   foreach($buyers as $buyer) {
                     echo '<tr>';
                     echo '<th scope="row">' . $buyer['ID'] . '</th>';
@@ -48,7 +93,7 @@
                             <a href="?do=Delete&buyerId=' . $buyer['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                           </td>';
                     echo '</tr>';
-                  }
+                  } }
                 ?>
               </tbody>
             </table>

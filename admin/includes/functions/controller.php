@@ -93,8 +93,6 @@ function GetAdminByUserName($username, $db) {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
-
-
 //End Admin
 
 //Start Categories Section
@@ -150,6 +148,13 @@ function GetBuyerByID($id, $db) {
   return $result;
 }
 
+function GetBuyerByUserName($username, $db) {
+  $sql = "SELECT * FROM buyer WHERE userName LIKE '" . $username . "%';";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
 function DeleteBuyerByID($id, $db) {
   $deleteSql = "DELETE FROM buyer WHERE ID=" . $id . "";
   $db->exec($deleteSql);
@@ -173,6 +178,13 @@ function GetSellerPhones($id, $db) {
 
 function GetSellerByID($id, $db) {
   $sql = "SELECT * FROM seller WHERE ID=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function GetSellerByUserName($username, $db) {
+  $sql = "SELECT * FROM seller WHERE userName LIKE '" . $username . "%';";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;

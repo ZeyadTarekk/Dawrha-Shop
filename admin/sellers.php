@@ -10,9 +10,49 @@ $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 
 if ($do == 'Manage') {
   $sellers = GetSellers($db);
+
+    //for the searching
+    $name = $id = '';
+    $idErr = '';
+    if (isset($_POST['search'])) {
+      $name = $_POST['name'];
+      $id = $_POST['id'];
+      $name = input_data($name);
+      $id = input_data($id);
+      $idErr = validateNumber($id);
+
+      //the priority for the id so first check the id
+      if ($id != '' && $idErr == '') {
+        $sellers = GetSellerByID($id, $db);
+      } elseif ($name != "") {
+        $sellers = GetSellerByUserName($name, $db);
+      } else {
+        $sellers = array();
+      }
+    }
+    if (isset($_POST['showall'])) {
+      $sellers = GetSellers($db);
+    }
 ?>
-  <div class="container buyer">
-        <h1 class="text-center">Manage Sellers</h1>
+    <div class="searching-area container seller">
+      <h1 class="text-center">Manage Sellers</h1>
+      <form action="?do=Manage" method="POST" class="search-form">
+        <div class="name">
+          <div>UserName:</div>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="id">
+          <div>ID:</div>
+          <input type="text" name="id" class="form-control">
+        </div>
+        <div class="search-btns">
+          <input type="submit" name="search" value="Search" class="btn btn-primary me-1 ms-1">
+          <input type="submit" name="showall" value="Show All" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+
+  <div class="container seller">
         <div class="table-responsive">
           <table class="table table-bordered text-center">
             <thead class="thead-dark">
@@ -30,6 +70,11 @@ if ($do == 'Manage') {
               </thead>
               <tbody>
               <?php 
+                if (empty($sellers)) {
+                  echo '<tr>';
+                  echo '<td scope="row" colspan="9" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+                  echo '</tr>';
+                } else {
                 foreach($sellers as $seller) {
                   echo '<tr>';
                   echo '<th scope="row">' . $seller['ID'] . '</th>';
@@ -48,7 +93,7 @@ if ($do == 'Manage') {
                           <a href="?do=Delete&sellerId=' . $seller['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                         </td>';
                   echo '</tr>';
-                }
+                } }
               ?>
             </tbody>
           </table>
