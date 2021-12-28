@@ -2,6 +2,8 @@
   $pageTitle = 'Notifications';
   include "init.php";
   // session_start();
+  if(!isset($_SESSION["typeOfUser"]))
+    header("Location: logout.php");
   $Notifications = $_SESSION['not'];
   date_default_timezone_set("EET");
   $date = date('Y-m-d', time());
