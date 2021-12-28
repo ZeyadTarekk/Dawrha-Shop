@@ -33,6 +33,13 @@ function getItemsByCategory($db, $categoryName)
     return $result;
 }
 
+function searchForItems($db,$keyWord){
+    $sql = "SELECT * FROM item WHERE title LIKE '%".$keyWord."%' UNION SELECT * FROM item WHERE description LIKE '%".$keyWord."%'";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
 // End homepage functions
 // Signin functions
 function getBuyerPassword_ID($username, $db)

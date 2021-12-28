@@ -6,12 +6,24 @@
   $itemImages = getItemsImages($db);
   $categories = array_reverse($categories);
 
-  if(isset($_GET['cat']))
-    $items = getItemsByCategory($db,$_GET['cat']);
-
   $noItems = false;
-  if(count($items)==0)
+  if(isset($_GET['cat'])){
+    $items = getItemsByCategory($db,$_GET['cat']);
+    if(count($items)==0)
     $noItems = true;
+  }
+
+  $noItemsSearch = false;
+  if(isset($_GET['keyword'])){
+    $_GET['keyword'] = htmlspecialchars($_GET['keyword']);
+    echo $_GET['keyword'];
+    $items = searchForItems($db,$_GET['keyword']);
+    if(count($items)==0)
+      $noItemsSearch = true;
+  }
+
+  
+  
   // Linking item cateogry to each item
   $iterI1 = count($categories);
   $iterk1 = count($items);
@@ -52,7 +64,10 @@
       </ol>
     </div>
     <div class="text-center">
-      <?php if($noItems): ?>
+      <?php if(isset($_GET['keyword'])&&($noItemsSearch)): ?>
+      <p class="alert-danger ms-auto me-auto pt-5 pb-5" style="width:50%">No items match this word
+        <?php echo " " .$_GET['keyword']; ?> </p>
+      <?php elseif($noItems): ?>
       <p class="alert-danger ms-auto me-auto pt-5 pb-5" style="width:50%">No items in this Category</p>
       <?php else: ?>
       <div class="row row-of-card g-5 justify-content-center align-items-center">

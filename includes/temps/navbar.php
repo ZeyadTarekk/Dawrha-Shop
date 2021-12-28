@@ -4,37 +4,38 @@
   require $func . 'controllerForNavbar.php';
   $unSeenFlag = false;
   session_start();
-  // $_SESSION["username"]= 'ZeyadTarek';
-  // unset($_SESSION["username"]);
-  // $_SESSION["typeOfUser"] = 'buyer';
-  // unset($_SESSION["typeOfUser"]);
-  if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
-    $User = getBuyer($db,$_SESSION["username"]);
-    $Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
-    $_SESSION['userID'] = $User[0]['ID'];
-    $_SESSION['not'] = $Notifications;
-    foreach($Notifications as $noti){
-      if($noti['seen']==='0'){
-        $unSeenFlag = true;
-        break;
-      }
-    }
-  }
-  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller"){
-    $User = getSeller($db,$_SESSION["username"]);
-    $Notifications = getNotificationsForSeller($db,$User[0]['ID']);
-    $_SESSION['userID'] = $User[0]['ID'];
-    $_SESSION['not'] = $Notifications;
-    foreach($Notifications as $noti){
-      if($noti['seen']==='0'){
-        $unSeenFlag = true;
-        break;
-      }
-    }
-  }
-  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="admin"){
-    header("Location: signin.php");
-  }
+  // echo $_POST['se'];
+// $_SESSION["username"]= 'ZeyadTarek';
+// unset($_SESSION["username"]);
+// $_SESSION["typeOfUser"] = 'buyer';
+// unset($_SESSION["typeOfUser"]);
+if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
+$User = getBuyer($db,$_SESSION["username"]);
+$Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
+$_SESSION['userID'] = $User[0]['ID'];
+$_SESSION['not'] = $Notifications;
+foreach($Notifications as $noti){
+if($noti['seen']==='0'){
+$unSeenFlag = true;
+break;
+}
+}
+}
+else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller"){
+$User = getSeller($db,$_SESSION["username"]);
+$Notifications = getNotificationsForSeller($db,$User[0]['ID']);
+$_SESSION['userID'] = $User[0]['ID'];
+$_SESSION['not'] = $Notifications;
+foreach($Notifications as $noti){
+if($noti['seen']==='0'){
+$unSeenFlag = true;
+break;
+}
+}
+}
+else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="admin"){
+header("Location: signin.php");
+}
 ?>
 <?php if(isset($_SESSION["username"])): ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
@@ -69,9 +70,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div style=" order:2" class="collapse navbar-collapse justify-content-end align-center" id="navbarSupportedContent">
-      <form class="m-auto  d-flex  mt-3 mt-lg-auto" action="" method="">
-        <input class="form-control me-2 search-input" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
+      <form class="m-auto  d-flex  mt-3 mt-lg-auto" action="index.php" method="GET">
+        <input class="form-control me-2 search-input" name="keyword" type="search" placeholder="Search"
+          aria-label="Search">
+        <input class="btn btn-outline-light" value="Search" type="submit"></input>
       </form>
       <ul class="navbar-nav text-center">
         <!-- Start Difference -->
