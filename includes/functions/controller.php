@@ -157,7 +157,26 @@ function insertSeller($username, $password, $email, $fname, $lname, $db)
     $last_id = $db->lastInsertId();
     return $last_id;
 }
-
+function insertBuyerPhoneNumber($id,$mobile,$db){
+    $sql = "insert into mobilebuyer (mobilebuyer.buyerId,mobilebuyer.phone) values (:id,:mobile)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":id" => $id,
+        ":mobile" => $mobile,
+    ));
+    $last_id = $db->lastInsertId();
+    return $last_id;
+}
+function insertSellerPhoneNumber($id,$mobile,$db){
+    $sql = "insert into mobileseller (mobileseller.sellerId,mobileseller.phoneNo) values (:id,:mobile)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":id" => $id,
+        ":mobile" => $mobile,
+    ));
+    $last_id = $db->lastInsertId();
+    return $last_id;
+}
 // Add Item
 
 function insertItemName($title,$Des,$price,$quantity,$cat,$discount,$sellerid,$homeNum,$street,$city,$country,$db){

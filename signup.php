@@ -60,11 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($_SESSION['signup_userType']=="buyer") {
             $_SESSION['signup_password'] = sha1($_SESSION['signup_password']);
             $_SESSION['id'] = insertBuyer($_SESSION['signup_username'], $_SESSION['signup_password'], $_SESSION['signup_email'], $_SESSION['signup_firstName'], $_SESSION['signup_lastName'], $db);
+            insertBuyerPhoneNumber($_SESSION['id'],$_SESSION['signup_phone'],$db);
             $_SESSION['typeOfUser'] = 'buyer';
         }
         else {
             $_SESSION['signup_password'] = sha1($_SESSION['signup_password']);
             $_SESSION['id'] = insertSeller($_SESSION['signup_username'], $_SESSION['signup_password'], $_SESSION['signup_email'], $_SESSION['signup_firstName'], $_SESSION['signup_lastName'], $db);
+            insertSellerPhoneNumber($_SESSION['id'],$_SESSION['signup_phone'],$db);
             $_SESSION['typeOfUser'] = 'seller';
         }
         $_SESSION['username'] = $_SESSION['signup_username'];
