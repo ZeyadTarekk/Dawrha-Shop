@@ -12,14 +12,17 @@
     if(count($items)==0)
     $noItems = true;
   }
-
+  $inputSearchError = false;
   $noItemsSearch = false;
   if(isset($_GET['keyword'])){
     $_GET['keyword'] = htmlspecialchars($_GET['keyword']);
-    echo $_GET['keyword'];
+    if($_GET['keyword'] == "")
+      $inputSearchError =true;
+    else {
     $items = searchForItems($db,$_GET['keyword']);
     if(count($items)==0)
       $noItemsSearch = true;
+    }
   }
 
   
@@ -64,7 +67,9 @@
       </ol>
     </div>
     <div class="text-center">
-      <?php if(isset($_GET['keyword'])&&($noItemsSearch)): ?>
+      <?php if(isset($_GET['keyword'])&&($inputSearchError)): ?>
+      <p class="alert-danger ms-auto me-auto pt-5 pb-5" style="width:50%">Enter a valid value!</p>
+      <?php elseif(isset($_GET['keyword'])&&($noItemsSearch)): ?>
       <p class="alert-danger ms-auto me-auto pt-5 pb-5" style="width:50%">No items match this word
         <?php echo " " .$_GET['keyword']; ?> </p>
       <?php elseif($noItems): ?>
