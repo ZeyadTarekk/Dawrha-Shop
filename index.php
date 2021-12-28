@@ -51,7 +51,7 @@
     
 ?>
 
-<div class="main-page pt-5 pb-0 bg-light">
+<div class="main-page pb-5 pt-5 bg-light">
   <div class="container-lg ">
     <div class="text-center ">
       <ol class="item-categories ">
@@ -98,8 +98,8 @@
       </div>
     </div>
   </div>
-  <!-- </div> -->
+</div>
 
 
 
-  <?php include $tpl . "footer.php" ?>
+<?php include $tpl . "footer.php" ?>

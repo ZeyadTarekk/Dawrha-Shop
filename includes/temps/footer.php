@@ -1,7 +1,7 @@
 <div class="bg-white">
   <div class="container">
     <li style="list-style:none">
-      <hr class="dropdown-divider  my-5">
+      <hr class="dropdown-divider  my-3">
     </li>
     <footer class="row row-cols-5 py-2 my-3  justify-content-between class-for-footer">
       <div class="col-8 col-lg-4 col-xl-3">
