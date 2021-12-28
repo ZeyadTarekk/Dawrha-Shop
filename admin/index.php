@@ -11,9 +11,49 @@
   if($do == 'Manage') { //manage page to show all the admins
     //get all of the admins and their phone numbers to list them in the table
     $admins = GetAdmins($db);
+
+    //for the searching
+    $name = $id = '';
+    $idErr = '';
+    if (isset($_POST['search'])) {
+      $name = $_POST['name'];
+      $id = $_POST['id'];
+      $name = input_data($name);
+      $id = input_data($id);
+      $idErr = validateNumber($id);
+
+      //the priority for the id so first check the id
+      if ($id != '' && $idErr == '') {
+        $admins = GetAdminByID($id, $db);
+      } elseif ($name != "") {
+        $admins = GetAdminByUserName($name, $db);
+      } else {
+        $admins = array();
+      }
+    }
+    if (isset($_POST['showall'])) {
+      $admins = GetAdmins($db);
+    }
 ?>
-    <div class="container admin">
+    <div class="searching-area container admin">
       <h1 class="text-center">Manage Admins</h1>
+      <form action="?do=Manage" method="POST" class="search-form">
+        <div class="name">
+          <div>UserName:</div>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="id">
+          <div>ID:</div>
+          <input type="text" name="id" class="form-control">
+        </div>
+        <div class="search-btns">
+          <input type="submit" name="search" value="Search" class="btn btn-primary me-1 ms-1">
+          <input type="submit" name="showall" value="Show All" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+
+    <div class="container admin">
       <div class="table-responsive">
         <table class="table table-bordered text-center">
           <thead class="thead-dark">
@@ -30,7 +70,7 @@
             <?php 
               if (empty($admins)) {
                 echo '<tr>';
-                echo '<td scope="row" colspan="2" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+                echo '<td scope="row" colspan="6" style="font-size: 25px; color: #c13131;">No Result Found</td>';
                 echo '</tr>';
               } else {
               foreach($admins as $admin) {
@@ -271,7 +311,6 @@
           </tbody>
         </table>
       </div>
-
       <h1 class="text-center">Add New Phone</h1>
       <form class="col-lg-6 m-auto" action="?do=Phones&adminId=<?php echo $adminId; ?>" method="POST">
         <!-- Phone -->

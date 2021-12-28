@@ -85,6 +85,16 @@ function DeleteAdminByID($id, $db) {
   $deleteSql = "DELETE FROM admin WHERE ID=" . $id . "";
   $db->exec($deleteSql);
 }
+
+//searhing functions
+function GetAdminByUserName($username, $db) {
+  $sql = "SELECT * FROM admin WHERE userName LIKE '" . $username . "%';";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+
 //End Admin
 
 //Start Categories Section

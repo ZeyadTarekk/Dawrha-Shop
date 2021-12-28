@@ -81,6 +81,55 @@ body {
 .Users .delete-box h3 {
   margin-bottom: 30px;
 }
+/* Start Searching Area */
+.searching-area {
+  padding: 20px;
+  margin-bottom: 50px;
+}
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.search-form .name {
+  flex: 1;
+}
+.search-form .id {
+  flex: 0.5;
+}
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+}
+.search-form .name,
+.search-form .id {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  margin: 10px auto;
+}
+.search-form .name div,
+.search-form .id div {
+  margin-left: 12px;
+}
+.search-form .search-btns {
+  margin: auto;
+}
+@media (max-width: 768px) {
+  .search-form .search-btns .btn {
+    margin-top: 5px;
+  }
+}
+.search-form .name input {
+  max-width: 350px;
+  margin-left: 7px;
+}
+.search-form .id input {
+  max-width: 150px;  
+  margin-left: 7px;
+}
+/* End Searching Area */
 /* End Admins Page */
 
 /* Start Items */
