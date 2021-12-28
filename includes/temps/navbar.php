@@ -3,6 +3,7 @@
   $func = "includes/functions/";
   require $func . 'controllerForNavbar.php';
   $unSeenFlag = false;
+  $images = "layout/images/";
   session_start();
   // echo $_POST['se'];
 // $_SESSION["username"]= 'ZeyadTarek';
@@ -40,7 +41,8 @@ header("Location: signin.php");
 <?php if(isset($_SESSION["username"])): ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
   <div class="container-fluid ">
-    <a class="navbar-brand" href="index.php" style=" order:1">Logo</a>
+    <a class="navbar-brand ps-2" href="index.php" style=" order:1"><img class="navbar-icon"
+        src="<?php echo $images."Logo2.png" ?>" alt="Logo"></a>
     <a class="navbar-brand ms-1 mt-3 m-lg-auto notification-icon me-lg-2" href="#" id="navbarDropdown11" role="button"
       data-bs-toggle="dropdown" aria-expanded="false" style="position: relative; display:inline-block; ">
       <i class="fa fa-bell <?php if($unSeenFlag) echo 'add-red'; else echo 'add-white'; ?>" style="font-size: 23px;"
@@ -111,7 +113,8 @@ header("Location: signin.php");
 <?php else: ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
   <div class="container-fluid ">
-    <a class="navbar-brand" href="index.php">Logo</a>
+    <a class="navbar-brand ps-2" href="index.php"><img class="navbar-icon" src="<?php echo $images."Logo2.png" ?>"
+        alt="Logo"></a>
     <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -125,9 +128,6 @@ header("Location: signin.php");
         <!-- Start Difference -->
         <a class="btn btn-outline-light mt-3 mt-lg-0  me-lg-3  " href="signup.php" role="button">Sign Up</a>
         <a class="btn btn-outline-light mt-3 mb-3 mb-lg-0 mt-lg-0  me-lg-3 " href="signin.php" role="button">Log In</a>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Guest</a>
-        </li>
         <!-- End Difference-->
       </ul>
     </div>

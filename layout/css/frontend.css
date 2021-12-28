@@ -51,6 +51,10 @@
   color: white;
 }
 
+.navbar-icon {
+  max-height: 40px;
+}
+
 /* End NavBar */
 
 /* Start ReviewItem */

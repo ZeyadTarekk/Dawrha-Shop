@@ -1,3 +1,4 @@
+<?php $images = "layout/images/"; ?>
 <div class="bg-white">
   <div class="container">
     <li style="list-style:none">
@@ -6,9 +7,9 @@
     <footer class="row row-cols-5 py-2 my-3  justify-content-between class-for-footer">
       <div class="col-8 col-lg-4 col-xl-3">
         <a href="index.php" class="align-items-center  mb-3 link-dark text-decoration-none ">
-          Logo
+          <img class="navbar-icon" src="<?php echo $images."Logo2.png" ?>" alt=" Logo">
         </a>
-        <p class="text-muted">&copy; 2022 Dawarha Team, Inc. All rights reserved.</p>
+        <p class=" text-muted">&copy; 2022 Dawarha Team, Inc. All rights reserved.</p>
       </div>
 
       <div class="col-8 col-lg-4 col-xl-3">
