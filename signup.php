@@ -1,6 +1,7 @@
 <?php
 $noNavbar = '';
 $pageTitle = 'SignUp';
+$images = "layout/images/";
 include "init.php";
 //session_start();
 //session_destroy();
@@ -81,7 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
     <div class="container-fluid text-center shadow p-2">
-        <h3>Logo</h3>
+        <a href="index.php" class="navbar-brand"  style="text-decoration: none;color: black">
+                <img src="<?= $images."Logo2.png" ?>" width="50" height="50" alt="logo">
+                Dawrha
+            </a>
     </div>
     <div class="row justify-content-evenly container-fluid">
         <div class="col-md-10 row justify-content-center m-5 text-center shadow">
