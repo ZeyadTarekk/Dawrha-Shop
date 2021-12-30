@@ -2,13 +2,12 @@
 $pageTitle = 'Add Item';
 include "init.php";
 
-// var_dump($_SESSION);
+
 if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
     header("Location: logout.php");
     return;
 }
-// if(isset($_GET['itemid'])){
-//     $_SESSION['itemID']=$_GET['itemid'];
+
 
 if(isset($_POST['done']))
 { 
@@ -30,8 +29,8 @@ $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
 $_SESSION['DB_er']="";
-// var_dump($_SESSION['category_item']);
-        //validate priceItem
+
+//validate priceItem
 if(!ctype_digit($_SESSION["price"]) &&$_SESSION["price"]<0){
     $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
 }
@@ -54,11 +53,11 @@ if($_SESSION["category_item"]=="Choose Categories..."){
     }
 
     
-if(checkUnique($db,$_SESSION['homeNum'],$_SESSION['st'],$_SESSION['city'],$_SESSION['country'])!=0){
-$_SESSION['DB_er']="wrong";    
-}
+// if(checkUnique($db,$_SESSION['homeNum'],$_SESSION['st'],$_SESSION['city'],$_SESSION['country'])!=0){
+// $_SESSION['DB_er']="wrong";    
+// }
     
-if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="" && $_SESSION['DB_er']==""){    
+if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
     insertItemName($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
     ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
@@ -183,7 +182,6 @@ else{
                         <span class=" input-group-text  bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
-
                     <div class="input-group  mb-4 ">
                         <input name="file" type="file" class="form-control " id="inputGroupFile04"
                             aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
@@ -220,6 +218,3 @@ else{
 </div>
 </div>
 <?php include $tpl . "footer.php" ?>
-<!-- class="alert alert-danger" role="alert" -->
-<!-- class="alert alert-success w-50" role="alert"  -->
-<!-- <i class="bi bi-check"></i> -->
