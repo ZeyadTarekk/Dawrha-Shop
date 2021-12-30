@@ -191,7 +191,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 <span class="badge">0</span></a>
                                 '; ?>
 
-                    <a href="reviewItem.php" style="text-decoration: none;color: black">
+                    <a href="reviewItem.php?itemid=<?= $forSaleItem->itemId?>" style="text-decoration: none;color: black">
                         <?php
                         if($imageName){
                             echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
@@ -243,7 +243,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(100%)">
+                    <a href="reviewItem.php?itemid=<?= $soldItem->itemId?>" style="text-decoration: none;color: black;filter:grayscale(100%)">
 
                         <?php
                         if($imageName){
@@ -297,7 +297,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(70%)">
+                    <a href="reviewItem.php?itemid=<?= $deletedItem->itemId?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
 
                         <?php
                         if($imageName){
