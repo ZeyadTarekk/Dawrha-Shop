@@ -120,9 +120,10 @@ header("Location: signin.php");
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end align-center" id="navbarSupportedContent">
-      <form class="m-auto  d-flex mt-3 mt-lg-0" action="" method="">
-        <input class="form-control me-2 search-input" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
+      <form class="m-auto  d-flex  mt-3 mt-lg-auto" action="index.php" method="GET">
+        <input class="form-control me-2 search-input" name="keyword" type="search" placeholder="Search"
+          aria-label="Search">
+        <input class="btn btn-outline-light" value="Search" type="submit"></input>
       </form>
       <ul class="navbar-nav text-center">
         <!-- Start Difference -->
