@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Profile';
+$imagesUploades = "data/uploads/items/";
 include "init.php";
 // if not signed in redirect to sign-in page
 if (!isset($_SESSION['username'])) {
@@ -180,6 +181,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     foreach ($forSaleItems
 
                     as $forSaleItem) {
+                    $imageName = getImageOfAnItem($forSaleItem->itemId,$db);
                     $category = getCategory($forSaleItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
@@ -190,7 +192,11 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 '; ?>
 
                     <a href="reviewItem.php" style="text-decoration: none;color: black">
-                        <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                        <?php
+                        if($imageName){
+                            echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        }
+                        ?>
                         <?php echo '       
                     <div class="card-body">
                                 <h5 class="card-title">' . $forSaleItem->title . '</h5>
@@ -231,6 +237,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     foreach ($soldItems
 
                     as $soldItem) {
+                    $imageName = getImageOfAnItem($soldItem->itemId,$db);
                     $category = getCategory($soldItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
@@ -238,7 +245,11 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 '; ?>
                     <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(100%)">
 
-                        <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                        <?php
+                        if($imageName){
+                            echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        }
+                        ?>
                         <?php echo '       
                     <div class="card-body">
                                 <h5 class="card-title">' . $soldItem->title . '</h5>
@@ -280,6 +291,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     foreach ($deletedItems
 
                     as $deletedItem) {
+                    $imageName = getImageOfAnItem($deletedItem->itemId,$db);
                     $category = getCategory($deletedItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
@@ -287,7 +299,11 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 '; ?>
                     <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(70%)">
 
-                        <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                        <?php
+                        if($imageName){
+                            echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        }
+                        ?>
                         <?php echo '       
                     <div class="card-body">
                                 <h5 class="card-title">' . $deletedItem->title . '</h5>

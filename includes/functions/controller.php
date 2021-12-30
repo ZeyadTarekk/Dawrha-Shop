@@ -269,7 +269,14 @@ function permanentlyDeleteItem($id, $db)
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
 }
-
+function getImageOfAnItem($id,$db){
+    $sql = "SELECT image from itemimage WHERE itemimage.itemId = :id LIMIT 1";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+// end profile seller
 // Start notifications
 function setNotificationsSeenForBuyer($db,$ownerID){
     $sql = "UPDATE notification set seen = 1 where id in (SELECT notificationId from buyernotification WHERE ownerID = :ownerId)";
