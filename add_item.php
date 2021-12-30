@@ -7,6 +7,9 @@ if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['t
     header("Location: logout.php");
     return;
 }
+// if(isset($_GET['itemid'])){
+//     $_SESSION['itemID']=$_GET['itemid'];
+
 if(isset($_POST['done']))
 { 
         //filter data
@@ -24,10 +27,11 @@ $_SESSION["pricerr"] = "";
 $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
-var_dump($_SESSION['category_item']);
+$_SESSION['DB_er']="";
+// var_dump($_SESSION['category_item']);
         //validate priceItem
-if(!ctype_digit($_SESSION["price"])){
-    $_SESSION["pricerr"]="* Only numeric value is allowed";
+if(!ctype_digit($_SESSION["price"]) &&$_SESSION["price"]<0){
+    $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
 }
 
                 //location validation
@@ -38,7 +42,7 @@ $_SESSION['st'] = substr($_SESSION["location_item"], strpos($_SESSION["location_
 
         //validate city & country
 if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]) )){
-    $_SESSION["country_er"]="* Only alphabets and white space are allowed";
+    $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
 }
 
         //validate Category
@@ -47,11 +51,16 @@ if($_SESSION["category_item"]=="Choose Categories..."){
     }
 
     
-if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" &&$_SESSION["city_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["location_item_er"]==""){    
-    insertItemName($_SESSION['item_name'],$_SESSION['desription_item'],$_SESSION['price'],$_SESSION['quantity_item']
-    ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st']
-    ,$_SESSION['city'],$_SESSION['country'],$db); 
+if(checkUnique($db,$_SESSION['homeNum'],$_SESSION['st'],$_SESSION['city'],$_SESSION['country'])!=0){
+$_SESSION['DB_er']="wrong";    
+}
+
     
+if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" &&$_SESSION["city_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["location_item_er"]=="" && $_SESSION['DB_er']==""){    
+    insertItemName($_SESSION['item_name'],$_SESSION['desription_item'],$_SESSION['price'],$_SESSION['quantity_item']
+    ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
+    $_SESSION['city'],$_SESSION['country'],$db);
+    $_SESSION['DB_er']=1;
     $targetDir = "uploads/";
     $targetFilePath = $targetDir . $_SESSION["filepath"];
     $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -187,7 +196,21 @@ else{
             <div class="col-lg-6 col-md-12">
                 <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
             </div>
+            <?php 
+             if (isset($_SESSION['DB_er'])&&$_SESSION['DB_er']==1) {
+             echo '<div class="alert alert-success w-50" role="alert" >Successfully Submitted
+                      <i class="bi bi-check"></i></div>';
+                     unset($_SESSION["DB_er"]);}
+                 else{
+                     if(isset($_SESSION['DB_er'])){
+                    echo '<div class="alert alert-danger w-50" role="alert">Invalid Submit !</div>'; 
+                    unset($_SESSION["DB_er"]);}
+                }?>
         </div>
     </div>
 </div>
+</div>
 <?php include $tpl . "footer.php" ?>
+<!-- class="alert alert-danger" role="alert" -->
+<!-- class="alert alert-success w-50" role="alert"  -->
+<!-- <i class="bi bi-check"></i> -->

@@ -193,6 +193,14 @@ function insertItemName($title,$Des,$price,$quantity,$catId,$discount,$sellerid,
     $stmt->execute();
     }
 
+    function checkUnique($db,$homeNum,$street,$city,$country){
+        $sql="SELECT COUNT(*) FROM item WHERE  item.homeNumber=".$homeNum." AND item.city='".$city."' AND item.street='".$street."'
+         AND item.country='".$country."'";
+        $stmt = $db->query($sql);
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
+
     //image uploading
     function insertImage($imageName,$db){
     $itemID=$db->lastInsertId();
