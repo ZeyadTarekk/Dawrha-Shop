@@ -7,17 +7,27 @@ if(!isset($_SESSION['username'])){
     header("Location: signin.php");
     return;
 // $_SESSION['itemID']=$_GET['itemid'];
-$_SESSION['itemID']=75;
+// $_SESSION['itemID']=79;
 }
-if(isset($_POST['done']))
+if(isset($_POST['DONE']))
 { 
+$_SESSION["item_name"]="";
+$_SESSION["price"]="";
+$_SESSION["disocunt_item"]="";
+$_SESSION["quantity_item"]="";
+$_SESSION["location_item"]="";
+$_SESSION["description_item"]="";
+$_SESSION["filepath"]="";
+$_SESSION["city"]="";
+$_SESSION["country"]="";
+$_SESSION["category_item"]="";
         //filter data
 $_SESSION["item_name"]=input_data($_POST['name']);
 $_SESSION["price"]=input_data($_POST['priceOfItem']);
 $_SESSION["disocunt_item"]=input_data($_POST['discountOfItem']);
 $_SESSION["quantity_item"]=input_data( $_POST['quantity']);
 $_SESSION["location_item"]=input_data($_POST['address']);
-$_SESSION["desription_item"]=input_data( $_POST['description']);
+$_SESSION["description_item"]=input_data( $_POST['description']);
 $_SESSION["filepath"]=input_data( basename($_FILES['file']['name']));
 $_SESSION["city"]=input_data($_POST['city']);
 $_SESSION["country"]=input_data( $_POST['country']);
@@ -31,8 +41,10 @@ if($_SESSION["disocunt_item"]==''){
     $_SESSION["disocunt_item"]=0;
 }
         //validate priceItem
-if(!ctype_digit($_SESSION["price"])){
+if(!ctype_digit($_SESSION["price"])&&$_SESSION['price']!=""){
     $_SESSION["pricerr"]="* Only numeric value is allowed";
+    header("Location: editItem.php");
+       return ;
 }
 
                 //location validation
@@ -42,20 +54,24 @@ $_SESSION['st'] = substr($_SESSION["location_item"], strpos($_SESSION["location_
     
 
         //validate city & country
-if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]) )){
-    $_SESSION["country_er"]="* Only alphabets and white space are allowed";
-}
+// if(((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"])))&&($_SESSION['country']!=""||$_SESSION['city']!="")){
+//     $_SESSION["country_er"]="* Only alphabets and white space are allowed";
+//     header("Location: editItem.php");
+//        return ;
+// }
 
         //validate Category
-if($_SESSION["category_item"]=="Choose Categories..."){
-    $_SESSION["cat_er"]=" * Please Choose Category";
-    } 
-
-    
-// if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" &&$_SESSION["city_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["location_item_er"]==""){    
-    updateItem($db,79,$_SESSION['item_name'],$_SESSION['desription_item'],$_SESSION['price'],$_SESSION['quantity_item']
-    ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st']
-    ,$_SESSION['city'],$_SESSION['country']); 
+// if($_SESSION["category_item"]=="Choose Categories..."&&$_SESSION['category_item']!="" ){
+//     $_SESSION["cat_er"]=" * Please Choose Category";
+//     header("Location: editItem.php");
+//        return ;
+//     } 
+if($_SESSION['item_name']!=""){
+updateTitle($db,79,$_SESSION['item_name']);}
+if($_SESSION['price']!=""){
+updatePrice($db,79,$_SESSION['price']);}
+if($_SESSION['description_item']!=""){
+updateDescription($db,79,$_SESSION['description_item']);}
     
     $targetDir = "uploads/";
     $targetFilePath = $targetDir . $_SESSION["filepath"];
@@ -67,11 +83,6 @@ if($_SESSION["category_item"]=="Choose Categories..."){
                     insertImage($_SESSION["filepath"],$db);
                 }
         }
-//}
-//else{
-    header("Location: editItem.php");
-  //   return ;
-//}
 }
 ?>
 <div class="container-fluid ">
@@ -79,7 +90,7 @@ if($_SESSION["category_item"]=="Choose Categories..."){
         <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
             <div class="display h1 mt-4 mb-4">Edit Item</div>
             <div class=" col-lg-5 col-md-12 col-sm-6">
-                <form action="profileSeller.php" method="POST" id="contactFrom" enctype="multipart/form-data">
+                <form action="editItem.php" method="POST" id="contactFrom" enctype="multipart/form-data">
                     <div class="mb-4 input-group ">
                         <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name"
                             autofocus value="<?php 

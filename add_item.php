@@ -7,6 +7,9 @@ if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['t
     header("Location: logout.php");
     return;
 }
+// if(isset($_GET['itemid'])){
+//     $_SESSION['itemID']=$_GET['itemid'];
+
 if(isset($_POST['done']))
 { 
         //filter data
@@ -14,31 +17,35 @@ $_SESSION["item_name"]=input_data($_POST['name']);
 $_SESSION["price"]=input_data($_POST['priceOfItem']);
 $_SESSION["disocunt_item"]=input_data($_POST['discountOfItem']);
 $_SESSION["quantity_item"]=input_data( $_POST['quantity']);
-$_SESSION["location_item"]=input_data($_POST['address']);
-$_SESSION["desription_item"]=input_data( $_POST['description']);
+$_SESSION["description_item"]=input_data( $_POST['description']);
 $_SESSION["filepath"]=input_data( basename($_FILES['file']['name']));
 $_SESSION["city"]=input_data($_POST['city']);
 $_SESSION["country"]=input_data( $_POST['country']);
 $_SESSION["category_item"]=input_data($_POST['category']);
+$_SESSION['homeNum']=input_data($_POST['homenumber']);
+$_SESSION['st']=input_data($_POST['street']);
+$_SESSION['st_er']="";
 $_SESSION["pricerr"] = "";
 $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
-var_dump($_SESSION['category_item']);
+$_SESSION['DB_er']="";
+// var_dump($_SESSION['category_item']);
         //validate priceItem
-if(!ctype_digit($_SESSION["price"])){
-    $_SESSION["pricerr"]="* Only numeric value is allowed";
+if(!ctype_digit($_SESSION["price"]) &&$_SESSION["price"]<0){
+    $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
 }
 
-                //location validation
-$_SESSION["location_item_er"]=validate_street_address($_SESSION["location_item"]);
-$_SESSION['homeNum'] = strtok($_SESSION["location_item"],  ' ');
-$_SESSION['st'] = substr($_SESSION["location_item"], strpos($_SESSION["location_item"], " ") + 1);
+                //street validation
+if(!ctype_alpha($_SESSION["st"])){
+    $_SESSION["st_er"]="* Only Alphabets and White Space Are Allowed";
+}    
+
     
 
         //validate city & country
-if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]) )){
-    $_SESSION["country_er"]="* Only alphabets and white space are allowed";
+if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]))){
+    $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
 }
 
         //validate Category
@@ -47,11 +54,15 @@ if($_SESSION["category_item"]=="Choose Categories..."){
     }
 
     
-if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" &&$_SESSION["city_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["location_item_er"]==""){    
-    insertItemName($_SESSION['item_name'],$_SESSION['desription_item'],$_SESSION['price'],$_SESSION['quantity_item']
-    ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st']
-    ,$_SESSION['city'],$_SESSION['country'],$db); 
+if(checkUnique($db,$_SESSION['homeNum'],$_SESSION['st'],$_SESSION['city'],$_SESSION['country'])!=0){
+$_SESSION['DB_er']="wrong";    
+}
     
+if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="" && $_SESSION['DB_er']==""){    
+    insertItemName($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
+    ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
+    $_SESSION['city'],$_SESSION['country'],$db);
+    $_SESSION['DB_er']=1;
     $targetDir = "uploads/";
     $targetFilePath = $targetDir . $_SESSION["filepath"];
     $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -76,8 +87,8 @@ else{
             <div class=" col-lg-5 col-md-12 col-sm-6">
                 <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data">
                     <div class="mb-4 input-group ">
-                        <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name" required
-                            autofocus value="<?php 
+                        <input type="name" class="form-control" placeholder="Item Name" name="name" required autofocus
+                            value="<?php 
                              if(isset($_SESSION["item_name"])){
                              echo $_SESSION["item_name"];
                             unset($_SESSION["item_name"]);
@@ -91,10 +102,10 @@ else{
                         }?></p>
                     <div class=" mb-4 input-group">
                         <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
-                            name="description" value="<?php if(isset($_SESSION["desription_item"])){
-                            echo $_SESSION["desription_item"] ;
-                            unset($_SESSION["desription_item"]);
-                        } ;?>" rows="3"></textarea>
+                            name="description" value="<?php if(isset($_SESSION["description_item"])){
+                            echo $_SESSION["description_item"] ;
+                            unset($_SESSION["description_item"]);
+                        } ;?>" rows="2"></textarea>
                     </div>
                     <div class="input-group  mb-4">
                         <select required value="<?php if(isset($_SESSION["category_item"])){
@@ -114,17 +125,24 @@ else{
                         echo $_SESSION["cat_er"]; 
                         unset($_SESSION["cat_er"]);
                 } ?></p>
-                    <div class="mb-4 input-group">
-                        <input type="address" class="form-control" id="address"
-                            placeholder="Location@exmaple: 1234 main st" name="address" required value="<?php if(isset($_SESSION["location_item"])){
-                                echo $_SESSION["location_item"]; 
-                                unset($_SESSION["location_item"]);
-                        }?>">
+                    <div class="row g-2 mb-4">
+                        <div class="col-sm-6">
+                            <input required min=1 type="number" name="homenumber" class="form-control"
+                                placeholder="Home Number" value="<?php if(isset($_SESSION["homeNum"])){
+                            echo $_SESSION["homeNum"] ;
+                            unset($_SESSION["homeNum"]);}?>">
+                        </div>
+                        <div class="col-sm-6">
+                            <input required name="street" type="text" class="form-control" placeholder="Street"
+                                aria-label="streett" value="<?php if(isset($_SESSION["st"])){
+                                    echo $_SESSION["st"] ;
+                                    unset($_SESSION["st"]);}?>">
+                        </div>
                     </div>
                     <p class="diplay text-danger "><?php 
-                    if(isset($_SESSION["location_item_er"])){
-                        echo $_SESSION["location_item_er"]; 
-                        unset($_SESSION["location_item_er"]);
+                    if(isset($_SESSION["st_er"])){
+                        echo $_SESSION["st_er"]; 
+                        unset($_SESSION["st_er"]);
                 } ?></p>
                     <div class="row g-2 mb-4">
                         <div class="col-sm-6">
@@ -187,7 +205,21 @@ else{
             <div class="col-lg-6 col-md-12">
                 <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
             </div>
+            <?php 
+             if (isset($_SESSION['DB_er'])&&$_SESSION['DB_er']==1) {
+             echo '<div class="alert alert-success w-50" role="alert" >Successfully Submitted
+                      <i class="bi bi-check"></i></div>';
+                     unset($_SESSION["DB_er"]);}
+                 else{
+                     if(isset($_SESSION['DB_er'])){
+                    echo '<div class="alert alert-danger w-50" role="alert">Invalid Submit !</div>'; 
+                    unset($_SESSION["DB_er"]);}
+                }?>
         </div>
     </div>
 </div>
+</div>
 <?php include $tpl . "footer.php" ?>
+<!-- class="alert alert-danger" role="alert" -->
+<!-- class="alert alert-success w-50" role="alert"  -->
+<!-- <i class="bi bi-check"></i> -->
