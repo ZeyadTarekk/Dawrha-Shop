@@ -346,4 +346,13 @@ function updateCountry($db,$itemID,$country){
     $stmt->execute();
 }
 //end edit item
+// functions for buyer profile
+function getBuyerMobiles($id, $db)
+{
+    $sql = "SELECT phone FROM mobilebuyer WHERE buyerId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
 ?>

@@ -1,29 +1,44 @@
 <?php
 $pageTitle = 'Profile';
 include "init.php";
+if (!isset($_SESSION['username'])) {
+    header("Location: signin.php");
+    return;
+}
+
+$buyerData = getBuyer($db, $_SESSION['username'])[0];
+$buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
+
 ?>
 
 
     <div class="container p-3 position-static">
         <div class="row shadow rounded p-3 m-5 text-lg-start text-md-center text-sm-center border-start border-5 border-success">
             <div class="col-lg-3 m-auto">
-                <h1 class="card-title">UserName</h1>
+                <h1 class="card-title"><?=$buyerData['userName']?></h1>
             </div>
             <div class="col-lg-7 m-auto">
                 <div class="m-2">
                     <h4 class="d-inline-block">Email: </h4>
-                    <a href="mailto:a.m.hamza156@gmail.com" class="mb-2 link-dark fa-1x "><h5
+                    <a href="mailto:<?= $buyerData["email"] ?>"  class="mb-2 link-dark fa-1x "><h5
                             class="text-muted d-inline-block">
-                            a.m.hamza156@gmail.com
+                            <?=$buyerData["email"]?>
                         </h5></a>
                 </div>
                 <div class="m-2">
                     <h4 class="d-inline-block">Mobile: </h4>
-                    <h5 class="mb-2 text-muted d-inline-block ">0123456789</h5>
+                    <h5 class="mb-2 text-muted d-inline-block ">
+                        <ul class="list-group list-group-flush profile_scroll" style="max-height: 120px;overflow: auto">
+                            <?php
+                            foreach ($buyerMobiles as $mobile) {
+                                echo "<li class='list-group-item'> $mobile->phone</li>";
+                            }
+                            ?>
+                    </h5>
                 </div>
                 <div class="m-2">
                     <h4 class="d-inline-block">Join date: </h4>
-                    <h5 class=" mb-2 text-muted d-inline-block">11-22-2022</h5>
+                    <h5 class=" mb-2 text-muted d-inline-block"><?= $buyerData["joinDate"] ?></h5>
                 </div>
             </div>
             <div class="col-lg-2 m-auto">
@@ -45,7 +60,7 @@ include "init.php";
                                 <i class="bi bi-people-fill fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $buyerData["likes"] + $buyerData["disLikes"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Review</p>
                             </div>
                         </div>
@@ -61,7 +76,7 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-up fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $buyerData["likes"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Like</p>
                             </div>
                         </div>
@@ -77,7 +92,7 @@ include "init.php";
                                 <i class="bi bi-hand-thumbs-down fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $buyerData["disLikes"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Dislike</p>
                             </div>
                         </div>
@@ -93,7 +108,7 @@ include "init.php";
                                 <i class="bi bi-cash-coin fa-4x"></i>
                             </div>
                             <div class="text-end" style="width: fit-content">
-                                <h2 class="fw-normal pt-2 mb-1 text-center"> 256 </h2>
+                                <h2 class="fw-normal pt-2 mb-1 text-center"> <?= $buyerData["transactions"] ?> </h2>
                                 <p class="text-muted mb-1 text-center">Transaction</p>
                             </div>
                         </div>
