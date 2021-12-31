@@ -149,7 +149,7 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php?itemid=<?= $orderedItem->itemId?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
+                    <a href="reviewItem.php?itemid=<?= $orderedItem->itemId?>" style="text-decoration: none;color: black;">
 
                         <?php
                         if($imageName){
