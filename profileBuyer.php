@@ -14,7 +14,6 @@ if (isset($_GET['permanentlyDelete_id'])) {
 $buyerData = getBuyer($db, $_SESSION['username'])[0];
 $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
 $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
-$deletedItems = []; //? buyer has no deleted orders??!
 ?>
 
 
@@ -177,53 +176,5 @@ $deletedItems = []; //? buyer has no deleted orders??!
                 </section>
             </div>
         </div>
-
-
-        <!------------------------------------------------>
-        <!--   Deleted   -->
-        <!------------------------------------------------>
-        <div class="row justify-content-around" id="deleted">
-            <div class="col-sm-12">
-                <div class="jumbotron jumbotron-fluid m-3">
-                    <div class="container">
-                        <h1 class="display-4">Deleted</h1>
-                        <hr class="my-4">
-                        <p class="lead">List of all deleted items.</p>
-                    </div>
-                </div>
-                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static" style="gap: 60px;">
-
-                    <?php
-                    foreach ($deletedItems as $deletedItem) {
-                    $imageName = getImageOfAnItem($deletedItem->itemId,$db);
-                    $category = getCategory($deletedItem->categoryId, $db)[0];
-                    echo '
-                    <div class="col-lg-3 m-0 text-center">
-                        <div class="card m-md-auto shadow" style="width: 18rem;">
-                                '; ?>
-                    <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(70%)">
-
-                        <a href="reviewItem.php?itemid=<?= $deletedItem->itemId?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
-                            <?php echo '       
-                    <div class="card-body">
-                                <h5 class="card-title">' . $deletedItem->title . '</h5>
-                                <h6 class="card-title">' . $category->categoryName . '</h6>
-                                <p class="card-text">' . $deletedItem->description . '</p>
-                                <h4 class="card-title">' . $deletedItem->price . '</h4>
-                                <div class="card-body">
-                                    <a href="profileSeller.php?retrieve_id=' . $deletedItem->itemId . '" class="btn btn-success">Retrieve</a>
-                                    <a href="profileSeller.php?permanentlyDelete_id=' . $deletedItem->itemId . '"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
-                                </div>
-                            </div>
-                    </a>
-                        </div>
-                    </div>
-                    ';
-                            } ?>
-
-                </section>
-            </div>
-        </div>
-
     </div>
 <?php include $tpl . "footer.php" ?>
