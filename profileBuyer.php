@@ -163,7 +163,6 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                                 <p class="card-text">' . $orderedItem->description . '</p>
                                 <h4 class="card-title">' . $orderedItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="editItem.php?id=' . $orderedItem->itemId . '" class="btn btn-success">Edit</a>
                                     <a href="profileBuyer.php?permanentlyDelete_id=' . $orderedItem->itemId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
