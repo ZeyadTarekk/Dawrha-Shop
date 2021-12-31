@@ -1,14 +1,20 @@
 <?php
 $pageTitle = 'Profile';
+$imagesUploades = "data/uploads/items/";
 include "init.php";
 if (!isset($_SESSION['username'])) {
     header("Location: signin.php");
     return;
 }
-
+if (isset($_GET['permanentlyDelete_id'])) {
+    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
+    header("Location: profileBuyer.php");
+    return;
+}
 $buyerData = getBuyer($db, $_SESSION['username'])[0];
 $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
-
+$orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
+$deletedItems = []; //? buyer has no deleted orders??!
 ?>
 
 
@@ -120,7 +126,7 @@ $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
 
 
         <!------------------------------------------------>
-        <!--   Sold  out  -->
+        <!--   ordered  -->
         <!------------------------------------------------>
         <div class="row justify-content-around" id="ordered">
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -137,27 +143,29 @@ $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
             <div class="col-sm-12 ">
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
                     <?php
-                    for ($i = 0;
-                    $i < 10;
-                    $i++) {
+                    foreach ($orderedItems as $orderedItem) {
+                    $imageName = getImageOfAnItem($orderedItem->itemId,$db);
+                    $category = getCategory($orderedItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php" style="text-decoration: none;color: black;">
+                    <a href="reviewItem.php?itemid=<?= $orderedItem->itemId?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
 
-                        <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+                        <?php
+                        if($imageName){
+                            echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        }
+                        ?>
                         <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card\'s
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
+                                <h5 class="card-title">' . $orderedItem->title . '</h5>
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $orderedItem->description . '</p>
+                                <h4 class="card-title">' . $orderedItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="editItem.php?id=' . $orderedItem->itemId . '" class="btn btn-success">Edit</a>
+                                    <a href="profileBuyer.php?permanentlyDelete_id=' . $orderedItem->itemId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                             </a>
@@ -186,34 +194,32 @@ $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static" style="gap: 60px;">
 
                     <?php
-                    for ($i = 0;
-                    $i < 10;
-                    $i++) {
+                    foreach ($deletedItems as $deletedItem) {
+                    $imageName = getImageOfAnItem($deletedItem->itemId,$db);
+                    $category = getCategory($deletedItem->categoryId, $db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
                     <a href="reviewItem.php" style="text-decoration: none;color: black;filter:grayscale(70%)">
 
-                        <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                        <?php echo '       
+                        <a href="reviewItem.php?itemid=<?= $deletedItem->itemId?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
+                            <?php echo '       
                     <div class="card-body">
-                                <h5 class="card-title">Item Name</h5>
-                                <h6 class="card-title">Category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up
-                                    the bulk of the card\'s
-                                    content.</p>
-                                <h4 class="card-title">$30</h4>
+                                <h5 class="card-title">' . $deletedItem->title . '</h5>
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $deletedItem->description . '</p>
+                                <h4 class="card-title">' . $deletedItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-success">Retrieve</a>
-                                    <a href="profileSeller.php?x=1"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
+                                    <a href="profileSeller.php?retrieve_id=' . $deletedItem->itemId . '" class="btn btn-success">Retrieve</a>
+                                    <a href="profileSeller.php?permanentlyDelete_id=' . $deletedItem->itemId . '"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
                                 </div>
                             </div>
                     </a>
                         </div>
                     </div>
                     ';
-                        } ?>
+                            } ?>
 
                 </section>
             </div>

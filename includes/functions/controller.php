@@ -355,4 +355,20 @@ function getBuyerMobiles($id, $db)
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+function getBuyerOrderedItems($id, $db)
+{
+    $sql = "SELECT * FROM buyer,orders,item WHERE buyer.ID = orders.buyerId AND orders.itemId = item.itemId AND buyer.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getBuyerDeletedItems($id, $db)
+{
+    $sql = "SELECT * FROM buyer,item WHERE buyer.ID = item.buyerId AND item.isDeleted = 1 AND buyer.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
 ?>

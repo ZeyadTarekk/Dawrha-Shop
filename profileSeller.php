@@ -19,7 +19,6 @@ if (isset($_GET['retrieve_id'])) {
 }
 if (isset($_GET['permanentlyDelete_id'])) {
     permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
-    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
     header("Location: profileSeller.php");
     return;
 }
