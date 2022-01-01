@@ -103,8 +103,13 @@ header("Location: signin.php");
           </ul>
         </li>
         <li class="nav-item ">
+          <?php if($_SESSION["typeOfUser"]==="buyer"): ?>
           <a class="nav-link active me-lg-3" aria-current="page"
-            href="index.php"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
+            href="profileBuyer.php"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
+          <?php elseif($_SESSION["typeOfUser"]==="seller"): ?>
+          <a class="nav-link active me-lg-3" aria-current="page"
+            href="profileSeller.php"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
+          <?php endif; ?>
         </li>
         <!-- End Difference-->
       </ul>
