@@ -114,7 +114,7 @@ else{
                             <option selected> Choose Categories...</option>
                             <?php  $row = getCategories($db);
                                 foreach($row as $cat):
-                             echo '<option value="'.$cat['cateogryId'].'">'.$cat['categoryName'].'</option>';?>
+                             echo '<option value="'.$cat['categoryId'].'">'.$cat['categoryName'].'</option>';?>
                             <?php endforeach ?>
                         </select>
                         <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
