@@ -172,6 +172,7 @@
               InsertPhone($userName, $phone, $db);
             }
             $userName = $fName = $lName = $phone = $email = $cEmail = $pass = $cPass = '';
+            header("Location: index.php");
           }
         } 
       }
@@ -467,6 +468,9 @@
       header("Location: index.php");
     }else {
       $admin = GetAdminByID($adminId, $db);
+      if (empty($admin)) {
+        header("Location: index.php");
+      }
       if(isset($_POST['submit'])) {
         DeleteAdminByID($adminId, $db);
         header("Location: index.php");

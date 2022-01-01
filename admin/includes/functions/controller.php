@@ -116,8 +116,8 @@ function GetCategoryByID($id, $db) {
 }
 
 function UpdateCategory($id, $name, $des, $db) {
-  $insertSql = "UPDATE category SET categoryName='" . $name . "', categoryDescription='" . $des . "' WHERE cateogryId=" . $id . ";";
-  $db->exec($insertSql);
+  $updateSql = "UPDATE category SET categoryName='" . $name . "', categoryDescription='" . $des . "' WHERE cateogryId=" . $id . ";";
+  $db->exec($updateSql);
 }
 
 function DeleteCategoryByID($id, $db) {
@@ -219,7 +219,7 @@ function DeleteItemByID($id, $db) {
 }
 
 function GetItemViewByID($id, $db) {
-  $sql = "SELECT * FROM item,seller WHERE item.sellerId=seller.ID;";
+  $sql = "SELECT * FROM item,seller WHERE item.sellerId=seller.ID AND item.itemId=" . $id . ";";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;

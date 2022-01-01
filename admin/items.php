@@ -148,9 +148,23 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
               <p class="item-name"><?php echo $item[0]['title']; ?></p>
               <p class="description"><?php echo $item[0]['description']; ?></p>
               <div class="price">
-                <div class="new-price"><?php echo $item[0]['price'] - ($item[0]['price'] * $item[0]['discount']) . " $"; ?></div>
-                <div class="discount"><?php echo $item[0]['discount'] . "%"; ?></div>
-                <div class="old-price"><?php echo $item[0]['price'] . " $"; ?></div>
+              <?php 
+                if ($item[0]['discount'] == 0) {
+                  echo '<div class="new-price">';
+                  echo $item[0]['price'] . " $";
+                  echo '</div>';
+                }else {
+                  echo '<div class="new-price">';
+                  echo $item[0]['price'] - ($item[0]['price'] * ($item[0]['discount']/100)) . " $";
+                  echo '</div>';
+                  echo '<div class="discount">';
+                  echo $item[0]['discount'] . "%";
+                  echo '</div>';
+                  echo '<div class="old-price">';
+                  echo $item[0]['price'] . " $";
+                  echo '</div>';
+                }
+              ?>
               </div>
               <p class="loctaion">Location: <?php echo $item[0]['homeNumber'] . ', ' .
                                   $item[0]['street'] . ' ' . $item[0]['city'] . ' ' . $item[0]['country'];?></p>

@@ -400,4 +400,26 @@ function cartItem($db){
 }
 // end cart
 
+//Start reviewItem
+function GetItemByID($id, $db) {
+    $sql = "SELECT * FROM item,seller WHERE item.sellerId=seller.ID AND item.itemId=" . $id . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+function GetCartIDFromBuyer($id, $db) {
+    $sql = "SELECT cartId  FROM buyer WHERE ID=" . $id . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+function UpdateItemCount($id, $price, $db) {
+    $updateSql = "UPDATE cart SET itemCount=itemCount+1, payment=payment+" . $price . " WHERE cart.cartId=" . $id . ";";
+    $db->exec($updateSql);
+}
+function InsertCartItem($cartID, $itemID, $quantity, $db) {
+    $insertSql = "INSERT INTO cartitem (cartId, itemId, quantity) VALUES (" . $cartID . ", " . $itemID . ", " . $quantity . ");";
+    $db->exec($insertSql);
+}
+//End reviewItem
 ?>

@@ -208,7 +208,19 @@
   border-radius: 10px;
   cursor: pointer;
 }
-
+.add-to-cart {
+  padding: 50px;
+  margin: 50px auto;
+}
+.add-to-cart h1 {
+  font-weight: bold;
+}
+.add-to-cart .info-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  margin-left: 20px;
+  font-size: 24px;
+}
 /* End ReviewItem */
 
 /* add item */
