@@ -128,11 +128,15 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
         <!--   ordered  -->
         <!------------------------------------------------>
         <div class="row justify-content-around" id="ordered">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="#ordered" class="btn btn-success m-2 rounded-pill btn-lg">Sold Items</a>
+                <a href="#deleted" class="btn btn-success m-2 rounded-pill btn-lg">Deleted Items</a>
+            </div>
             <div class="jumbotron jumbotron-fluid m-3">
                 <div class="container">
                     <h1 class="display-4">Ordered Items</h1>
                     <hr class="my-4">
-                    <p class="lead">List of all Sold items.</p>
+                    <p class="lead">List of all ordered items.</p>
                 </div>
             </div>
             <div class="col-sm-12 ">
