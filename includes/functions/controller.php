@@ -27,7 +27,7 @@ function getCategories($db)
 
 function getItemsByCategory($db, $categoryName)
 {
-    $sql = "SELECT * FROM item as e WHERE e.categoryId in (SELECT b.cateogryId from category as b WHERE categoryName = '" . $categoryName . "');";
+    $sql = "SELECT * FROM item as e WHERE e.categoryId in (SELECT b.categoryId from category as b WHERE categoryName = '" . $categoryName . "');";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
@@ -187,7 +187,7 @@ function insertSellerPhoneNumber($id,$mobile,$db){
 // Add Item
 
 function insertItemName($title,$Des,$price,$quantity,$catId,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
-    $sql="INSERT INTO item ( title, description, price, quantity, addDate,categoryId,sellerId,comission,homeNumber,street,city,country)
+    $sql="INSERT INTO item ( title, description, price, quantity, addDate,categoryId,sellerId,discount,homeNumber,street,city,country)
     VALUES ('".$title."', '".$Des."', ".$price.", ".$quantity.", current_timestamp(), ".$catId.",".$sellerid.",".$discount.", ".$homeNum.",'".$street."','".$city."','".$country."')";
     $stmt=$db->prepare($sql);
     $stmt->execute();
@@ -250,7 +250,7 @@ function getSellerSoldOutItems($id, $db)
 
 function getCategory($catId, $db)
 {
-    $sql = "SELECT * from category WHERE category.cateogryId = :catId";
+    $sql = "SELECT * from category WHERE category.categoryId = :catId";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":catId" => $catId));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
@@ -328,7 +328,7 @@ function updateCategory($db,$itemID,$cat){
     $stmt->execute();
 }
 function updateDiscount($db,$itemID,$discount){
-    $sql="UPDATE `item` SET `comission` = '".$discount."' WHERE `item`.`itemId` = ".$itemID."";
+    $sql="UPDATE `item` SET `discount` = '".$discount."' WHERE `item`.`itemId` = ".$itemID."";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 }
@@ -392,7 +392,7 @@ function deleteOrder($id,$db){
 //start cart 
 
 function cartItem($db){
-    $sql="SELECT title,price,description,comission,item.quantity
+    $sql="SELECT title,price,description,discount,item.quantity
     from buyer,cartitem,item WHERE buyer.cartId=cartitem.cartId AND cartitem.itemId=item.itemId";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

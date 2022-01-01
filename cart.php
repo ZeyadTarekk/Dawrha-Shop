@@ -3,14 +3,14 @@ $noNavbar = "";
 $pageTitle = "Cart Item";
 include "init.php";
 $rows=cartItem($db);
-// $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['comission']/100)));
+// $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['discount']/100)));
 ?>
 <div class="container-lg text-center pt-5">
-    <div class="text-center">
-        <div class="row row-of-card g-5 justify-content-start align-items-center">
-            <?php
+  <div class="text-center">
+    <div class="row row-of-card g-5 justify-content-start align-items-center">
+      <?php
             foreach($rows as $k):
-            $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['comission']/100)));
+            $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['discount']/100)));
                 
          echo ' 
          <div class="col-8 col-lg-4 col-xl-3 ">
@@ -19,8 +19,8 @@ $rows=cartItem($db);
                         style="width: fit-content; top: 0;right: 0">
                         <span class="badge"><i class="bi bi-trash"></i>
                         </span></a> ';?>
-            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-            <?php  echo'
+      <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+      <?php  echo'
             <div class="card-body">
                 <h5 class="card-title">
                     '.$k['title'].' </h5>
@@ -33,8 +33,8 @@ $rows=cartItem($db);
         </div>
     </div>
 </div>';?>
-            <?php endforeach?>
+      <?php endforeach?>
 
-        </div>
     </div>
+  </div>
 </div>

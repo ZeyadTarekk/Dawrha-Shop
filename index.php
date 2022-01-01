@@ -32,7 +32,7 @@
   $iterk1 = count($items);
     for($i=0; $i < $iterI1 ; ++$i) {
       for($k=0;$k < $iterk1;++$k){
-        if($items[$k]['categoryId']==$categories[$i]['cateogryId']){
+        if($items[$k]['categoryId']==$categories[$i]['categoryId']){
           $items[$k]["categoryName"]=$categories[$i]['categoryName'];
           // echo $items[$k]["categoryName"];
           } 
@@ -87,7 +87,7 @@
                 <p class="card-text"> <?php echo $ite['description'] ?></p>
                 <h4 class="card-title"><?php echo $ite['price'] . '$' ?></h4>
                 <div class="card-body">
-                  <a href="<?php echo "reviewitem.php?id=" . $ite['itemId'] ?>" class="btn btn-success">Review</a>
+                  <a href="<?php echo "reviewitem.php?itemid=" . $ite['itemId'] ?>" class="btn btn-success">Review</a>
                 </div>
               </div>
             </div>
