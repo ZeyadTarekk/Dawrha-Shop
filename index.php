@@ -78,7 +78,7 @@
       <div class="row row-of-card g-5 justify-content-center align-items-center">
         <?php foreach($items as $ite): ?>
         <div class="col-8 col-lg-4 col-xl-3 ">
-          <a href="<?php echo "reviewitem.php?itemid=" . $ite['itemId'] ?>" style="text-decoration:none; color:black">
+          <a href="<?php echo "reviewitem.php?do=Manage&itemId=" . $ite['itemId'] . "&itemName=" . $ite['title'] ?>" style="text-decoration:none; color:black">
             <div class="card m-md-auto shadow" style="width: 18rem;">
               <img src="<?php echo $dataimages . $ite['image'] ?>" class="card-img-top" alt="Item">
               <div class="card-body">
@@ -87,7 +87,7 @@
                 <p class="card-text"> <?php echo $ite['description'] ?></p>
                 <h4 class="card-title"><?php echo $ite['price'] . '$' ?></h4>
                 <div class="card-body">
-                  <a href="<?php echo "reviewitem.php?itemid=" . $ite['itemId'] ?>" class="btn btn-success">Review</a>
+                  <a href="<?php echo "reviewitem.php?do=Manage&itemId=" . $ite['itemId'] . "&itemName=" . $ite['title'] ?>" class="btn btn-success">Review</a>
                 </div>
               </div>
             </div>
