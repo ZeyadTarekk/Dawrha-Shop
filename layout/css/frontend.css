@@ -55,6 +55,18 @@
   max-height: 40px;
 }
 
+.mainpage-dropdown-item {
+  padding-left: 15px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+.mainpage-dropdown-item:hover {
+  padding-left: 25px;
+}
+
 /* End NavBar */
 
 /* Start ReviewItem */
