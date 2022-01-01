@@ -182,12 +182,13 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     as $forSaleItem) {
                     $imageName = getImageOfAnItem($forSaleItem->itemId,$db);
                     $category = getCategory($forSaleItem->categoryId, $db)[0];
+                    $countOrders = getOrdersCount($forSaleItem->itemId,$db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                              <a href="#" class="btn btn-danger rounded-pill position-absolute"
                                style="width: fit-content; top: 0;right: 0">
-                                <span class="badge">0</span></a>
+                                <span class="badge">'.$countOrders.'</span></a>
                                 '; ?>
 
                     <a href="reviewItem.php?itemid=<?= $forSaleItem->itemId?>" style="text-decoration: none;color: black">

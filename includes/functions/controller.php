@@ -284,6 +284,13 @@ function getImageOfAnItem($id,$db){
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+function getOrdersCount($itemId,$db){
+    $sql = "SELECT count(*) FROM orders,item WHERE orders.itemId = item.itemId AND item.itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $itemId));
+    $rows = $stmt->fetchColumn();
+    return $rows;
+}
 // end profile seller
 // Start notifications
 function setNotificationsSeenForBuyer($db,$ownerID){
