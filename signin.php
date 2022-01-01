@@ -96,15 +96,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             <i class="bi bi-eye" id="eyeIcon"></i>
           </span>
                     </div>
-                    <div class="text-danger">
-                        <?php
-                        // Flash Message
-                        if (isset($_SESSION['error'])) {
-                            echo $_SESSION['error'];
-                            unset($_SESSION['error']);
-                        }
-                        ?>
-                    </div>
+                    <?php
+                    if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
+                        echo' <div class="alert alert-danger" role="alert">'.$_SESSION["error"].'</div> ';
+                        unset($_SESSION['error']);
+                    }
+                    ?>
                     <p class="mb-4 text-secondary">By clicking Sign In, you agree to our <a href="#"
                                                                                             class="link-primary">Terms
                             of
