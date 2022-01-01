@@ -1,85 +1,40 @@
 <?php
-$noNavbar = '';
-$pageTitle = 'Cart Item';
+$noNavbar = "";
+$pageTitle = "Cart Item";
 include "init.php";
+$rows=cartItem($db);
+// $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['comission']/100)));
 ?>
-
 <div class="container-lg text-center pt-5">
     <div class="text-center">
         <div class="row row-of-card g-5 justify-content-start align-items-center">
-            <div class="col-8 col-lg-4 col-xl-3 ">
-                <!-- This is the main card and the outer classes are for styling in this page only -->
+            <?php
+            foreach($rows as $k):
+            $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['comission']/100)));
+                
+         echo ' 
+         <div class="col-8 col-lg-4 col-xl-3 ">
                 <div class="card m-md-auto shadow" style="width: 18rem;">
-                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                    <div class="card-body">
-                        <h5 class="card-title">Item Name</h5>
-                        <h6 class="card-title">Category</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's
-                            content.</p>
-                        <h4 class="card-title"> 30 &#163</h4>
-                        <div class="card-body">
-                            <a href="reviewItem.php" class="btn btn-success">view item</a>
-                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 col-lg-4 col-xl-3 ">
-                <!-- This is the main card and the outer classes are for styling in this page only -->
-                <div class="card m-md-auto shadow" style="width: 18rem;">
-                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                    <div class="card-body">
-                        <h5 class="card-title">Item Name</h5>
-                        <h6 class="card-title">Category</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's
-                            content.</p>
-                        <h4 class="card-title">30 &#163</h4>
-                        <div class="card-body">
-                            <a href="reviewItem.php" class="btn btn-success">view item</a>
-                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 col-lg-4 col-xl-3 ">
-                <!-- This is the main card and the outer classes are for styling in this page only -->
-                <div class="card m-md-auto shadow" style="width: 18rem;">
-                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                    <div class="card-body">
-                        <h5 class="card-title">Item Name</h5>
-                        <h6 class="card-title">Category</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's
-                            content.</p>
-                        <h4 class="card-title">30 &#163</h4>
-                        <div class="card-body">
-                            <a href="reviewItem.php" class="btn btn-success">view item</a>
-                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 col-lg-4 col-xl-3 ">
-                <!-- This is the main card and the outer classes are for styling in this page only -->
-                <div class="card m-md-auto shadow" style="width: 18rem;">
-                    <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-                    <div class="card-body">
-                        <h5 class="card-title">Item Name</h5>
-                        <h6 class="card-title">Category</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's
-                            content.</p>
-                        <h4 class="card-title">30 &#163</h4>
-                        <div class="card-body">
-                            <a href="reviewItem.php" class="btn btn-success">view item</a>
-                            <!-- <a href="#" class="btn btn-danger">Go 2</a> -->
-                        </div>
-                    </div>
-                </div>
+                    <a href="#" class="btn btn-danger rounded-pill position-absolute"
+                        style="width: fit-content; top: 0;right: 0">
+                        <span class="badge"><i class="bi bi-trash"></i>
+                        </span></a> ';?>
+            <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <?php  echo'
+            <div class="card-body">
+                <h5 class="card-title">
+                    '.$k['title'].' </h5>
+                <p class="card-text">'.$k['description'].' </p>
+                <h4 class="card-title">' .$finalPrice.'   &#163;</h4>
+            <div class="card-body">
+                <a href="reviewItem.php" class="btn btn-success">view item</a>
+                <a href="cart.php" class="btn btn-primary">order item</a>
             </div>
         </div>
     </div>
+</div>';?>
+            <?php endforeach?>
+
+        </div>
+    </div>
 </div>
-<!-- </div> -->

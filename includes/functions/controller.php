@@ -352,7 +352,13 @@ function updateCountry($db,$itemID,$country){
     $stmt = $db->prepare($sql);
     $stmt->execute();
 }
+function updateQuantity($db,$itemID,$quantity){
+    $sql="UPDATE `item` SET `quantity` = ".$quantity." WHERE `item`.`itemId` = ".$itemID."";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
 //end edit item
+
 // functions for buyer profile
 function getBuyerMobiles($id, $db)
 {
@@ -383,4 +389,15 @@ function deleteOrder($id,$db){
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
 }
+//start cart 
+
+function cartItem($db){
+    $sql="SELECT title,price,description,comission,item.quantity
+    from buyer,cartitem,item WHERE buyer.cartId=cartitem.cartId AND cartitem.itemId=item.itemId";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+// end cart
+
 ?>
