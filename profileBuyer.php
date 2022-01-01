@@ -7,7 +7,7 @@ if (!isset($_SESSION['username'])) {
     return;
 }
 if (isset($_GET['permanentlyDelete_id'])) {
-    permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
+    deleteOrder($_GET['permanentlyDelete_id'], $db);
     header("Location: profileBuyer.php");
     return;
 }

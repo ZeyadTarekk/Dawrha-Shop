@@ -371,4 +371,9 @@ function getBuyerDeletedItems($id, $db)
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+function deleteOrder($id,$db){
+    $sql = "DELETE FROM orders WHERE orders.itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
 ?>
