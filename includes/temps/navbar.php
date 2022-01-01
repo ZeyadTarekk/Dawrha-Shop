@@ -86,7 +86,7 @@ header("Location: signin.php");
             <span class="navbar-toggler-icon"></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-profile mt-3 mt-lg-0 mb-2 mb-lg-0" aria-labelledby="navbarDropdown1"
-            style="top: 52px; left: -50px;">
+            style="top: 55px; left: -50px;">
             <?php if($_SESSION["typeOfUser"]==="buyer"): ?>
             <li><a class="dropdown-item mainpage-dropdown-item" href="profileBuyer.php">Profile</a></li>
             <?php elseif($_SESSION["typeOfUser"]==="seller"): ?>
