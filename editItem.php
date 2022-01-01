@@ -2,76 +2,93 @@
 $pageTitle = 'Edit Item';
 include "init.php";
 
-
 if(!isset($_SESSION['username'])){
     header("Location: signin.php");
     return;
-// $_SESSION['itemID']=$_GET['itemid'];
-// $_SESSION['itemID']=79;
 }
+    if(isset($_GET['itemid'])){
+$_SESSION['itemID']=$_GET['id'];
+}
+
+
 if(isset($_POST['DONE']))
 { 
-$_SESSION["item_name"]="";
-$_SESSION["price"]="";
-$_SESSION["disocunt_item"]="";
-$_SESSION["quantity_item"]="";
-$_SESSION["location_item"]="";
-$_SESSION["description_item"]="";
-$_SESSION["filepath"]="";
-$_SESSION["city"]="";
-$_SESSION["country"]="";
-$_SESSION["category_item"]="";
         //filter data
 $_SESSION["item_name"]=input_data($_POST['name']);
 $_SESSION["price"]=input_data($_POST['priceOfItem']);
 $_SESSION["disocunt_item"]=input_data($_POST['discountOfItem']);
 $_SESSION["quantity_item"]=input_data( $_POST['quantity']);
-$_SESSION["location_item"]=input_data($_POST['address']);
 $_SESSION["description_item"]=input_data( $_POST['description']);
 $_SESSION["filepath"]=input_data( basename($_FILES['file']['name']));
 $_SESSION["city"]=input_data($_POST['city']);
 $_SESSION["country"]=input_data( $_POST['country']);
 $_SESSION["category_item"]=input_data($_POST['category']);
+$_SESSION['homeNum']=input_data($_POST['homenumber']);
+$_SESSION['st']=input_data($_POST['street']);
+$_SESSION['st_er']="";
 $_SESSION["pricerr"] = "";
 $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
+$_SESSION['DB_er']="";
 
-if($_SESSION["disocunt_item"]==''){
-    $_SESSION["disocunt_item"]=0;
-}
-        //validate priceItem
-if(!ctype_digit($_SESSION["price"])&&$_SESSION['price']!=""){
-    $_SESSION["pricerr"]="* Only numeric value is allowed";
-    header("Location: editItem.php");
-       return ;
-}
+//validate priceItem
+// if(!ctype_digit($_SESSION["price"]) &&$_SESSION["price"]<0){
+//     $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
+// }
 
-                //location validation
-$_SESSION["location_item_er"]=validate_street_address($_SESSION["location_item"]);
-$_SESSION['homeNum'] = strtok($_SESSION["location_item"],  ' ');
-$_SESSION['st'] = substr($_SESSION["location_item"], strpos($_SESSION["location_item"], " ") + 1);
+                //street validation
+// if(!ctype_alpha($_SESSION["st"])){
+//     $_SESSION["st_er"]="* Only Alphabets and White Space Are Allowed";
+// }    
+
     
 
         //validate city & country
-// if(((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"])))&&($_SESSION['country']!=""||$_SESSION['city']!="")){
-//     $_SESSION["country_er"]="* Only alphabets and white space are allowed";
-//     header("Location: editItem.php");
-//        return ;
+// if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]))){
+//     $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
 // }
 
         //validate Category
-// if($_SESSION["category_item"]=="Choose Categories..."&&$_SESSION['category_item']!="" ){
+// if($_SESSION["category_item"]=="Choose Categories..."){
 //     $_SESSION["cat_er"]=" * Please Choose Category";
-//     header("Location: editItem.php");
-//        return ;
-//     } 
+//     }
+
 if($_SESSION['item_name']!=""){
-updateTitle($db,79,$_SESSION['item_name']);}
+updateTitle($db,$_SESSION['itemID'],$_SESSION['item_name']);
+$_SESSION['DB_er']=1;
+;}
 if($_SESSION['price']!=""){
-updatePrice($db,79,$_SESSION['price']);}
-if($_SESSION['description_item']!=""){
-updateDescription($db,79,$_SESSION['description_item']);}
+updatePrice($db,$_SESSION['itemID'],$_SESSION['price']);}
+if(isset($_SESSION['description_item'])&&$_SESSION['description_item']!=""){
+updateDescription($db,$_SESSION['itemID'],$_SESSION['description_item']);}
+if(isset($_SESSION['country'])&&$_SESSION['country']!=""){
+if(ctype_alpha($_SESSION['country'])){
+updateCountry($db,$_SESSION['itemID'],$_SESSION['country']);}
+else{
+$_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";}
+}
+if(isset($_SESSION['city'])&&$_SESSION['city']!=""){
+    if(ctype_alpha( $_SESSION["city"])){
+    updateCity($db,$_SESSION['itemID'],$_SESSION['city']);}
+    else{
+        $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";}
+    }
+if(isset($_SESSION['st'])&&$_SESSION['st']!=""){
+    if(!ctype_alpha($_SESSION["st"])){
+updateStreet($db,$_SESSION['itemID'],$_SESSION['st']);}
+else{
+$_SESSION["st_er"]="* Only Alphabets and White Space Are Allowed";
+}
+}
+if($_SESSION["category_item"]!="Choose Categories..."){
+updateCategory($db,$_SESSION['itemID'],$_SESSION['category_item']);}
+if(isset($_SESSION['quantity'])&&$_SESSION['quantity']!=""){
+updateQuantity($db,$_SESSION['itemID'],$_SESSION['quantity_item']);}
+if($_SESSION['disocunt_item']!=0){
+updateDiscount($db,$_SESSION['itemID'],$_SESSION['disocunt_item']);
+}
+            
     
     $targetDir = "uploads/";
     $targetFilePath = $targetDir . $_SESSION["filepath"];
@@ -92,8 +109,7 @@ updateDescription($db,79,$_SESSION['description_item']);}
             <div class=" col-lg-5 col-md-12 col-sm-6">
                 <form action="editItem.php" method="POST" id="contactFrom" enctype="multipart/form-data">
                     <div class="mb-4 input-group ">
-                        <input type="name" class="form-control " id="namee" placeholder="Item Name" name="name"
-                            autofocus value="<?php 
+                        <input type="name" class="form-control" placeholder="Item Name" name="name" autofocus value="<?php 
                              if(isset($_SESSION["item_name"])){
                              echo $_SESSION["item_name"];
                             unset($_SESSION["item_name"]);
@@ -107,10 +123,10 @@ updateDescription($db,79,$_SESSION['description_item']);}
                         }?></p>
                     <div class=" mb-4 input-group">
                         <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
-                            name="description" value="<?php if(isset($_SESSION["desription_item"])){
-                            echo $_SESSION["desription_item"] ;
-                            unset($_SESSION["desription_item"]);
-                        } ;?>" rows="3"></textarea>
+                            name="description" value="<?php if(isset($_SESSION["description_item"])){
+                            echo $_SESSION["description_item"] ;
+                            unset($_SESSION["description_item"]);
+                        } ;?>" rows="2"></textarea>
                     </div>
                     <div class="input-group  mb-4">
                         <select value="<?php if(isset($_SESSION["category_item"])){
@@ -130,32 +146,44 @@ updateDescription($db,79,$_SESSION['description_item']);}
                         echo $_SESSION["cat_er"]; 
                         unset($_SESSION["cat_er"]);
                 } ?></p>
-                    <div class="mb-4 input-group">
-                        <input type="address" class="form-control" id="address"
-                            placeholder="Location@exmaple: 1234 main st" name="address" value="<?php if(isset($_SESSION["location_item"])){
-                                echo $_SESSION["location_item"]; 
-                                unset($_SESSION["location_item"]);
-                        }?>">
+                    <div class="row g-2 mb-4">
+                        <div class="col-sm-6">
+                            <input min=1 type="number" name="homenumber" class="form-control" placeholder="Home Number"
+                                value="<?php if(isset($_SESSION["homeNum"])){
+                            echo $_SESSION["homeNum"] ;
+                            unset($_SESSION["homeNum"]);}?>">
+                        </div>
+                        <div class="col-sm-6">
+                            <input name="street" type="text" class="form-control" placeholder="Street"
+                                aria-label="streett" value="<?php if(isset($_SESSION["st"])){
+                                    echo $_SESSION["st"] ;
+                                    unset($_SESSION["st"]);}?>">
+                        </div>
                     </div>
                     <p class="diplay text-danger "><?php 
-                    if(isset($_SESSION["location_item_er"])){
-                        echo $_SESSION["location_item_er"]; 
-                        unset($_SESSION["location_item_er"]);
+                    if(isset($_SESSION["st_er"])){
+                        echo $_SESSION["st_er"]; 
+                        unset($_SESSION["st_er"]);
                 } ?></p>
                     <div class="row g-2 mb-4">
                         <div class="col-sm-6">
-                            <input type="text" name="city" class="form-control" placeholder="City" aria-label="City">
+                            <input type="text" name="city" class="form-control" placeholder="City" aria-label="City"
+                                value="<?php if(isset($_SESSION["city"])){
+                            echo $_SESSION["city"] ;
+                            unset($_SESSION["city"]);}?>">
                         </div>
                         <div class="col-sm-6">
                             <input name="country" type="text" class="form-control" placeholder="Country"
-                                aria-label="country">
+                                aria-label="country" value="<?php if(isset($_SESSION["country"])){
+                                    echo $_SESSION["country"] ;
+                                    unset($_SESSION["country"]);}?>">
                         </div>
                     </div>
                     <p class="diplay text-danger "><?php if(isset($_SESSION["country_er"])){
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
-                    <div class="input-group  mb-4">
+                    <div class=" input-group mb-4">
                         <input value="<?php if(isset($_SESSION["price"])){
                                 echo $_SESSION["price"]; 
                                 unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
@@ -169,11 +197,12 @@ updateDescription($db,79,$_SESSION['description_item']);}
                 } ?></p>
                     <div class=" input-group mb-4">
                         <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number"
-                            class="form-control">
+                            class="form-control" value="<?php if(isset($_SESSION["disocunt_item"])){
+                                echo $_SESSION["disocunt_item"]; 
+                                unset($_SESSION["disocunt_item"]);}?>">
                         <span class=" input-group-text  bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
-
                     <div class="input-group  mb-4 ">
                         <input name="file" type="file" class="form-control " id="inputGroupFile04"
                             aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
@@ -184,9 +213,9 @@ updateDescription($db,79,$_SESSION['description_item']);}
                     </div>
                     <div class="input-group mb-4" id="input_div">
                         <input class="form-control " type="number" placeholder="Quantity" name="quantity" size="25"
-                            min=0 id=" counting">
-                        <!-- <input class=" bg-success text-light" type="button" value="-" id="moins" onclick="minus()">
-                        <input class=" bg-success text-light" type="button" value="+" id="pluss" onclick="plus()"> -->
+                            min=0 id=" counting" value="<?php if(isset($_SESSION["quantity_item"])){
+                                echo $_SESSION["quantity_item"]; 
+                                unset($_SESSION["quantity_item"]);}?>">
                     </div>
                     <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="DONE">save
                         item</button>
@@ -195,7 +224,19 @@ updateDescription($db,79,$_SESSION['description_item']);}
             <div class="col-lg-6 col-md-12">
                 <img src=" layout/images/editing.png" alt=" item's photo" class="img-fluid">
             </div>
+            <?php 
+             if (isset($_SESSION['DB_er'])&&$_SESSION['DB_er']==1) {
+             echo '<div class="alert alert-success w-50" role="alert" >Successfully Submitted
+                      <i class="bi bi-check"></i></div>';
+                     unset($_SESSION["DB_er"]);}
+                 else{
+                     if(isset($_SESSION['DB_er'])){
+                    echo '<div class="alert alert-danger w-50" role="alert">Invalid Submit !</div>'; 
+                    unset($_SESSION["DB_er"]);}
+                }?>
         </div>
     </div>
 </div>
+</div>
+
 <?php include $tpl . "footer.php" ?>
