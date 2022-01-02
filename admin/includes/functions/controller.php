@@ -200,7 +200,7 @@ function DeleteSellerByID($id, $db) {
 function GetItems($db) {
   $sql = "SELECT I.itemId,I.title,C.categoryName,S.fName,S.lName,I.price,I.quantity 
           FROM item as I,category as C,seller as S 
-          WHERE I.categoryId=C.cateogryId AND I.sellerId=S.ID;";
+          WHERE I.categoryId=C.categoryId AND I.sellerId=S.ID;";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
