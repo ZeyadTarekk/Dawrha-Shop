@@ -11,6 +11,7 @@ $cartID = GetCartIDFromBuyer($_SESSION["id"], $db)[0]['cartId'];
 $items=cartItem($db,$_SESSION['id']);
 if (isset($_GET['deleteItem'])) {
     deleteItemCart($cartID, $_GET['deleteItem'], $db);
+    updateTheCartAfterDeletion($cartID, $_GET['finalPrice'], $db);
     header("Location: cart.php");
 }
 ?>
@@ -24,7 +25,7 @@ if (isset($_GET['deleteItem'])) {
             echo ' 
             <div class="col-8 col-lg-4 col-xl-3 ">
                 <div class="card m-md-auto shadow" style="width: 18rem;">
-                    <a href="cart.php?deleteItem='.$k['itemId']. '" id="stopRedirect"   class="btn btn-danger rounded-pill position-absolute"
+                    <a href="cart.php?deleteItem='. $k['itemId'] .'&finalPrice=' . $finalPrice . '" id="stopRedirect"  class="btn btn-danger rounded-pill position-absolute"
                         style="width: fit-content; top: 0;right: 0"  onclick="return  deleteItemCart()">
                         <span class="badge"><i class="bi bi-trash"></i>
                         </span></a> ';?>
@@ -36,8 +37,8 @@ if (isset($_GET['deleteItem'])) {
                 <p class="card-text">'.$k['description'].' </p>
                 <h4 class="card-title">' .$finalPrice.' $</h4>
             <div class="card-body">
-                <a href="reviewItem.php?do=Manage&itemId=' . $k['itemId'] . '&itemName=' . $k['itemId'] . '" class="btn btn-success">view item</a>
-                <a href="cart.php?deleteItem=' . $k['itemId'] . '" class="btn btn-primary">order item</a>
+                <a href="reviewItem.php?do=Manage&itemId=' . $k['itemId'] . '&itemName=' . $k['itemId'] . '" class="btn btn-success">View Item</a>
+                <a href="" class="btn btn-primary">Order Item</a>
             </div>
         </div>
     </div>

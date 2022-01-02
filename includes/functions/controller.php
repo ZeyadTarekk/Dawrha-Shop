@@ -422,7 +422,7 @@ function deleteOrder($id,$db){
 
 function cartItem($db,$buyerId){
     $sql="SELECT title,price,description,discount,cartitem.quantity ,item.itemId 
-     from item ,buyer,cartitem,cart WHERE buyer.cartId = cart.cartId and cartitem.cartId=cart.cartId and 
+            from item ,buyer,cartitem,cart WHERE buyer.cartId = cart.cartId and cartitem.cartId=cart.cartId and 
     buyer.ID=".$buyerId." and cartitem.itemId = item.itemId";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -433,6 +433,10 @@ function deleteItemCart($cartID, $itemID, $db)
     $sql = "DELETE FROM cartitem WHERE cartitem.cartId=" . $cartID . " AND cartitem.itemId=" . $itemID . ";";
     $stmt = $db->prepare($sql);
     $stmt->execute();
+}
+function updateTheCartAfterDeletion($cartID, $finalPrice, $db) {
+    $updateSql = "UPDATE cart SET itemCount=itemCount-1, payment=payment-" . $finalPrice . " WHERE cart.cartId=" . $cartID . ";";
+    $db->exec($updateSql);
 }
 // end cart
 
