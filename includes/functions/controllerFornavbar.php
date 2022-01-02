@@ -1,6 +1,6 @@
 <?php 
 function getBuyer($db,$username){
-  $sql = "SELECT * FROM buyer where userName ='".$username."'";
+  $sql = "CALL `getBuyerWithUserName`('$username');";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   // echo $result[0]['ID'];
@@ -8,7 +8,7 @@ function getBuyer($db,$username){
 }
 
 function getSeller($db,$username){
-  $sql = "SELECT * FROM seller where userName ='".$username."'";
+  $sql = "CALL `getSellerWithUserName`('$username');";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   // echo $result[0]['sellerId'];
