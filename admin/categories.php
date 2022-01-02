@@ -30,8 +30,8 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
               echo '<th scope="row">' . $cat['categoryName'] . '</th>';
               echo '<td>' . $cat['categoryDescription'] . '</td>';
               echo '<td>
-                      <a href="?do=Edit&categoryId=' . $cat['cateogryId'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
-                      <a href="?do=Delete&categoryId=' . $cat['cateogryId'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
+                      <a href="?do=Edit&categoryId=' . $cat['categoryId'] . '" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
+                      <a href="?do=Delete&categoryId=' . $cat['categoryId'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                     </td>';
               echo '</tr>';
             }

@@ -398,9 +398,9 @@ function cartItem($db){
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
-function deleteItemCart($itemID, $db)
+function deleteItemCart($cartID, $itemID, $db)
 {
-    $sql = "DELETE FROM item WHERE item.itemId='".$itemID."'";
+    $sql = "DELETE FROM cartitem WHERE cartitem.cartId=" . $cartID . " AND cartitem.itemId=" . $itemID . ";";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 }
@@ -423,10 +423,31 @@ function UpdateItemCount($id, $price, $db) {
     $updateSql = "UPDATE cart SET itemCount=itemCount+1, payment=payment+" . $price . " WHERE cart.cartId=" . $id . ";";
     $db->exec($updateSql);
 }
+function UpdateItemCountPrice($id, $oldPrice, $newPrice, $db) {
+    $updateSql = "UPDATE cart SET payment=payment-" . $oldPrice . "+" . $newPrice ." WHERE cart.cartId=" . $id . ";";
+    $db->exec($updateSql);
+}
 function InsertCartItem($cartID, $itemID, $quantity, $db) {
     $insertSql = "INSERT INTO cartitem (cartId, itemId, quantity) VALUES (" . $cartID . ", " . $itemID . ", " . $quantity . ");";
     $db->exec($insertSql);
 }
+function UpdateCartItem($cartID, $itemID, $quantity, $db) {
+    $updateSql = "UPDATE cartitem SET quantity=" . $quantity . " WHERE cartId=" . $cartID . " AND itemId=" . $itemID . ";";
+    $db->exec($updateSql);
+}
+function SelectQuantityOfItem($cartID, $itemID, $db) {
+    $sql = "SELECT quantity FROM cartitem WHERE cartId=" . $cartID . " AND itemId=" . $itemID . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+function CheckBuyerAndItem($cartID, $itemID, $db) {
+    $sql = "SELECT * FROM cartitem WHERE cartId=" . $cartID . " AND itemId=" . $itemID . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return count($result);
+}
+
 //End reviewItem
 // edit profile start
 function updateBuyer($id,$username, $password, $email, $fname, $lname, $db)

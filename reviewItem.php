@@ -1,13 +1,14 @@
 <?php
+ob_start();
 //get the name of the item to update the header
 $itemName = isset($_GET['itemName']) ? $_GET['itemName'] : 0;
 if (!$itemName) {
-  //header("Location: index.php");
+  header("Location: index.php");
 }
 $pageTitle = $itemName;
 include 'init.php';
 
-if ($_SESSION['typeOfUser'] == "admin") {
+if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] == "admin") {
   header("Location: admin/index.php");
 }
 
@@ -64,13 +65,29 @@ if ($do == 'Manage') {
           }
         ?>
       </div>
-      <?php 
-        if ($_SESSION['typeOfUser'] != 'seller') {
+      <?php
+        if (isset($_SESSION['id']) && $_SESSION['typeOfUser'] == 'buyer') {
+          $cartID = GetCartIDFromBuyer($_SESSION['id'], $db)[0]['cartId'];
+          if (CheckBuyerAndItem($cartID, $itemId, $db)) {
+            echo '
+            <form action="?do=Update&itemId=' . $itemId . '&itemName=' . $itemName . '" class="order-section" method="POST">
+            <div class="counter">
+              <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
+              <input type="number" id="amount" min="1" name="quan">
+              <!-- need to send the max number of items to adding(max) -->
+              <span class="right-btn" onclick="adding(' . $item['quantity'] . ')"><i class="fas fa-plus"></i></span>
+              </div>
+              <button class="add-to-cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Edit The Cart</span>
+              </button>
+            </form>';
+          } elseif ($_SESSION['typeOfUser'] && $_SESSION['typeOfUser'] == 'buyer') {
       ?>
       <form action="?do=Confirm&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>" class="order-section" method="POST">
         <div class="counter">
           <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
-          <input type="number" id="amount" max="5" name="quan">
+          <input type="number" id="amount" min="1" name="quan">
           <!-- need to send the max number of items to adding(max) -->
           <span class="right-btn" onclick="adding(<?php echo $item['quantity']; ?>)"><i class="fas fa-plus"></i></span>
         </div>
@@ -79,29 +96,24 @@ if ($do == 'Manage') {
           <span>Add to cart</span>
         </button>
       </form>
-      <?php } ?>
+      <?php } } ?>
     </div>
   </section>
 </div>
 
 <?php 
-} elseif ($do == 'Confirm' && $_SESSION['id']) {
+} elseif ($do == 'Confirm' && isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "buyer") {
   if (isset($_POST['submit'])) {
     //add this item to the cart of that buyer(session_id)
     $num = $_GET['quantity'];
     //get the cart id from the buyer info
-    $cartID = GetCartIDFromBuyer($_SESSION['id'], $db)[0];
+    $cartID = GetCartIDFromBuyer($_SESSION['id'], $db)[0]['cartId'];
     //update the itemCount and payment in cart
     $price = $num * ($item['price'] - ($item['price'] * ($item['discount']/100)));
-    UpdateItemCount($cartID['cartId'], $price, $db);
+    UpdateItemCount($cartID, $price, $db);
     //insert into the cart item table
-    InsertCartItem($cartID['cartId'], $item['itemId'], $num, $db);
-    ?>
-    <script>
-      window.location.href = "index.php";
-    </script>
-    <!-- header("Location: index.php"); -->
-    <?php 
+    InsertCartItem($cartID, $item['itemId'], $num, $db);
+    header("Location: cart.php");
   } else {
   $num = $_POST['quan'];
   if ($num <= 0) {
@@ -128,7 +140,47 @@ if ($do == 'Manage') {
 <?php
     }
   }
+} elseif ($do == 'Update' && isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "buyer") {
+  if (isset($_POST['submit'])) {
+    $cartID = GetCartIDFromBuyer($_SESSION['id'], $db)[0]['cartId'];
+    //we need to delete the tuple with cartID and itemID
+    $num = $_GET['quantity'];
+    $oldnum = SelectQuantityOfItem($cartID, $itemId, $db)[0]['quantity'];
+    $newPrice = $num * ($item['price'] - ($item['price'] * ($item['discount']/100)));
+    $oldPrice = $oldnum * ($item['price'] - ($item['price'] * ($item['discount']/100)));
+    UpdateItemCountPrice($cartID, $oldPrice, $newPrice, $db);
+    UpdateCartItem($cartID, $itemId, $num, $db);
+
+    //header("Location: cart.php");
+  } else {
+  $num = $_POST['quan'];
+  if ($num <= 0) {
+    header("Location: reviewitem.php?do=Manage&itemId=" . $itemId . "&itemName=" . $itemName);
+  } else {
+?>
+
+<div class="container shadow add-to-cart">
+  <h1 class="text-center">Edit The Cart</h1>
+  <div class="info-section">
+    <div class="item-name"><b>Item:</b> <?php echo $item['title']; ?></div>
+    <div class="final-price"><b>Price:</b> <?php echo $item['price'] - ($item['price'] * ($item['discount']/100)); ?> $</div>
+    <div class="quantity"><b>Quantity:</b> <?php echo $num; ?></div>
+    <div class="total-price"><b>Total Price:</b> <?php echo $num * ($item['price'] - ($item['price'] * ($item['discount']/100))); ?> $</div>
+    <div class="location"><b>Location:</b> <?php echo $item['homeNumber'] . ', ' .
+                                  $item['street'] . ' ' . $item['city'] . ' ' . $item['country'];?></div>
+  </div>
+  <form action="?do=Update&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>&quantity=<?php echo $num; ?>" method="POST" class="text-center" method="POST">
+    <button type="submit" name="submit" class="btn btn-success">Confirm</button>
+    <a class="btn btn-danger" href="<?php echo '?do=Manage&itemId=' . $itemId . '&itemName=' . $itemName; ?>">Go Back</a>
+  </form>
+</div>
+
+
+<?php
+    }
+  }
 }
 
-include $tpl . 'footer.php' 
+include $tpl . 'footer.php';
+ob_end_flush();
 ?>
