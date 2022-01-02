@@ -414,7 +414,7 @@ function getBuyerDeletedItems($id, $db)
     return $rows;
 }
 function deleteOrder($id,$db){
-    $sql = "DELETE FROM orders WHERE orders.itemId = :id";
+    $sql = "DELETE FROM orders WHERE orders.orderId = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
 }

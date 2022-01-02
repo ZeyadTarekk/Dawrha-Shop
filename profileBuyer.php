@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: signin.php");
     return;
 }
-if (isset($_GET['permanentlyDelete_id'])) {
-    deleteOrder($_GET['permanentlyDelete_id'], $db);
+if (isset($_GET['deleteOrderId'])) {
+    deleteOrder($_GET['deleteOrderId'], $db);
     header("Location: profileBuyer.php");
     return;
 }
@@ -160,7 +160,7 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                                 <p class="card-text">' . $orderedItem->description . '</p>
                                 <h4 class="card-title">' . $orderedItem->price . '</h4>
                                 <div class="card-body">
-                                    <a href="profileBuyer.php?permanentlyDelete_id=' . $orderedItem->itemId . '" class="btn btn-danger">Delete</a>
+                                    <a href="profileBuyer.php?deleteOrderId=' . $orderedItem->orderId . '" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                             </a>
