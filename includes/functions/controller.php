@@ -422,4 +422,86 @@ function InsertCartItem($cartID, $itemID, $quantity, $db) {
     $db->exec($insertSql);
 }
 //End reviewItem
+// edit profile start
+function updateBuyer($id,$username, $password, $email, $fname, $lname, $db)
+{
+    $sql = "UPDATE buyer SET userName = :username,password = :password,email = :email, fName = :fname,lName = :lname WHERE Id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":username" => $username,
+        ":password" => $password,
+        ":email" => $email,
+        ":fname" => $fname,
+        ":lname" => $lname,
+        ":id"=>$id
+    ));
+}
+
+function updateSeller($id,$username, $password, $email, $fname, $lname, $db)
+{
+    $sql = "UPDATE seller SET userName = :username,password = :password,email = :email, fName = :fname,lName = :lname WHERE Id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":username" => $username,
+        ":password" => $password,
+        ":email" => $email,
+        ":fname" => $fname,
+        ":lname" => $lname,
+        ":id"=>$id
+    ));
+}
+function getBuyerIdByUserName($username, $db)
+{
+    $sql = "SELECT id FROM buyer WHERE userName = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":username" => $username));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getSellerIdByUserName($username, $db)
+{
+    $sql = "SELECT id FROM seller WHERE userName = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":username" => $username));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getAdminIdByUserName($username, $db)
+{
+    $sql = "SELECT id FROM admin WHERE userName = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":username" => $username));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getBuyerIdByEmail($email, $db)
+{
+    $sql = "SELECT id FROM buyer WHERE email = :email";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":email" => $email));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getAdminIdByEmail($email, $db)
+{
+    $sql = "SELECT id FROM admin WHERE email = :email";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":email" => $email));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
+function getSellerIdByEmail($email, $db)
+{
+    $sql = "SELECT id FROM seller WHERE email = :email";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":email" => $email));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+
 ?>
