@@ -74,7 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: index.php");
         return;
     }
-    if ($_SESSION['missingError'] != "") {
+    else{
+        if(isset($_SESSION['missingError']) && !empty($_SESSION['missingError']))
         $_SESSION['missingError'] = "Please enter your " . $_SESSION['missingError'];
         header("Location: signup.php");
         return;

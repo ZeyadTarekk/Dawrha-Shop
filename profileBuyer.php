@@ -3,13 +3,19 @@ $pageTitle = 'Profile';
 $imagesUploades = "data/uploads/items/";
 include "init.php";
 if (!isset($_SESSION['username'])) {
-    header("Location: signin.php");
-    return;
+    ?>
+    <script>
+        window.location.href = "signin.php";
+    </script>
+    <?php
 }
 if (isset($_GET['permanentlyDelete_id'])) {
     deleteOrder($_GET['permanentlyDelete_id'], $db);
-    header("Location: profileBuyer.php");
-    return;
+?>
+    <script>
+    window.location.href = "profileBuyer.php";
+    </script>
+<?php
 }
 $buyerData = getBuyer($db, $_SESSION['username'])[0];
 $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);

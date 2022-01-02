@@ -74,8 +74,12 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
         }
 }
 else{
-    header("Location: add_item.php");
-     return ;
+    ?>
+<script>
+window.location.href = "add_item.php";
+</script>
+<?php 
+return ;
 }
 }
 ?>
