@@ -1,21 +1,16 @@
 <?php
+ob_start();
 $pageTitle = 'Profile';
 $imagesUploades = "data/uploads/items/";
 include "init.php";
 if (!isset($_SESSION['username'])) {
-    ?>
-    <script>
-        window.location.href = "signin.php";
-    </script>
-    <?php
+    header("Location: signin.php");
+    return;
 }
 if (isset($_GET['permanentlyDelete_id'])) {
     deleteOrder($_GET['permanentlyDelete_id'], $db);
-?>
-    <script>
-    window.location.href = "profileBuyer.php";
-    </script>
-<?php
+    header("Location: profileBuyer.php");
+    return;
 }
 $buyerData = getBuyer($db, $_SESSION['username'])[0];
 $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
@@ -53,7 +48,7 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                 </div>
             </div>
             <div class="col-lg-2 m-auto">
-                <a href="#" class="link-dark"><i class="bi bi-pencil fa-3x"></i></a>
+                <a href="EditProfile.php" class="link-dark"><i class="bi bi-pencil fa-3x"></i></a>
             </div>
         </div>
 
@@ -178,4 +173,4 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
             </div>
         </div>
     </div>
-<?php include $tpl . "footer.php" ?>
+<?php include $tpl . "footer.php";ob_end_flush();?>

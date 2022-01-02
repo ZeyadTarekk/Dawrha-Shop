@@ -1,38 +1,27 @@
 <?php
+ob_start();
 $pageTitle = 'Profile';
 $imagesUploades = "data/uploads/items/";
 include "init.php";
 // if not signed in redirect to sign-in page
 if (!isset($_SESSION['username'])) {
-    ?>
-    <script>
-        window.location.href = "signin.php";
-    </script>
-    <?php
+    header("Location: signin.php");
+    return;
 }
 if (isset($_GET['delete_id'])) {
     shallowDeleteItem($_GET['delete_id'], $db);
-    ?>
-    <script>
-        window.location.href = "profileSeller.php";
-    </script>
-    <?php
+    header("Location: profileSeller.php");
+    return;
 }
 if (isset($_GET['retrieve_id'])) {
     retrieveItem($_GET['retrieve_id'], $db);
-    ?>
-    <script>
-        window.location.href = "profileSeller.php";
-    </script>
-    <?php
+    header("Location: profileSeller.php");
+    return;
 }
 if (isset($_GET['permanentlyDelete_id'])) {
     permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
-    ?>
-    <script>
-        window.location.href = "profileSeller.php";
-    </script>
-    <?php
+    header("Location: profileSeller.php");
+    return;
 }
 $sellerData = getSeller($db, $_SESSION['username'])[0];
 $sellerMobiles = getSellerMobiles($_SESSION['id'], $db);
@@ -77,7 +66,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                 </div>
             </div>
             <div class="col-lg-2 m-auto">
-                <a href="#" class="link-dark"><i class="bi bi-pencil fa-3x"></i></a>
+                <a href="EditProfile.php" class="link-dark"><i class="bi bi-pencil fa-3x"></i></a>
             </div>
         </div>
 
@@ -338,4 +327,4 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
         </div>
 
     </div>
-<?php include $tpl . "footer.php" ?>
+<?php include $tpl . "footer.php";ob_end_flush(); ?>
