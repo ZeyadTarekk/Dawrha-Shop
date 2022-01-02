@@ -19,7 +19,7 @@ function getItemsImages($db)
 
 function getCategories($db)
 {
-    $sql = "SELECT * FROM category";
+    $sql = "call GetAllCategories();";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
