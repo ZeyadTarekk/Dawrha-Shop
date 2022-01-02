@@ -323,7 +323,7 @@ function updatePrice($db,$itemID,$price){
     $stmt->execute();
 }
 function updateCategory($db,$itemID,$cat){
-    $sql="UPDATE `item` SET `category` = '".$cat."' WHERE `item`.`itemId` = ".$itemID."";
+    $sql="UPDATE `item` SET `categoryId` = '".$cat."' WHERE `item`.`itemId` = ".$itemID."";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 }
@@ -392,11 +392,17 @@ function deleteOrder($id,$db){
 //start cart 
 
 function cartItem($db){
-    $sql="SELECT title,price,description,discount,item.quantity
+    $sql="SELECT title,price,description,discount,item.quantity,item.itemId 
     from buyer,cartitem,item WHERE buyer.cartId=cartitem.cartId AND cartitem.itemId=item.itemId";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
+}
+function deleteItemCart($itemID, $db)
+{
+    $sql = "DELETE FROM item WHERE item.itemId='".$itemID."'";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
 }
 // end cart
 
