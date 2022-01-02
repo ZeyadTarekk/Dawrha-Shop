@@ -34,7 +34,7 @@ function getItemsByCategory($db, $categoryName)
 }
 
 function searchForItems($db,$keyWord){
-    $sql = "SELECT * FROM item WHERE title LIKE '%".$keyWord."%' UNION SELECT * FROM item WHERE description LIKE '%".$keyWord."%'";
+    $sql = "call searchForItemsByKeyword('%$keyWord%');";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
