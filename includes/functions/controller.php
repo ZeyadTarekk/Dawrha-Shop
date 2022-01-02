@@ -11,7 +11,7 @@ function getItems($db)
 
 function getItemsImages($db)
 {
-    $sql = "call GetAllIamges();";
+    $sql = "call GetAllImages();";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
