@@ -4,23 +4,35 @@ $imagesUploades = "data/uploads/items/";
 include "init.php";
 // if not signed in redirect to sign-in page
 if (!isset($_SESSION['username'])) {
-    header("Location: signin.php");
-    return;
+    ?>
+    <script>
+        window.location.href = "signin.php";
+    </script>
+    <?php
 }
 if (isset($_GET['delete_id'])) {
     shallowDeleteItem($_GET['delete_id'], $db);
-    header("Location: profileSeller.php");
-    return;
+    ?>
+    <script>
+        window.location.href = "profileSeller.php";
+    </script>
+    <?php
 }
 if (isset($_GET['retrieve_id'])) {
     retrieveItem($_GET['retrieve_id'], $db);
-    header("Location: profileSeller.php");
-    return;
+    ?>
+    <script>
+        window.location.href = "profileSeller.php";
+    </script>
+    <?php
 }
 if (isset($_GET['permanentlyDelete_id'])) {
     permanentlyDeleteItem($_GET['permanentlyDelete_id'], $db);
-    header("Location: profileSeller.php");
-    return;
+    ?>
+    <script>
+        window.location.href = "profileSeller.php";
+    </script>
+    <?php
 }
 $sellerData = getSeller($db, $_SESSION['username'])[0];
 $sellerMobiles = getSellerMobiles($_SESSION['id'], $db);
