@@ -96,7 +96,12 @@ if ($do == 'Manage') {
     UpdateItemCount($cartID['cartId'], $price, $db);
     //insert into the cart item table
     InsertCartItem($cartID['cartId'], $item['itemId'], $num, $db);
-    header("Location: index.php");
+    ?>
+    <script>
+      window.location.href = "index.php";
+    </script>
+    <!-- header("Location: index.php"); -->
+    <?php 
   } else {
   $num = $_POST['quan'];
   if ($num <= 0) {
