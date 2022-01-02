@@ -6,9 +6,14 @@ if(!isset($_SESSION['username'])){
     header("Location: signin.php");
     return;
 }
-    if(isset($_GET['itemid'])){
-$_SESSION['itemID']=$_GET['id'];
-}
+if(isset($_GET['id'])){
+    $_SESSION['itemID']=$_GET['id'];
+    }
+    else{
+        header("Location: signin.php");
+        return;    
+    }
+    
 
 
 if(isset($_POST['DONE']))
@@ -59,6 +64,9 @@ updateTitle($db,$_SESSION['itemID'],$_SESSION['item_name']);
 $_SESSION['DB_er']=1;
 ;}
 if($_SESSION['price']!=""){
+    if(!ctype_digit($_SESSION["price"]) &&$_SESSION["price"]<0){
+        $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
+    }
 updatePrice($db,$_SESSION['itemID'],$_SESSION['price']);}
 if(isset($_SESSION['description_item'])&&$_SESSION['description_item']!=""){
 updateDescription($db,$_SESSION['itemID'],$_SESSION['description_item']);}
@@ -89,7 +97,6 @@ if($_SESSION['disocunt_item']!=0){
 updateDiscount($db,$_SESSION['itemID'],$_SESSION['disocunt_item']);
 }
             
-    
     $targetDir = "uploads/";
     $targetFilePath = $targetDir . $_SESSION["filepath"];
     $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
