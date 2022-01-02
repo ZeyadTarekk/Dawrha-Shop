@@ -11,9 +11,10 @@ $dataimages = "data/uploads/items/";
 
 
 require $func . 'functions.php';
-require $func . 'controller.php';
+// require $func . 'controller.php';
 require $tpl . "header.php";
 
 if(!isset($noNavbar)) { require $tpl . "navbar.php"; }
+elseif (isset($noNavbar)) {require $func . 'controller.php';}
 
 ?>

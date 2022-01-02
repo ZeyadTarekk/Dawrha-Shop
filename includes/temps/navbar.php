@@ -1,7 +1,9 @@
 <?php
+  ob_start();
   require 'admin/connect.php' ;
   $func = "includes/functions/";
-  require $func . 'controllerForNavbar.php';
+  // require $func . 'controllerForNavbar.php';
+  require $func . 'controller.php';
   $unSeenFlag = false;
   $images = "layout/images/";
   session_start();
@@ -140,4 +142,6 @@ header("Location: signin.php");
     </div>
   </div>
 </nav>
-<?php endif ?>
+<?php endif;
+ob_end_flush();
+?>
