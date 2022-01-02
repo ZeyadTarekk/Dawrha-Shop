@@ -34,7 +34,6 @@
       for($k=0;$k < $iterk1;++$k){
         if($items[$k]['categoryId']==$categories[$i]['categoryId']){
           $items[$k]["categoryName"]=$categories[$i]['categoryName'];
-          // echo $items[$k]["categoryName"];
           } 
         }
     }
@@ -44,7 +43,6 @@
       for($k=0;$k < $iterk1;++$k){
         if($items[$k]['itemId']==$itemImages[$i]['itemId']){
           $items[$k]["image"]=$itemImages[$i]['image'];
-          // echo $items[$k]["image"];
           } 
         }
     }

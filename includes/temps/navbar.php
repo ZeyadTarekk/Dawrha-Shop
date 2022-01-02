@@ -7,34 +7,30 @@
   $unSeenFlag = false;
   $images = "layout/images/";
   session_start();
-  // echo $_POST['se'];
-// $_SESSION["username"]= 'ZeyadTarek';
-// unset($_SESSION["username"]);
-// $_SESSION["typeOfUser"] = 'buyer';
-// unset($_SESSION["typeOfUser"]);
-if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
-$User = getBuyer($db,$_SESSION["username"]);
-$Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
-$_SESSION['userID'] = $User[0]['ID'];
-$_SESSION['not'] = $Notifications;
-foreach($Notifications as $noti){
-if($noti['seen']==='0'){
-$unSeenFlag = true;
-break;
-}
-}
-}
-else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller"){
-$User = getSeller($db,$_SESSION["username"]);
-$Notifications = getNotificationsForSeller($db,$User[0]['ID']);
-$_SESSION['userID'] = $User[0]['ID'];
-$_SESSION['not'] = $Notifications;
-foreach($Notifications as $noti){
-if($noti['seen']==='0'){
-$unSeenFlag = true;
-break;
-}
-}
+
+  if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
+  $User = getBuyer($db,$_SESSION["username"]);
+  $Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
+  $_SESSION['userID'] = $User[0]['ID'];
+  $_SESSION['not'] = $Notifications;
+  foreach($Notifications as $noti){
+    if($noti['seen']==='0'){
+      $unSeenFlag = true;
+      break;
+      }
+    }
+  }
+  else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="seller"){
+  $User = getSeller($db,$_SESSION["username"]);
+  $Notifications = getNotificationsForSeller($db,$User[0]['ID']);
+  $_SESSION['userID'] = $User[0]['ID'];
+  $_SESSION['not'] = $Notifications;
+  foreach($Notifications as $noti){
+    if($noti['seen']==='0'){
+      $unSeenFlag = true;
+      break;
+    }
+  }
 }
 else if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="admin"){
 header("Location: signin.php");
@@ -80,8 +76,6 @@ header("Location: signin.php");
         <input class="btn btn-outline-light" value="Search" type="submit"></input>
       </form>
       <ul class="navbar-nav text-center">
-        <!-- Start Difference -->
-
         <li class="nav-item dropdown ">
           <a class="nav-link d-none d-lg-block" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -113,7 +107,6 @@ header("Location: signin.php");
             href="profileSeller.php"><?php echo $User[0]['fName']." ". $User[0]['lName'] ?></a>
           <?php endif; ?>
         </li>
-        <!-- End Difference-->
       </ul>
     </div>
   </div>
@@ -134,10 +127,8 @@ header("Location: signin.php");
         <input class="btn btn-outline-light" value="Search" type="submit"></input>
       </form>
       <ul class="navbar-nav text-center">
-        <!-- Start Difference -->
         <a class="btn btn-outline-light mt-3 mt-lg-0  me-lg-3  " href="signup.php" role="button">Sign Up</a>
         <a class="btn btn-outline-light mt-3 mb-3 mb-lg-0 mt-lg-0  me-lg-3 " href="signin.php" role="button">Log In</a>
-        <!-- End Difference-->
       </ul>
     </div>
   </div>
