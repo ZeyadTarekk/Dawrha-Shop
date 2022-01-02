@@ -398,9 +398,9 @@ function cartItem($db){
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
-function deleteItemCart($itemID, $db)
+function deleteItemCart($cartID, $itemID, $db)
 {
-    $sql = "DELETE FROM item WHERE item.itemId='".$itemID."'";
+    $sql = "DELETE FROM cartitem WHERE cartitem.cartId=" . $cartID . " AND cartitem.itemId=" . $itemID . ";";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 }
