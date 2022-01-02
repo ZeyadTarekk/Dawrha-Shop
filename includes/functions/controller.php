@@ -509,5 +509,14 @@ function getSellerIdByEmail($email, $db)
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
-
+function deleteMobileSeller($sellerId,$mobile,$db){
+    $sql = "DELETE FROM mobileseller WHERE mobileseller.sellerId = :id AND mobileseller.phoneNo = :mobile";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $sellerId,":mobile"=>$mobile));
+}
+function deleteMobileBuyer($buyerId,$mobile,$db){
+    $sql = "DELETE FROM mobilebuyer WHERE mobileseller.buyerId = :id AND mobilebuyer.phone = :mobile";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $buyerId,":mobile"=>$mobile));
+}
 ?>

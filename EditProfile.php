@@ -12,6 +12,17 @@ if (!isset($_SESSION['username'])) {
     header("Location: signin.php");
     return;
 }
+if (isset($_GET['delete_mobile'])) {
+    $mobile = input_data($_GET['delete_mobile']);
+    echo $mobile;
+    if ($_SESSION['typeOfUser'] == 'seller') {
+        deleteMobileSeller($_SESSION['id'], $mobile, $db);
+    } else {
+        deleteMobileBuyer($_SESSION['id'], $mobile, $db);
+    }
+    header("Location: EditProfile.php");
+    return;
+}
 $userDate = "";
 if ($_SESSION['typeOfUser'] == 'buyer') {
     $userDate = getBuyer($db, $_SESSION['username'])[0];
@@ -25,7 +36,39 @@ $_SESSION['Edit_username'] = $userDate['userName'];
 $_SESSION['Edit_firstName'] = $userDate['fName'];
 $_SESSION['Edit_lastName'] = $userDate['lName'];
 $_SESSION['Edit_password'] = '';
-var_dump($_SESSION);
+//var_dump($_SESSION);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mobileForm'])) {
+    $mobile = input_data($_POST['phone']);
+    echo $mobile;
+    $_SESSION['phoneError'] = validateNumber($_POST['phone']);
+    if (!empty($_SESSION['phoneError'])) {
+        header("Location: EditProfile.php");
+        return;
+    }
+    if ($_SESSION['typeOfUser'] == 'seller') {
+        $userAllMobiles = getSellerMobiles($_SESSION['id'], $db);
+        foreach ($userAllMobiles as $mobileUser) {
+            if ($mobileUser->phoneNo == $mobile) {
+                $_SESSION['phoneError'] = "phone number already exist";
+                header("Location: EditProfile.php");
+                return;
+            }
+        }
+        insertSellerPhoneNumber($_SESSION['id'], $mobile, $db);
+    } else {
+        $userAllMobiles = getBuyerMobiles($_SESSION['id'], $db);
+        foreach ($userAllMobiles as $mobileUser) {
+            if ($mobileUser->phone == $mobile) {
+                $_SESSION['phoneError'] = "phone number already exist";
+                header("Location: EditProfile.php");
+                return;
+            }
+        }
+        insertBuyerPhoneNumber($_SESSION['id'], $mobile, $db);
+    }
+    header("Location: EditProfile.php");
+    return;
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // For printing
     $_SESSION['Edit_email'] = htmlentities($_POST['email']);
@@ -47,12 +90,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION["missingError"] = $_SESSION["missingError"] . (empty($_POST['lastName']) ? " last name" : "");
     $_SESSION["missingError"] = $_SESSION["missingError"] . (empty($_POST['password']) ? " password" : "");
 
-    $_SESSION['buyerUsernameId'] = $buyerUsernameId = (getBuyerIdByUserName($_POST["username"], $db)!=null?getBuyerIdByUserName($_POST["username"], $db)[0]->id:null);
-    $_SESSION['sellerUsernameId'] = $sellerUsernameId = (getSellerIdByUserName($_POST["username"], $db)!=null?getSellerIdByUserName($_POST["username"], $db)[0]->id:null);
+    $_SESSION['buyerUsernameId'] = $buyerUsernameId = (getBuyerIdByUserName($_POST["username"], $db) != null ? getBuyerIdByUserName($_POST["username"], $db)[0]->id : null);
+    $_SESSION['sellerUsernameId'] = $sellerUsernameId = (getSellerIdByUserName($_POST["username"], $db) != null ? getSellerIdByUserName($_POST["username"], $db)[0]->id : null);
     $_SESSION['adminUsernameId'] = $adminUsernameId = getAdminIdByUserName($_POST["username"], $db);
 
-    $_SESSION['buyerEmailId'] = $buyerEmailId = (getBuyerIdByEmail($_POST["email"], $db)!=null?getBuyerIdByEmail($_POST["username"], $db)[0]->id:null);
-    $_SESSION['sellerEmailId'] = $sellerEmailId = (getSellerIdByEmail($_POST["email"], $db)!=null?getSellerIdByEmail($_POST["username"], $db)[0]->id:null);
+    $_SESSION['buyerEmailId'] = $buyerEmailId = (getBuyerIdByEmail($_POST["email"], $db) != null ? getBuyerIdByEmail($_POST["username"], $db)[0]->id : null);
+    $_SESSION['sellerEmailId'] = $sellerEmailId = (getSellerIdByEmail($_POST["email"], $db) != null ? getSellerIdByEmail($_POST["username"], $db)[0]->id : null);
     $_SESSION['adminEmailId'] = $adminEmailId = getAdminIdByEmail($_POST["email"], $db);
 
     $_SESSION['userNameError'] = validateUserName($_POST['username']);
@@ -109,11 +152,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-10 row justify-content-center m-5 text-center shadow">
             <div class="col-lg-5 col-md-12 ">
                 <form method="POST" action="EditProfile.php" class="form-signin p-5">
-                    <h3 class="m-3">Create your account</h3>
+                    <h3 class="m-3">Edit your data</h3>
                     <p class="lead m-3">Dawrha </p>
                     <div class="input-group mb-4">
                         <span class="input-group-text">@</span>
-                        <input type="email"  id="email" class="form-control" placeholder="Email Address"
+                        <input type="email" id="email" class="form-control" placeholder="Email Address"
                                name="email"
                                value="<?php
                                if (isset($_SESSION['Edit_email'])) {
@@ -145,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-file-person"></i></span>
-                        <input type="text"  id="firstName" class="form-control" placeholder="First Name"
+                        <input type="text" id="firstName" class="form-control" placeholder="First Name"
                                name="firstName"
                                value="<?php
                                if (isset($_SESSION['Edit_firstName'])) {
@@ -161,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-file-person"></i></span>
-                        <input type="text"  id="lastName" class="form-control" placeholder="Last Name"
+                        <input type="text" id="lastName" class="form-control" placeholder="Last Name"
                                name="lastName"
                                value="<?php
                                if (isset($_SESSION['Edit_lastName'])) {
@@ -178,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="input-group mb-4">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input type="password"  id="password" class="form-control" placeholder="Password"
+                        <input type="password" id="password" class="form-control" placeholder="Password"
                                name="password"
                                value="<?php
                                if (isset($_SESSION['Edit_password'])) {
@@ -207,11 +250,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                value="Submit">
                     </div>
                 </form>
+                <div>
+                    <table class="table table-hover ">
+                        <tbody class = "profile_scroll d-block" style="max-height: 220px; overflow: auto;">
+                        <?php
+                        foreach ($_SESSION['Edit_phone'] as $phone) {
+                            echo "<tr>";
+                            echo '<th scope="row" style="width: 100%">' . ($_SESSION['typeOfUser'] == "seller" ? $phone->phoneNo : $phone->phone) . '</th>';
+                            echo '<th scope="row" style="width: 100%"><a href="EditProfile.php?delete_mobile=
+                                 ' . ($_SESSION['typeOfUser'] == "seller" ? $phone->phoneNo : $phone->phone) . '" class="btn btn-block btn-danger text-white rounded-pill ">Delete</a></th>';
+                            echo "<tr>";
+                        }
+                        ?>
+                        </tbody>
+                        <caption>
+                            <form action="EditProfile.php" method="post">
+                                <div class="input-group mb-4">
+                                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                                    <input type="tel" required id="typePhone" class="form-control"
+                                           placeholder="Phone Number" name="phone">
+                                    <input type="submit" class="btn btn-block btn-success text-white rounded btn p-3"
+                                           value="Add" name="mobileForm">
+                                    <br>
+                                </div>
+                                <div>
+                                    <?php
+                                    if (isset($_SESSION['phoneError']) && !empty($_SESSION['phoneError'])) {
+                                        echo ' <div class="alert alert-danger" role="alert">' . $_SESSION["phoneError"] . '</div> ';
+                                        unset($_SESSION['phoneError']);
+                                    }
+                                    ?>
+                                </div>
+                            </form>
+                        </caption>
+                    </table>
+                </div>
             </div>
             <div class="col-lg-7 col-md-12 order-lg">
                 <img src=" <?php echo $imgs . "Profile_data_bro.png" ?>" alt="Login image" class="img-fluid">
             </div>
         </div>
+
     </div>
 
-<?php include $tpl . "footer.php" ;ob_end_flush();?>
+<?php include $tpl . "footer.php";
+ob_end_flush(); ?>
