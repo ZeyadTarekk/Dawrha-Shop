@@ -4,8 +4,12 @@ include "init.php";
 
 
 if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
-    header("Location: logout.php");
-    return;
+    ?>
+<script>
+window.location.href = "logout.php";
+</script>
+<?php 
+    
 }
 
 

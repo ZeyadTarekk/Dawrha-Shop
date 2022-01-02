@@ -250,7 +250,7 @@ return;
             </div>
             <?php 
                      if(isset($_SESSION['DB_er'])&&$_SESSION['DB_er']=="wrong"){
-                    echo '<div class="alert alert-danger w-50" role="alert">Item is Not Edited</div>'; 
+                    echo '<div class="alert alert-danger w-50" role="alert">There is No Change in Item</div>'; 
                     unset($_SESSION["DB_er"]);
                 }?>
         </div>
