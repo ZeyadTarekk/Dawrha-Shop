@@ -420,9 +420,10 @@ function deleteOrder($id,$db){
 }
 //start cart 
 
-function cartItem($db){
-    $sql="SELECT title,price,description,discount,item.quantity,item.itemId 
-    from buyer,cartitem,item WHERE buyer.cartId=cartitem.cartId AND cartitem.itemId=item.itemId";
+function cartItem($db,$buyerId){
+    $sql="SELECT title,price,description,discount,cartitem.quantity ,item.itemId 
+     from item ,buyer,cartitem,cart WHERE buyer.cartId = cart.cartId and cartitem.cartId=cart.cartId and 
+    buyer.ID=".$buyerId." and cartitem.itemId = item.itemId";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;

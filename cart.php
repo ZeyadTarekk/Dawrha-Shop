@@ -2,14 +2,13 @@
 ob_start();
 $pageTitle = "Cart Item";
 include "init.php";
-if((isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='buyer')&&!isset($_GET['id'])){
-    echo "mangaa ya beshoy";
+if(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='buyer'){
     header("Location: index.php");
 }
 
 $cartID = GetCartIDFromBuyer($_SESSION["id"], $db)[0]['cartId'];
 
-$items=cartItem($db);
+$items=cartItem($db,$_SESSION['id']);
 if (isset($_GET['deleteItem'])) {
     deleteItemCart($cartID, $_GET['deleteItem'], $db);
     header("Location: cart.php");
@@ -20,7 +19,7 @@ if (isset($_GET['deleteItem'])) {
         <div class="row row-of-card g-5 justify-content-start align-items-center">
             <?php
             foreach($items as $k):
-            $finalPrice= $k['quantity'] * ($k['price'] - ($k['price'] * ($k['discount']/100)));
+            $finalPrice= (int)$k['quantity'] * (int)($k['price']) - (int)($k['price']) * (int)(($k['discount']/100));
 
             echo ' 
             <div class="col-8 col-lg-4 col-xl-3 ">
@@ -35,7 +34,7 @@ if (isset($_GET['deleteItem'])) {
                 <h5 class="card-title">
                     '.$k['title'].' </h5>
                 <p class="card-text">'.$k['description'].' </p>
-                <h4 class="card-title">' .$finalPrice.'   &#163;</h4>
+                <h4 class="card-title">' .$finalPrice.' $</h4>
             <div class="card-body">
                 <a href="reviewItem.php?do=Manage&itemId=' . $k['itemId'] . '&itemName=' . $k['itemId'] . '" class="btn btn-success">view item</a>
                 <a href="cart.php?deleteItem" class="btn btn-primary">order item</a>

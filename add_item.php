@@ -175,7 +175,7 @@ return ;
                                 unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
                             required class="form-control  "
                             aria-label="Dollar amount (with dot and two decimal places)">
-                        <span class="input-group-text bg-success text-light">&#163</span>
+                        <span class="input-group-text bg-success text-light">$</span>
                         <span class="input-group-text bg-success text-light">0.00</span>
                     </div>
                     <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
