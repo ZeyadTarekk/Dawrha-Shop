@@ -14,9 +14,19 @@ if (isset($_GET['deleteItem'])) {
     updateTheCartAfterDeletion($cartID, $_GET['finalPrice'], $db);
     header("Location: cart.php");
 }
+if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isset($_GET['itemID'])){
+    makeAnOrder($db,$_GET['userID'],$_GET['itemID'],$_GET['orderPrice'],$_GET['qty']);
+    header("Location: cart.php?Ordersuccess=true");
+}
+$Ordersuccess = false;
+if(isset($_GET['Ordersuccess']))
+    $Ordersuccess = true;
 ?>
 <div class="container-lg text-center shadow p-5 mt-4 mb-4 border-3">
     <div class="text-center">
+        <?php if($Ordersuccess): ?>
+            <div class="alert alert-success m-auto mb-3" style="width: 50%;" role="alert">Order Done Successfully</div>
+        <?php endif; ?>
         <div class="row row-of-card g-5 justify-content-start align-items-center">
             <?php
             foreach($items as $k):
@@ -38,7 +48,7 @@ if (isset($_GET['deleteItem'])) {
                 <h4 class="card-title">' .$finalPrice.' $</h4>
             <div class="card-body">
                 <a href="reviewItem.php?do=Manage&itemId=' . $k['itemId'] . '&itemName=' . $k['itemId'] . '" class="btn btn-success">View Item</a>
-                <a href="" class="btn btn-primary">Order Item</a>
+                <a href="cart.php?itemID='.$k['itemId'].'&userID='.$_SESSION['id'].'&orderPrice='.$finalPrice.'&qty='.$k['quantity'].'" class="btn btn-primary">Order Item</a>
             </div>
         </div>
     </div>

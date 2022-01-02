@@ -574,4 +574,23 @@ function deleteMobileBuyer($buyerId,$mobile,$db){
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $buyerId,":mobile"=>$mobile));
 }
+
+// Start order
+function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
+    $sql = "call getItemCartWithItemIdandBuyerId($buyerId,$itemID);";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    $sql2 = "CALL  deleteFromCartItem(:cartId ,:itemId);";
+    $stmt2 = $db->prepare($sql2);
+    $stmt2->execute(array(":cartId"=>$result[0]['cartId'],":itemId"=>$result[0]['itemId'] ));
+    $stmt2->closeCursor();
+    // call insertNewOrder(134.5,3,132,8)
+    $sql3 = "CALL insertNewOrder(:orderPrice,:quantity,:buyerId,:itemID)";
+    $stmt3 = $db->prepare($sql3);
+    $stmt3->execute(array(":orderPrice"=>$orderPrice,":quantity"=>$quantity,":buyerId"=>$buyerId,":itemID"=>$itemID ));
+
+}
+
+// End order
 ?>
