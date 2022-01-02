@@ -589,7 +589,9 @@ function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
     $sql3 = "CALL insertNewOrder(:orderPrice,:quantity,:buyerId,:itemID)";
     $stmt3 = $db->prepare($sql3);
     $stmt3->execute(array(":orderPrice"=>$orderPrice,":quantity"=>$quantity,":buyerId"=>$buyerId,":itemID"=>$itemID ));
-
+    $sql4 = "UPDATE item set item.quantity = item.quantity - :itemQTY WHERE itemId = :itemIDD;";
+    $stmt4 = $db->prepare($sql4);
+    $stmt4->execute(array(":itemQTY"=>$quantity,":itemIDD"=>$itemID));
 }
 
 // End order
