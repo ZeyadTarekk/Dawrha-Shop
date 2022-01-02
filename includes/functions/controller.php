@@ -3,7 +3,7 @@
 // Start homepage functions
 function getItems($db)
 {
-    $sql = "SELECT * FROM item";
+    $sql = "call GetAllitems();";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
