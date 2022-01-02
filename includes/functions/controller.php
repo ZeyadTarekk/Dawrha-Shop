@@ -27,7 +27,7 @@ function getCategories($db)
 
 function getItemsByCategory($db, $categoryName)
 {
-    $sql = "SELECT * FROM item as e WHERE e.categoryId in (SELECT b.categoryId from category as b WHERE categoryName = '" . $categoryName . "');";
+    $sql = "call getItemsByCertainCategory ('$categoryName');";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
