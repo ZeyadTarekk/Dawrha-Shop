@@ -150,8 +150,7 @@ if ($do == 'Manage') {
     $oldPrice = $oldnum * ($item['price'] - ($item['price'] * ($item['discount']/100)));
     UpdateItemCountPrice($cartID, $oldPrice, $newPrice, $db);
     UpdateCartItem($cartID, $itemId, $num, $db);
-
-    //header("Location: cart.php");
+    header("Location: cart.php");
   } else {
   $num = $_POST['quan'];
   if ($num <= 0) {

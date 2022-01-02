@@ -37,7 +37,7 @@ if (isset($_GET['deleteItem'])) {
                 <h4 class="card-title">' .$finalPrice.' $</h4>
             <div class="card-body">
                 <a href="reviewItem.php?do=Manage&itemId=' . $k['itemId'] . '&itemName=' . $k['itemId'] . '" class="btn btn-success">view item</a>
-                <a href="cart.php?deleteItem" class="btn btn-primary">order item</a>
+                <a href="cart.php?deleteItem=' . $k['itemId'] . '" class="btn btn-primary">order item</a>
             </div>
         </div>
     </div>
