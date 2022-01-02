@@ -86,8 +86,12 @@
                 <p class="card-text"> <?php echo $ite['description'] ?></p>
                 <h4 class="card-title"><?php echo $ite['price'] . '$' ?></h4>
                 <div class="card-body">
+                  <?php if($ite['quantity']==0): ?>
+                  <button type="button" style="cursor: pointer;" class="btn btn-danger">Sold Out!</button>
+                  <?php else: ?>
                   <a href="<?php echo "reviewitem.php?do=Manage&itemId=" . $ite['itemId'] . "&itemName=" . $ite['title'] ?>"
                     class="btn btn-success">Review</a>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
