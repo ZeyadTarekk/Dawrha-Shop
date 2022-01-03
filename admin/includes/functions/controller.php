@@ -109,19 +109,19 @@ function AddNewCategory($name, $des, $db) {
 }
 
 function GetCategoryByID($id, $db) {
-  $sql = "SELECT * FROM category WHERE cateogryId=" . $id . ";";
+  $sql = "SELECT * FROM category WHERE categoryId=" . $id . ";";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
 
 function UpdateCategory($id, $name, $des, $db) {
-  $updateSql = "UPDATE category SET categoryName='" . $name . "', categoryDescription='" . $des . "' WHERE cateogryId=" . $id . ";";
+  $updateSql = "UPDATE category SET categoryName='" . $name . "', categoryDescription='" . $des . "' WHERE categoryId=" . $id . ";";
   $db->exec($updateSql);
 }
 
 function DeleteCategoryByID($id, $db) {
-  $deleteSql = "DELETE FROM category WHERE cateogryId=" . $id . ";";
+  $deleteSql = "DELETE FROM category WHERE categoryId=" . $id . ";";
   $db->exec($deleteSql);
 }
 //End Categories
@@ -228,7 +228,7 @@ function GetItemViewByID($id, $db) {
 function GetItemBySellerID($id, $db) {
   $sql = "SELECT I.itemId,I.title,C.categoryName,S.fName,S.lName,I.price,I.quantity 
           FROM item as I,category as C,seller as S 
-          WHERE I.categoryId=C.cateogryId AND I.sellerId=S.ID AND I.sellerId=" . $id . ";";
+          WHERE I.categoryId=C.categoryId AND I.sellerId=S.ID AND I.sellerId=" . $id . ";";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
@@ -237,15 +237,68 @@ function GetItemBySellerID($id, $db) {
 function GetItemBySellerUserName($username, $db) {
   $sql = "SELECT I.itemId,I.title,C.categoryName,S.fName,S.lName,I.price,I.quantity 
           FROM item as I, category as C, seller as S
-          WHERE I.categoryId=C.cateogryId AND I.sellerId=S.ID AND S.userName LIKE '" . $username . "%';";
+          WHERE I.categoryId=C.categoryId AND I.sellerId=S.ID AND S.userName LIKE '" . $username . "%';";
   $stmt = $db->query($sql);
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
 //End Item
 
+//Start Stats
+function GetNumOfBuyers($db) {
+  $sql = "SELECT COUNT(*) as Count FROM buyer;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $buyersNum = $result[0]['Count'];
+  return $buyersNum;
+}
+function GetNumOfSellers($db) {
+  $sql = "SELECT COUNT(*) as Count FROM seller;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $sellersNum = $result[0]['Count'];
+  return $sellersNum;
+}
+function LastMonthUsers($db) {
+  $sql = "SELECT COUNT(*) as Count FROM seller WHERE joinDate > now() - INTERVAL 1 month;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $sellersNum = $result[0]['Count'];
+
+  $sql = "SELECT COUNT(*) as Count FROM buyer WHERE joinDate > now() - INTERVAL 1 month;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $buyersNum = $result[0]['Count'];
+
+  return $sellersNum + $buyersNum;
+}
+function LastYearUsers($db) {
+  $sql = "SELECT COUNT(*) as Count FROM seller WHERE joinDate > now() - INTERVAL 12 month;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $sellersNum = $result[0]['Count'];
+
+  $sql = "SELECT COUNT(*) as Count FROM buyer WHERE joinDate > now() - INTERVAL 12 month;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $buyersNum = $result[0]['Count'];
+  
+  return $sellersNum + $buyersNum;
+}
+function LastMonthOrders($db) {
+  $sql = "SELECT COUNT(*) as Count FROM orders WHERE orderDate > now() - INTERVAL 1 month;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $ordersNum = $result[0]['Count'];
+  return $ordersNum;
+}
+function LastYearOrders($db) {
+  $sql = "SELECT COUNT(*) as Count FROM orders WHERE orderDate > now() - INTERVAL 12 month;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $ordersNum = $result[0]['Count'];
+  return $ordersNum;
+}
+
+//End Stats
 ?>
-
-
-<!-- To do -->
-<!-- Gm3 ele mtkrr ben el seller buyer and admin -->
