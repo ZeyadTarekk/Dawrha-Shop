@@ -33,21 +33,22 @@ if(isset($_GET['Ordersuccess']))
             $finalPrice= (int)$k['quantity'] * (int)($k['price']) - (int)($k['price']) * (int)(($k['discount']/100));
             ?>
       <div class="col-8 col-lg-4 col-xl-3 ">
-        <div class="card m-md-auto shadow" style="width: 18rem;">
+        <div class="card m-md-auto shadow" style="width: 19rem;">
           <a href="cart.php?deleteItem='. <?php echo $k['itemId']?> .'&finalPrice=' . $finalPrice . '" id="stopRedirect"
             class="btn btn-danger rounded-pill position-absolute" style="width: fit-content; top: 0;right: 0"
             onclick="return        deleteItemCart()">
             <span class="badge"><i class="bi bi-trash"></i>
             </span></a>
           <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
-          <div class="card-body">
+          <div class="card-body ">
             <h5 class="card-title">
               <?php echo $k['title']?> </h5>
             <p class="card-text"><?php echo $k['description'] ?> </p>
+            <h4 class="card-title"> <?php echo  'Quantity: ' .$k['quantity'] ?> </h4>
             <h4 class="card-title"> <?php echo $finalPrice ?> $</h4>
             <div class="card-body">
               <a href="reviewItem.php?do=Manage&itemId= <?php echo $k['itemId']?>&itemName= <?php echo $k['itemId'] ?>"
-                class="btn btn-success">View Item</a>
+                class="btn btn-success ">Edit quantity</a>
               <a href="cart.php?itemID=<?php echo $k['itemId']?>&userID=<?php echo $_SESSION['id']?>&orderPrice=<?php echo $finalPrice?>&qty=<?php echo $k['quantity']?>"
                 class="btn btn-primary">Order Item</a>
             </div>

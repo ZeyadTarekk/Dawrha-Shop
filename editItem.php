@@ -130,7 +130,10 @@ return;
                         }?></p>
                     <div class=" mb-4 input-group">
                         <textarea placeholder="Description" class="form-control" rows="2"
-                            name="description"><?php echo $_SESSION['description_item']?>
+                            name="description"><?php if(isset($_SESSION['description_item'])){
+                             echo $_SESSION['description_item'];
+                             unset($_SESSION['description_item']);
+                            };?>
                     </textarea>
                     </div>
                     <div class="input-group  mb-4">
