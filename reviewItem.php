@@ -20,6 +20,7 @@ if (!$itemId) {
 $do = isset($_GET['do'])? $_GET['do'] : 'Manage';
 
 $item = GetItemByID($itemId, $db)[0];
+$images = GetImagesByID($itemId, $db);
 
 if ($do == 'Manage') {
 ?>
@@ -29,21 +30,30 @@ if ($do == 'Manage') {
     <div class="gallery">
       <!-- the main image -->
       <div id="screen">
-        <!-- remember to put each image in var then swap between them if any of the thumbnails picked -->
-        <img src="<?php echo $dataimages . "image-product-1.jpg" ?>" alt="">
+        <?php 
+          if (!empty($images)) {
+            echo '<img src="' . $dataimages . $images[0]['image'] . '" alt="primary">';
+          }
+        ?>
       </div>
       <div class="thumbnails">
         <!-- loop to get the number of images of the product -->
-        <img src="<?php echo $dataimages . "image-product-1.jpg" ?>" alt="">
-        <img src="<?php echo $dataimages . "image-product-2.jpg" ?>" alt="">
-        <img src="<?php echo $dataimages . "image-product-3.jpg" ?>" alt="">
-        <img src="<?php echo $dataimages . "image-product-4.jpg" ?>" alt="">
+        <?php 
+          for($i = 0; $i < count($images); $i++) {
+            echo '<img src="' . $dataimages . $images[$i]['image'] . '" alt="primary">';
+          }
+        ?>
       </div>
     </div>
     <div class="product">
       <p class="seller-name">By: <?php echo $item['fName'] . ' ' . $item['lName']; ?></p>
       <hr>
       <span class="date-of-item">Added in : <?php echo $item['addDate']; ?></span>
+      <?php 
+        if ($item['quantity'] == 0) {
+          echo '<span class="sold-out">Sold Out</span>';
+        }
+      ?>
       <p class="item-name"><?php echo $itemName; ?></p>
       <p class="description"><?php echo $item['description']; ?></p>
       <div class="price">
@@ -66,7 +76,7 @@ if ($do == 'Manage') {
         ?>
       </div>
       <?php
-        if (isset($_SESSION['id']) && $_SESSION['typeOfUser'] == 'buyer') {
+        if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] == 'buyer' && $item['quantity'] != 0) {
           $cartID = GetCartIDFromBuyer($_SESSION['id'], $db)[0]['cartId'];
           if (CheckBuyerAndItem($cartID, $itemId, $db)) {
             echo '
@@ -74,7 +84,6 @@ if ($do == 'Manage') {
             <div class="counter">
               <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
               <input type="number" id="amount" min="1" name="quan">
-              <!-- need to send the max number of items to adding(max) -->
               <span class="right-btn" onclick="adding(' . $item['quantity'] . ')"><i class="fas fa-plus"></i></span>
               </div>
               <button class="add-to-cart-btn">
@@ -82,13 +91,12 @@ if ($do == 'Manage') {
                 <span>Edit The Cart</span>
               </button>
             </form>';
-          } elseif ($_SESSION['typeOfUser'] && $_SESSION['typeOfUser'] == 'buyer') {
+          } elseif ($item['quantity'] != 0) {
       ?>
       <form action="?do=Confirm&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>" class="order-section" method="POST">
         <div class="counter">
           <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
           <input type="number" id="amount" min="1" name="quan">
-          <!-- need to send the max number of items to adding(max) -->
           <span class="right-btn" onclick="adding(<?php echo $item['quantity']; ?>)"><i class="fas fa-plus"></i></span>
         </div>
         <button class="add-to-cart-btn">

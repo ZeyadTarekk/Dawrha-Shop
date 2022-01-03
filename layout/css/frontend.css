@@ -221,6 +221,12 @@
   margin-left: 20px;
   font-size: 24px;
 }
+.product .sold-out {
+  font-size: 24px;
+  font-weight: 700;
+  color: #b71d1d;
+  border-radius: 10px;
+}
 /* End ReviewItem */
 
 /* add item */

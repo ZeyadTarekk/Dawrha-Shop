@@ -483,7 +483,12 @@ function CheckBuyerAndItem($cartID, $itemID, $db) {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return count($result);
 }
-
+function GetImagesByID($itemID, $db) {
+    $sql = "SELECT * FROM itemimage WHERE itemId=" . $itemID . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 //End reviewItem
 // edit profile start
 function updateBuyer($id,$username, $password, $email, $fname, $lname, $db)
