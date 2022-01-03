@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   $pageTitle = 'Home Page';
   require "init.php";
   $items = getItems($db);
@@ -46,6 +47,9 @@
           } 
         }
     }
+
+    if($iterk1==0 && !isset($_GET['keyword']))
+      header("Location: signin.php");
     
 ?>
 
@@ -106,4 +110,6 @@
 
 
 
-<?php include $tpl . "footer.php" ?>
+<?php
+include $tpl . "footer.php";
+ob_end_flush(); ?>
