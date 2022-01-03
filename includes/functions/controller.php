@@ -592,10 +592,12 @@ function deleteMobileBuyer($buyerId,$mobile,$db){
 function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
 
     // Check if the wanted quantity still available or not
-    $sql5 = "SELECT item.quantity from item WHERE item.itemId = $itemID";
+    $sql5 = "SELECT item.quantity, item.sellerId, item.title from item WHERE item.itemId = $itemID";
     $stmt5 = $db->query($sql5);
     $result5 = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     $stmt5->closeCursor();
+
+    $sellerID = $result5[0]['sellerId'];
     if((int)$quantity>(int)$result5[0]['quantity'])
         return (int)$result5[0]['quantity'];
 
@@ -612,9 +614,38 @@ function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
     $sql3 = "CALL insertNewOrder(:orderPrice,:quantity,:buyerId,:itemID)";
     $stmt3 = $db->prepare($sql3);
     $stmt3->execute(array(":orderPrice"=>$orderPrice,":quantity"=>$quantity,":buyerId"=>$buyerId,":itemID"=>$itemID ));
+    $stmt3->closeCursor();
+    
     $sql4 = "UPDATE item set item.quantity = item.quantity - :itemQTY WHERE itemId = :itemIDD;";
     $stmt4 = $db->prepare($sql4);
     $stmt4->execute(array(":itemQTY"=>$quantity,":itemIDD"=>$itemID));
+    $stmt4->closeCursor();
+
+    
+    $sql6 = "SELECT fName, lName from seller WHERE ID = $sellerID";
+    $stmt6 = $db->query($sql6);
+    $result6 = $stmt6->fetchAll(PDO::FETCH_ASSOC);
+    $stmt6->closeCursor();
+    
+    $sql7 = "SELECT fName, lName from buyer WHERE ID = $buyerId";
+    $stmt7 = $db->query($sql7);
+    $result7 = $stmt7->fetchAll(PDO::FETCH_ASSOC);
+    $stmt7->closeCursor();
+
+    date_default_timezone_set("EET");
+    $date = date('Y-m-d', time());
+
+    $msg = "Hello ".$result6[0]['fName'] .$result6[0]['lName'].", " .$result7[0]['fName'] . $result7[0]['lName']." ordered your item: ".$result5[0]['title'].", Quantity: ".$quantity.", Price: ".$orderPrice.", at ".$date;
+    
+    
+    $sql8 = "INSERT INTO notification(message) VALUES('$msg')";
+    $db->exec($sql8);
+    $notiID = $db->lastInsertId();
+
+
+    $sql9 = "INSERT INTO sellernotifications VALUES('$notiID','$buyerId','$sellerID')";
+    $db->exec($sql9);
+    
     return -1;
 }
 
