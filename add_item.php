@@ -13,7 +13,6 @@ return;
 
 if(isset($_POST['done']))
 {
-    var_dump($_SESSION); 
         //filter data
 $_SESSION["item_name"]=input_data($_POST['name']);
 $_SESSION["price"]=input_data($_POST['priceOfItem']);
@@ -33,12 +32,12 @@ $_SESSION["country_er"]="";
 $_SESSION['DB_er']="";
 
 //validate priceItem
-if(!ctype_digit($_SESSION["price"]) &&$_SESSION["price"]<0){
+if(!ctype_digit($_SESSION["price"]) ||$_SESSION["price"]<0){
     $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
 }
 
                 //street validation
-if(!ctype_alpha($_SESSION["st"])){
+if(!ctype_alpha(str_replace(' ', '', $_SESSION['st']))){
     $_SESSION["st_er"]="* Only Alphabets and White Space Are Allowed";
 }    
 
@@ -46,7 +45,7 @@ if(!ctype_alpha($_SESSION["st"])){
 
         //validate city & country
 if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]))){
-    $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
+    $_SESSION["country_er"]="* Only Alphabets  Allowed";
 }
 
         //validate Category
@@ -58,6 +57,17 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
     insertItem($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
     ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
+    unset($_SESSION["item_name"]);
+    unset($_SESSION["price"]);
+    unset($_SESSION["discount_item"]);
+    unset($_SESSION["quantity_item"]);
+    unset($_SESSION["description_item"]);
+    unset($_SESSION["city"]);
+    unset($_SESSION["country"]);
+    unset($_SESSION["categoryId"]);
+    unset($_SESSION['homeNum']);
+    unset($_SESSION['st']);
+
     $_SESSION['DB_er']=1;
     
         $targetDir = "data/uploads/items/";
@@ -82,12 +92,21 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
         if(!empty($arrFile)){
             insertImage($arrFile,$db);
     }
+    else{
+        $defaultName="default.png";
+        array_push($arrFile,$defaultName);
+        insertImage($arrFile,$db);
+    }
 } 
 else{
     header("Location:add_item.php");
     return;
         
     }
+    if( $_SESSION['DB_er']==1){
+        header("Location:profileSeller.php");
+        return;
+        }
 }
 ?>
 <div class="container-fluid ">
@@ -111,11 +130,11 @@ else{
                             unset($_SESSION["item_namerr"]);
                         }?></p>
                     <div class=" mb-4 input-group">
-                        <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1"
-                            name="description" value="<?php if(isset($_SESSION["description_item"])){
+                        <textarea placeholder="Description" rows="2" class="form-control" id="exampleFormControlTextarea1"
+                            name="description" ><?php if(isset($_SESSION["description_item"])){
                             echo $_SESSION["description_item"] ;
                             unset($_SESSION["description_item"]);
-                        } ;?>" rows="2"></textarea>
+                        } ;?></textarea>
                     </div>
                     <div class="input-group  mb-4">
                         <select required value="<?php if(isset($_SESSION["categoryId"])){
@@ -190,7 +209,7 @@ else{
                             class="form-control" value="<?php if(isset($_SESSION["discount_item"])){
                                 echo $_SESSION["discount_item"]; 
                                 unset($_SESSION["discount_item"]);}?>">
-                        <span class=" input-group-text  bg-success text-light">&#163</span>
+                        <span class=" input-group-text  bg-success text-light">$</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
                     <div class="input-group  mb-4 ">
@@ -216,12 +235,12 @@ else{
             </div>
             <?php 
              if (isset($_SESSION['DB_er'])&&$_SESSION['DB_er']==1) {
-             echo '<div class="alert alert-success w-50" role="alert" >Successfully Submitted
+             echo '<div class="alert alert-success w-50" role="alert" >Successfully Submition
                       <i class="bi bi-check"></i></div>';
                      unset($_SESSION["DB_er"]);}
                  else{
                      if(isset($_SESSION['DB_er'])){
-                    echo '<div class="alert alert-danger w-50" role="alert">Invalid Submit !</div>'; 
+                    echo '<div class="alert alert-danger container-md w-50 mt-5 mb-5" role="alert">Invalid submit</div>'; 
                     unset($_SESSION["DB_er"]);}
                 }?>
         </div>
