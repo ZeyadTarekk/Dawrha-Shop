@@ -595,4 +595,20 @@ function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
 }
 
 // End order
+// edit Item
+function GetItem($db,$itemID){
+    $sql="SELECT * from item WHERE item.itemId=".$itemID."";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getCategoryName($catId, $db)
+{
+    $sql = "SELECT * from category WHERE category.categoryId = ".$catId."";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+// end edit Item
 ?>
