@@ -20,7 +20,6 @@ $_SESSION["price"]=input_data($_POST['priceOfItem']);
 $_SESSION["discount_item"]=input_data($_POST['discountOfItem']);
 $_SESSION["quantity_item"]=input_data( $_POST['quantity']);
 $_SESSION["description_item"]=input_data( $_POST['description']);
-$_SESSION["filepath"]=input_data( basename($_FILES['file']['name']));
 $_SESSION["city"]=input_data($_POST['city']);
 $_SESSION["country"]=input_data( $_POST['country']);
 $_SESSION["categoryId"]=input_data($_POST['category']);
@@ -60,57 +59,30 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
     ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
     $_SESSION['DB_er']=1;
-    // $targetDir = "uploads/";
-    // $targetFilePath = $targetDir . $_SESSION["filepath"];
-    // $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-    //     $allowTypes = array('jpg','png','jpeg','gif','pdf');
-    //     if(in_array($fileType, $allowTypes))
-    //     {
-    //         if(move_uploaded_file($_FILES["file"]["tmp_name"], $_SESSION["filepath"])){
-    //                 insertImage($_SESSION["filepath"],$db);
-    //             }
-    //     }
-
-       // File upload configuration 
-    //    $targetDir = "testing/"; 
-    //    $allowTypes = array('jpg','png','jpeg','gif'); 
-       
-    //    $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
-    //    $fileNames = array_filter($_FILES['files']['name']); 
-    // //    if(!empty($fileNames)){ 
-    // //        foreach($_FILES['files']['name'] as $key=>$val){ 
-    // //            // File upload path 
-    // //            $fileName = basename($_FILES['files']['name'][$key]); 
-    // //            $targetFilePath = $targetDir . $fileName; 
-               
-    // //            // Check whether file type is valid 
-    // //            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
-    // //            if(in_array($fileType, $allowTypes)){ 
-    // //                // Upload file to server 
-    // //                if(move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)){ 
-    // //                    // Image db insert sql 
-    // //                    $insertValuesSQL .= "(5, '".$fileName."'),"; 
-    // //                }else{ 
-    // //                    $errorUpload .= $_FILES['files']['name'][$key].' | '; 
-    // //                } 
-    // //            }else{ 
-    // //                $errorUploadType .= $_FILES['files']['name'][$key].' | '; 
-    // //            } 
-    // //        } 
-   
-    //        // Error message 
-    //        $errorUpload = !empty($errorUpload)?'Upload Error: '.trim($errorUpload, ' | '):''; 
-    //        $errorUploadType = !empty($errorUploadType)?'File Type Error: '.trim($errorUploadType, ' | '):''; 
-    //        $errorMsg = !empty($errorUpload)?'<br/>'.$errorUpload.'<br/>'.$errorUploadType:'<br/>'.$errorUploadType; 
-           
-//            if(!empty($insertValuesSQL)){ 
-//                $insertValuesSQL = trim($insertValuesSQL, ','); 
-//                // Insert image file name into database 
-//             //    $insert = $db->query("INSERT INTO itemimage (itemId , image) VALUES $insertValuesSQL"); )
-               
-// }
-       
+    
+        $targetDir = "data/uploads/items/";
+        $allowTypes = array('jpg','png','jpeg','gif'); 
+        $fileNames = array_filter($_FILES['files']['name']); 
+        $arrFile=array();
+    if(!empty($fileNames)){ 
+        foreach($_FILES['files']['name'] as $key=>$val){  
+            $fileName = basename($_FILES['files']['name'][$key]);
+            $randomName = uniqid() . "-" . time();
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+            $newfilename = $randomName . '.' . $fileType;
+            $targetFilePath = $targetDir . $newfilename;
+            if(in_array($fileType, $allowTypes)){
+                if(move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)){ 
+                   array_push($arrFile,$newfilename); 
+                    }
+                } 
+            }
+        }
+        
+        if(!empty($arrFile)){
+            insertImage($arrFile,$db);
     }
+} 
 else{
     header("Location:add_item.php");
     return;
@@ -222,12 +194,12 @@ else{
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
                     <div class="input-group  mb-4 ">
-                        <input name="file" type="file" class="form-control " id="inputGroupFile04"
+                        <input name="files[]" type="file" class="form-control " id="inputGroupFile04" multiple
                             aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
-                        <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
+                        <!-- <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
                             multiple>
                             Upload
-                        </button>
+                        </button> -->
                     </div>
                     <div class="input-group mb-4" id="input_div">
                         <input required class="form-control " type="number" placeholder="Quantity" name="quantity"
@@ -256,4 +228,6 @@ else{
     </div>
 </div>
 </div>
-<?php include $tpl . "footer.php" ?>
+<?php include $tpl . "footer.php";
+ob_end_flush();
+ ?>

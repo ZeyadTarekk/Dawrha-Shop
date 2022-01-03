@@ -231,12 +231,14 @@ function insertItem($title,$Des,$price,$quantity,$catId,$discount,$sellerid,$hom
     }
 
     //image uploading
-    function insertImage($imageName,$db){
+    function insertImage($Arrimage,$db){
     $itemID=$db->lastInsertId();
-    $sql="INSERT INTO itemimage ( itemId,image) 
-    VALUES (".$itemID.",'".$imageName."')";
-    $stmt=$db->prepare($sql);
-    $stmt->execute();
+    foreach($Arrimage as $image){
+        $sql="INSERT INTO itemimage (itemId,image) 
+        VALUES (".$itemID.",'".$image."')";
+        $stmt=$db->prepare($sql);
+        $stmt->execute();
+    }
     }
 
 

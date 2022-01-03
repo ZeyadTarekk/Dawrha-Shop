@@ -15,7 +15,6 @@ if(isset($_GET['id'])){
     foreach($oldItem as $item)
     $_SESSION["item_name"]=$item['title'];
         $_SESSION['description_item']=$item['description'];
-        // echo $_SESSION['description_item'];
         $_SESSION['discount_item']= $item['discount'];
         $_SESSION['quantity_item']= $item['quantity'];
         $_SESSION['price']= $item['price'];
@@ -98,9 +97,13 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
                 }
         }
 }
-else{
+else {
 header("Location:editItem.php");
 return ;
+}
+if( $_SESSION['DB_er']==1){
+header("Location:profileSeller.php");
+return;
 }
 }
 ?>
@@ -127,13 +130,8 @@ return ;
                         }?></p>
                     <div class=" mb-4 input-group">
                         <textarea placeholder="Description" class="form-control" rows="2"
-                            name="description" value="<?php if(isset($_SESSION['description_item'])){
-                            echo $_SESSION['description_item'] ;
-                            unset($_SESSION['description_item']);
-                        } ;?>"><?php if(isset($_SESSION['description_item'])){
-                            echo $_SESSION['description_item'] ;
-                            unset($_SESSION['description_item']);
-                        } ;?></textarea>
+                            name="description"><?php echo $_SESSION['description_item']?>
+                    </textarea>
                     </div>
                     <div class="input-group  mb-4">
                         <select  value="<?php if(isset($_SESSION["categoryId"])){
@@ -252,4 +250,6 @@ return ;
     </div>
 </div>
 </div>
-<?php include $tpl . "footer.php" ?>
+<?php include $tpl . "footer.php" ;
+ob_end_flush();
+?>
