@@ -590,21 +590,32 @@ function deleteMobileBuyer($buyerId,$mobile,$db){
 
 // Start order
 function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
+
+    // Check if the wanted quantity still available or not
+    $sql5 = "SELECT item.quantity from item WHERE item.itemId = $itemID";
+    $stmt5 = $db->query($sql5);
+    $result5 = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+    $stmt5->closeCursor();
+    if((int)$quantity>(int)$result5[0]['quantity'])
+        return (int)$result5[0]['quantity'];
+
     $sql = "call getItemCartWithItemIdandBuyerId($buyerId,$itemID);";
     $stmt = $db->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
+    
     $sql2 = "CALL  deleteFromCartItem(:cartId ,:itemId);";
     $stmt2 = $db->prepare($sql2);
     $stmt2->execute(array(":cartId"=>$result[0]['cartId'],":itemId"=>$result[0]['itemId'] ));
     $stmt2->closeCursor();
-    // call insertNewOrder(134.5,3,132,8)
+
     $sql3 = "CALL insertNewOrder(:orderPrice,:quantity,:buyerId,:itemID)";
     $stmt3 = $db->prepare($sql3);
     $stmt3->execute(array(":orderPrice"=>$orderPrice,":quantity"=>$quantity,":buyerId"=>$buyerId,":itemID"=>$itemID ));
     $sql4 = "UPDATE item set item.quantity = item.quantity - :itemQTY WHERE itemId = :itemIDD;";
     $stmt4 = $db->prepare($sql4);
     $stmt4->execute(array(":itemQTY"=>$quantity,":itemIDD"=>$itemID));
+    return -1;
 }
 
 // End order
