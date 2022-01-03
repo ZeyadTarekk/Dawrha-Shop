@@ -624,4 +624,20 @@ function getCategoryName($catId, $db)
     return $result;
 }
 // end edit Item
+// order page
+function getOrdersOfItem($id,$db){
+    $sql = "SELECT * FROM orders WHERE orders.itemId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getBuyerById($id,$db){
+    $sql = "SELECT * FROM buyer where ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+//end order page
 ?>
