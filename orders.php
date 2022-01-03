@@ -12,12 +12,21 @@ if (!isset($_GET['itemid'])) {
     return;
 }
 if (isset($_GET['deleteOrderId'])) {
+    $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been declined";
+    insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
     deleteOrder($_GET['deleteOrderId'], $db);
     header("Location: orders.php?itemid=".$_GET['itemid'] );
     return;
 }
 $orderDetails = getOrdersOfItem($_GET['itemid'], $db);
 $itemName = GetItemByID($_GET['itemid'], $db)[0]['title'];
+if (isset($_GET['acceptOrderId'])) {
+    $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been accepted";
+    insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
+    deleteOrder($_GET['acceptOrderId'], $db);
+    header("Location: orders.php?itemid=".$_GET['itemid'] );
+    return;
+}
 ?>
     <div class="container">
         <h1 class="text-center m-5">Orders for <?=$itemName?></h1>
@@ -46,8 +55,8 @@ $itemName = GetItemByID($_GET['itemid'], $db)[0]['title'];
                     <td> <?= $orderDetails[$i]->orderDate ?> </td>
                     <td> <?= $buyer->userName ?> </td>
                     <td>
-                        <a href="orders.php" class="btn btn-success">Accept</a>
-                        <a href="orders.php?itemid=<?=$_GET['itemid']?>&deleteOrderId=<?=$orderDetails[$i]->orderId?>" class="btn btn-danger">Decline</a>
+                        <a href="orders.php?itemid=<?=$_GET['itemid']?>&acceptOrderId=<?=$orderDetails[$i]->orderId?>&buyerUserName=<?=$buyer->userName?>&price=<?=$orderDetails[$i]->orderPrice?>&quantity=<?=$orderDetails[$i]->quantity?>&orderDate=<?= $orderDetails[$i]->orderDate ?>&buyerId=<?=$orderDetails[$i]->buyerId?>" class="btn btn-success">Accept</a>
+                        <a href="orders.php?itemid=<?=$_GET['itemid']?>&deleteOrderId=<?=$orderDetails[$i]->orderId?>&buyerUserName=<?=$buyer->userName?>&price=<?=$orderDetails[$i]->orderPrice?>&quantity=<?=$orderDetails[$i]->quantity?>&orderDate=<?= $orderDetails[$i]->orderDate ?>&buyerId=<?=$orderDetails[$i]->buyerId?>" class="btn btn-danger">Decline</a>
                     </td>
                 </tr>
                 <?php
