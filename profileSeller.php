@@ -187,7 +187,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
-                             <a href="#" class="btn btn-danger rounded-pill position-absolute"
+                             <a href="orders.php?itemid='.$forSaleItem->itemId.'" class="btn btn-danger rounded-pill position-absolute"
                                style="width: fit-content; top: 0;right: 0">
                                 <span class="badge">'.$countOrders.'</span></a>
                                 '; ?>
