@@ -21,6 +21,30 @@
         <div class="box-body p-0">
           <?php foreach($Notifications as $noti): ?>
           <?php if($noti['seen']==='0'): ?>
+          <?php if($_SESSION["typeOfUser"]=='seller'): ?>
+          <a style="text-decoration: none; color:black" href="orders.php">
+            <div class="
+                  p-3
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                  bg-light
+                  border-bottom
+                ">
+              <div class="fw-bold mr-3">
+                <div><?php echo $noti['message'] ?>
+                </div>
+                <div class="small">
+                  <?php echo
+       "Notification From ". $noti['fName']." ".$noti['lName']; ?>
+                </div>
+              </div>
+              <div class="text-right text-muted pt-1">
+                <?php $date1 = new DateTime($noti['date']); $interval = $date1->diff($date); if($interval->days == 0 ) echo "Today"; elseif($interval->days == 0) echo "A Day Ago"; else echo $interval->days . " Days Ago"; ?>
+              </div>
+            </div>
+          </a>
+          <?php else: ?>
           <div class="
                   p-3
                   d-flex
@@ -41,6 +65,8 @@
               <?php $date1 = new DateTime($noti['date']); $interval = $date1->diff($date); if($interval->days == 0 ) echo "Today"; elseif($interval->days == 0) echo "A Day Ago"; else echo $interval->days . " Days Ago"; ?>
             </div>
           </div>
+          <?php endif; ?>
+
           <?php endif; ?>
           <?php endforeach; ?>
         </div>
