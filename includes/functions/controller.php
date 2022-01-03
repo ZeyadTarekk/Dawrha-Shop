@@ -215,7 +215,7 @@ function insertSellerPhoneNumber($id,$mobile,$db){
 }
 // Add Item
 
-function insertItemName($title,$Des,$price,$quantity,$catId,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
+function insertItem($title,$Des,$price,$quantity,$catId,$discount,$sellerid,$homeNum,$street,$city,$country,$db){
     $sql="INSERT INTO item ( title, description, price, quantity, categoryId,sellerId,discount,homeNumber,street,city,country)
     VALUES ('".$title."', '".$Des."', ".$price.", ".$quantity.", ".$catId.",".$sellerid.",".$discount.", ".$homeNum.",'".$street."','".$city."','".$country."')";
     $stmt=$db->prepare($sql);

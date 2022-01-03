@@ -1,30 +1,29 @@
 <?php
+ob_start();
 $pageTitle = 'Add Item';
 include "init.php";
 
 
 if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
-    ?>
-<script>
-window.location.href = "logout.php";
-</script>
-<?php 
+header("Location:logout.php") ;
+return;
     
 }
 
 
 if(isset($_POST['done']))
-{ 
+{
+    var_dump($_SESSION); 
         //filter data
 $_SESSION["item_name"]=input_data($_POST['name']);
 $_SESSION["price"]=input_data($_POST['priceOfItem']);
-$_SESSION["disocunt_item"]=input_data($_POST['discountOfItem']);
+$_SESSION["discount_item"]=input_data($_POST['discountOfItem']);
 $_SESSION["quantity_item"]=input_data( $_POST['quantity']);
 $_SESSION["description_item"]=input_data( $_POST['description']);
 $_SESSION["filepath"]=input_data( basename($_FILES['file']['name']));
 $_SESSION["city"]=input_data($_POST['city']);
 $_SESSION["country"]=input_data( $_POST['country']);
-$_SESSION["category_item"]=input_data($_POST['category']);
+$_SESSION["categoryId"]=input_data($_POST['category']);
 $_SESSION['homeNum']=input_data($_POST['homenumber']);
 $_SESSION['st']=input_data($_POST['street']);
 $_SESSION['st_er']="";
@@ -52,39 +51,71 @@ if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]))){
 }
 
         //validate Category
-if($_SESSION["category_item"]=="Choose Categories..."){
+if($_SESSION["categoryId"]=="Choose Categories..."){
     $_SESSION["cat_er"]=" * Please Choose Category";
     }
-
-    
-// if(checkUnique($db,$_SESSION['homeNum'],$_SESSION['st'],$_SESSION['city'],$_SESSION['country'])!=0){
-// $_SESSION['DB_er']="wrong";    
-// }
     
 if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
-    insertItemName($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
-    ,$_SESSION['category_item'],$_SESSION['disocunt_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
+    insertItem($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
+    ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
     $_SESSION['DB_er']=1;
-    $targetDir = "uploads/";
-    $targetFilePath = $targetDir . $_SESSION["filepath"];
-    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-        $allowTypes = array('jpg','png','jpeg','gif','pdf');
-        if(in_array($fileType, $allowTypes))
-        {
-            if(move_uploaded_file($_FILES["file"]["tmp_name"], $_SESSION["filepath"])){
-                    insertImage($_SESSION["filepath"],$db);
-                }
-        }
-}
+    // $targetDir = "uploads/";
+    // $targetFilePath = $targetDir . $_SESSION["filepath"];
+    // $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+    //     $allowTypes = array('jpg','png','jpeg','gif','pdf');
+    //     if(in_array($fileType, $allowTypes))
+    //     {
+    //         if(move_uploaded_file($_FILES["file"]["tmp_name"], $_SESSION["filepath"])){
+    //                 insertImage($_SESSION["filepath"],$db);
+    //             }
+    //     }
+
+       // File upload configuration 
+    //    $targetDir = "testing/"; 
+    //    $allowTypes = array('jpg','png','jpeg','gif'); 
+       
+    //    $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
+    //    $fileNames = array_filter($_FILES['files']['name']); 
+    // //    if(!empty($fileNames)){ 
+    // //        foreach($_FILES['files']['name'] as $key=>$val){ 
+    // //            // File upload path 
+    // //            $fileName = basename($_FILES['files']['name'][$key]); 
+    // //            $targetFilePath = $targetDir . $fileName; 
+               
+    // //            // Check whether file type is valid 
+    // //            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
+    // //            if(in_array($fileType, $allowTypes)){ 
+    // //                // Upload file to server 
+    // //                if(move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)){ 
+    // //                    // Image db insert sql 
+    // //                    $insertValuesSQL .= "(5, '".$fileName."'),"; 
+    // //                }else{ 
+    // //                    $errorUpload .= $_FILES['files']['name'][$key].' | '; 
+    // //                } 
+    // //            }else{ 
+    // //                $errorUploadType .= $_FILES['files']['name'][$key].' | '; 
+    // //            } 
+    // //        } 
+   
+    //        // Error message 
+    //        $errorUpload = !empty($errorUpload)?'Upload Error: '.trim($errorUpload, ' | '):''; 
+    //        $errorUploadType = !empty($errorUploadType)?'File Type Error: '.trim($errorUploadType, ' | '):''; 
+    //        $errorMsg = !empty($errorUpload)?'<br/>'.$errorUpload.'<br/>'.$errorUploadType:'<br/>'.$errorUploadType; 
+           
+//            if(!empty($insertValuesSQL)){ 
+//                $insertValuesSQL = trim($insertValuesSQL, ','); 
+//                // Insert image file name into database 
+//             //    $insert = $db->query("INSERT INTO itemimage (itemId , image) VALUES $insertValuesSQL"); )
+               
+// }
+       
+    }
 else{
-    ?>
-<script>
-window.location.href = "add_item.php";
-</script>
-<?php 
-return ;
-}
+    header("Location:add_item.php");
+    return;
+        
+    }
 }
 ?>
 <div class="container-fluid ">
@@ -115,9 +146,9 @@ return ;
                         } ;?>" rows="2"></textarea>
                     </div>
                     <div class="input-group  mb-4">
-                        <select required value="<?php if(isset($_SESSION["category_item"])){
-                                echo $_SESSION["category_item"]; 
-                                unset($_SESSION["category_item'"]);
+                        <select required value="<?php if(isset($_SESSION["categoryId"])){
+                                echo $_SESSION["categoryId"]; 
+                                unset($_SESSION["categoryId'"]);
                         }?>" class="form-select " id="inputGroupSelect02" name="category" required>
                             <option selected> Choose Categories...</option>
                             <?php  $row = getCategories($db);
@@ -184,9 +215,9 @@ return ;
                 } ?></p>
                     <div class=" input-group mb-4">
                         <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number"
-                            class="form-control" value="<?php if(isset($_SESSION["disocunt_item"])){
-                                echo $_SESSION["disocunt_item"]; 
-                                unset($_SESSION["disocunt_item"]);}?>">
+                            class="form-control" value="<?php if(isset($_SESSION["discount_item"])){
+                                echo $_SESSION["discount_item"]; 
+                                unset($_SESSION["discount_item"]);}?>">
                         <span class=" input-group-text  bg-success text-light">&#163</span>
                         <span class="input-group-text bg-success text-light">%</span>
                     </div>
