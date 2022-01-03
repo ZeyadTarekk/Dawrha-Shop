@@ -440,6 +440,12 @@ function updateTheCartAfterDeletion($cartID, $finalPrice, $db) {
     $updateSql = "UPDATE cart SET itemCount=itemCount-1, payment=payment-" . $finalPrice . " WHERE cart.cartId=" . $cartID . ";";
     $db->exec($updateSql);
 }
+function countItemCart($db,$cartID){
+    $sql="SELECT COUNT(cartitem.itemId)from cartitem WHERE cartitem.cartId=".$cartID.";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchColumn();
+    return $result;
+}
 // end cart
 
 //Start reviewItem
