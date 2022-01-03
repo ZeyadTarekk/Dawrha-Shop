@@ -48,8 +48,8 @@
         }
     }
 
-    if($iterk1==0 && !isset($_GET['keyword']))
-      header("Location: signin.php");
+    // if($iterk1==0 && !isset($_GET['keyword']))
+    //   header("Location: signin.php");
     
 ?>
 
