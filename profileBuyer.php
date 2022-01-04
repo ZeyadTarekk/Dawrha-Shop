@@ -146,7 +146,7 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php?itemid=<?= $orderedItem->itemId?>" style="text-decoration: none;color: black;">
+                    <a href="reviewItem.php?do=Manage&itemId=<?= $orderedItem->itemId?>&itemName=<?=$orderedItem->title?>" style="text-decoration: none;color: black;">
 
                         <?php
                         if($imageName){
@@ -158,9 +158,11 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                                 <h5 class="card-title">' . $orderedItem->title . '</h5>
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $orderedItem->description . '</p>
-                                <h4 class="card-title">' . $orderedItem->price . '</h4>
+                                <h6 class="card-title">' . $orderedItem->orderPrice . '$</h6>
+                                <h6 class="card-title"> Quantity: ' . $orderedItem->quantity . '</h6>
+                                <h6 class="card-title">' . $orderedItem->orderDate . '</h6>
                                 <div class="card-body">
-                                    <a href="profileBuyer.php?deleteOrderId=' . $orderedItem->orderId . '" class="btn btn-danger">Delete</a>
+                                    
                                 </div>
                             </div>
                             </a>
@@ -168,7 +170,7 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                     </div>
                     ';
                         } ?>
-
+<!--                        <a href="profileBuyer.php?deleteOrderId=' . $orderedItem->orderId . '" class="btn btn-danger">Delete</a>-->
                 </section>
             </div>
         </div>
