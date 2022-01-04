@@ -67,7 +67,11 @@
               </div>
             </div>
             <div class="text-right text-muted pt-1">
-              <?php $date1 = new DateTime($noti['date']); $interval = $date1->diff($date); if($interval->days == 0 ) echo "Today"; elseif($interval->days == 0) echo "A Day Ago"; else echo $interval->days . " Days Ago"; ?>
+              <?php $date1 = new DateTime($noti['date']); 
+              $interval = $date1->diff($date); 
+              if($interval->days == 0 ) echo "Today"; 
+              elseif($interval->days == 1) echo "A Day Ago"; 
+              else echo $interval->days . " Days Ago"; ?>
             </div>
           </div>
           <?php endif; ?>
@@ -100,7 +104,11 @@
               </div>
             </div>
             <div class="text-right text-muted pt-1">
-              <?php $date1 = new DateTime($noti['date']); $interval = $date1->diff($date); if($interval->days == 0 ) echo "Today"; elseif($interval->days == 1) echo "A Day Ago"; else echo $interval->days . " Days Ago"; ?>
+              <?php $date1 = new DateTime($noti['date']); 
+              $interval = $date1->diff($date); 
+              if($interval->days == 0 ) echo "Today"; 
+              elseif($interval->days == 1) echo "A Day Ago"; 
+              else echo $interval->days . " Days Ago"; ?>
             </div>
           </div>
           <?php endif; ?>
