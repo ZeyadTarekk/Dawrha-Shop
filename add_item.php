@@ -10,7 +10,6 @@ return;
     
 }
 
-
 if(isset($_POST['done']))
 {
         //filter data
@@ -31,7 +30,9 @@ $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
 $_SESSION['DB_er']="";
 var_dump(($_SESSION));
-
+if($_SESSION['discount_item']==""){
+    $_SESSION['discount']=0;
+}
 //validate priceItem
 if(!ctype_digit($_SESSION["price"]) ||$_SESSION["price"]<0){
     $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
@@ -58,16 +59,16 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
     insertItem($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
     ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
-    unset($_SESSION["item_name"]);
-    unset($_SESSION["price"]);
-    unset($_SESSION["discount_item"]);
-    unset($_SESSION["quantity_item"]);
-    unset($_SESSION["description_item"]);
-    unset($_SESSION["city"]);
-    unset($_SESSION["country"]);
-    unset($_SESSION["categoryId"]);
-    unset($_SESSION['homeNum']);
-    unset($_SESSION['st']);
+    $_SESSION["item_name"]="";
+    $_SESSION["price"]="";
+    $_SESSION["discount_item"]="";
+    $_SESSION["quantity_item"]="";
+    $_SESSION["description_item"]="";
+    $_SESSION["city"]="";
+    $_SESSION["country"]="";
+    $_SESSION["categoryId"]="";
+    $_SESSION['homeNum']="";
+    $_SESSION['st']="";
 
     $_SESSION['DB_er']=1;
     
