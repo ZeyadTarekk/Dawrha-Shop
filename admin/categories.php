@@ -69,7 +69,7 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
         <!-- Description -->
         <div class="mb-3">
           <label for="des" class="form-label">Description</label>
-          <textarea class="form-control" id="des" rows="3" name="description" required><?php echo $catDes; ?></textarea>
+          <textarea class="form-control" id="des" rows="3" name="description"><?php echo $catDes; ?></textarea>
         </div>
         <button type="submit" class="btn btn-primary form-btn">Add</button>
       </form>
@@ -108,7 +108,7 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
         <!-- Description -->
         <div class="mb-3">
           <label for="des" class="form-label">Description</label>
-          <textarea class="form-control" id="des" rows="3" name="description" required><?php echo $catDes; ?></textarea>
+          <textarea class="form-control" id="des" rows="3" name="description"><?php echo $catDes; ?></textarea>
         </div>
         <button type="submit" class="btn btn-primary form-btn">Edit</button>
       </form>

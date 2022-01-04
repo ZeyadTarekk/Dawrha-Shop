@@ -64,6 +64,7 @@ if ($do == 'Manage') {
                 <th scope="col" class="table-dark">Likes</th>
                 <th scope="col" class="table-dark">DisLikes</th>
                 <th scope="col" class="table-dark">Transactions</th>
+                <th scope="col" class="table-dark"># of Items</th>
                 <th scope="col" class="table-dark">Phones</th>
                 <th scope="col" class="table-dark">Control</th>
               </tr>
@@ -72,7 +73,7 @@ if ($do == 'Manage') {
               <?php 
                 if (empty($sellers)) {
                   echo '<tr>';
-                  echo '<td scope="row" colspan="9" style="font-size: 25px; color: #c13131;">No Result Found</td>';
+                  echo '<td scope="row" colspan="10" style="font-size: 25px; color: #c13131;">No Result Found</td>';
                   echo '</tr>';
                 } else {
                 foreach($sellers as $seller) {
@@ -84,6 +85,7 @@ if ($do == 'Manage') {
                   echo '<td>' . $seller['likes'] . '</td>';
                   echo '<td>' . $seller['disLikes'] . '</td>';
                   echo '<td>' . $seller['transactions'] . '</td>';
+                  echo '<td>' . itemsForSeller($seller['ID'], $db) . '</td>';
                   echo '<td>';
                   $phones = GetSellerPhones($seller['ID'], $db);
                   foreach($phones as $phone) {

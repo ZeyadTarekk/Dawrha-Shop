@@ -37,7 +37,6 @@ if ($do == 'Manage') {
         ?>
       </div>
       <div class="thumbnails">
-        <!-- loop to get the number of images of the product -->
         <?php 
           for($i = 0; $i < count($images); $i++) {
             echo '<img src="' . $dataimages . $images[$i]['image'] . '" alt="primary">';

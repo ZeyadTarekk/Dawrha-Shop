@@ -58,6 +58,13 @@ function CheckPhone($id, $phone, $db) {
   return $count;
 }
 
+function isUsedUserNameEdit($username, $newusername, $db) {
+  $sql = "SELECT * FROM admin WHERE userName='" . $newusername . "' AND userName!='" . $username . "';";
+  $stmt = $db->query($sql);
+  $count = $stmt->rowCount();
+  return $count;
+}
+
 function InsertNewPhone($id, $phone, $db) {
   $insertSql = "INSERT INTO mobileadmin VALUES(" . $id . ",'" . $phone . "')";
   $db->exec($insertSql);
@@ -194,6 +201,14 @@ function DeleteSellerByID($id, $db) {
   $deleteSql = "DELETE FROM seller WHERE ID=" . $id . "";
   $db->exec($deleteSql);
 }
+
+function itemsForSeller($id, $db) {
+  $sql = "SELECT COUNT(*) as Count FROM item WHERE sellerId=" . $id . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $itemsNum = $result[0]['Count'];
+  return $itemsNum;
+}
 //End Seller
 
 //Start Item
@@ -298,6 +313,13 @@ function LastYearOrders($db) {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $ordersNum = $result[0]['Count'];
   return $ordersNum;
+}
+function NumberOfItems($db) {
+  $sql = "SELECT COUNT(*) as Count FROM item;";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $itemsNum = $result[0]['Count'];
+  return $itemsNum;
 }
 
 //End Stats
