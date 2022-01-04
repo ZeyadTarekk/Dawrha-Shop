@@ -2,7 +2,7 @@
 $pageTitle = "Categories";
 include 'init.php';
 
-if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
+if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
   header("Location: ../signin.php");
 }
 

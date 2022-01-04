@@ -2,7 +2,7 @@
 $pageTitle = "Items";
 include 'init.php';
 
-if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
+if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
   header("Location: ../signin.php");
 }
   //check the wanted page [Manage | Edit(Update) | Add(Insert) | Delete] before going there
@@ -59,7 +59,7 @@ if (!isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "admin") {
               <thead class="thead-dark">
                 <tr>
                   <th scope="col" class="table-dark">#ID</th>
-                  <th scope="col" class="table-dark">Name</th>
+                  <th scope="col" class="table-dark">Item Name</th>
                   <th scope="col" class="table-dark">Category</th>
                   <th scope="col" class="table-dark">Owner's Name</th>
                   <th scope="col" class="table-dark">Price</th>

@@ -2,7 +2,9 @@
   ob_start();
   $pageTitle = "Statistics";
   include 'init.php';
-
+  if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
+    header("Location: ../signin.php");
+  }
 ?>
 
 <div class="container mt-5 mb-5">
