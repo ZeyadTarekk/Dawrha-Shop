@@ -665,6 +665,21 @@ function getCategoryName($catId, $db)
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+function deleteItemImage($db,$itemID,$image){
+    $sql="DELETE from itemimage WHERE itemimage.itemId=".$itemID." and itemimage.image='".$image."';";
+    $stmt=$db->prepare($sql);
+    $stmt->execute();
+}
+function updateImageItem($db,$Arrimage,$itemID){
+        foreach($Arrimage as $image)
+        {
+            $sql="UPDATE  itemimage set image (itemId,image) 
+            VALUES (".$itemID.",'".$image."')";
+            $stmt=$db->prepare($sql);
+            $stmt->execute();
+        }
+
+}
 
 // end edit Item
 // order page
