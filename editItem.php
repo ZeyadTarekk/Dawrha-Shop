@@ -85,7 +85,7 @@ if(isset($_POST['DONE']))
 
 
                 $targetDir = "data/uploads/items/";
-                $allowTypes = array('jpg','png','jpeg','gif'); 
+                $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw');
                 $fileNames = array_filter($_FILES['files']['name']); 
                 $arrFile=array();
                     if(!empty($fileNames))
