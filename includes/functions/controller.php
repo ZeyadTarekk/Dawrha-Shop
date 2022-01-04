@@ -635,7 +635,7 @@ function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
     date_default_timezone_set("EET");
     $date = date('Y-m-d', time());
 
-    $msg = "Hello ".$result6[0]['fName'] .$result6[0]['lName'].", " .$result7[0]['fName'] . $result7[0]['lName']." ordered your item: ".$result5[0]['title'].", Quantity: ".$quantity.", Price: ".$orderPrice.", at ".$date;
+    $msg = "Hello ".$result6[0]['fName']." " .$result6[0]['lName'].", " .$result7[0]['fName'] ." ". $result7[0]['lName']." ordered your item: ".$result5[0]['title'].", Quantity: ".$quantity.", Price: ".$orderPrice.", at ".$date;
     
     
     $sql8 = "INSERT INTO notification(message) VALUES('$msg')";
