@@ -79,6 +79,7 @@
       <?php else: ?>
       <div class="row row-of-card g-5 justify-content-center align-items-center">
         <?php foreach($items as $ite): ?>
+        <?php if($ite['isDeleted']==0): ?>
         <div class="col-8 col-lg-4 col-xl-3 ">
           <a href="<?php echo "reviewitem.php?do=Manage&itemId=" . $ite['itemId'] . "&itemName=" . $ite['title'] ?>"
             style="text-decoration:none; color:black">
@@ -101,6 +102,7 @@
             </div>
           </a>
         </div>
+        <?php endif; ?>
         <?php endforeach; ?>
         <?php endif; ?>
       </div>
