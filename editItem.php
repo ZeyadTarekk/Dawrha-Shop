@@ -246,7 +246,7 @@ if(isset($_POST['DONE']))
                 foreach($imagesOfitem as $image):?>
                 <div class="card m-md-auto col-lg-4 border-0 col-sm-5 mb-5 ">
                 <a href="editItem.php?deleteImage=<?php echo $image['image']?>" id="stopRedirect" class="btn btn-danger rounded-pill position-absolute"
-                style="width: fit-content; top: 0;right: 0" onclick="return deleteImage()" ><span class="badge b-2">-</span></a>
+                style="width: fit-content; top: 0;right: 0" onclick="return deleteImage()" ><span class="badge b-5"><i class="bi bi-trash "></i></span></a>
                 <img src="<?php echo $dataimages .$image['image'] ?>" alt=" item's photo" class="img-fluid" >
                 </div>
                 <?php endforeach?>

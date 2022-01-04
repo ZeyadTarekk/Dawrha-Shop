@@ -73,7 +73,7 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
     $_SESSION['DB_er']=1;
     
         $targetDir = "data/uploads/items/";
-        $allowTypes = array('jpg','png','jpeg','gif'); 
+        $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw'); 
         $fileNames = array_filter($_FILES['files']['name']); 
         $arrFile=array();
         if(!empty($fileNames))
