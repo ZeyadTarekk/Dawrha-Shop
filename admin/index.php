@@ -271,7 +271,7 @@
               InsertNewPhone($adminId, $phone, $db);
             }
             $phone = "";
-            header("Location: index.php");
+            header("Location: index.php?do=Phones&adminId=" . $adminId . "");
           }
         }
       }
@@ -347,6 +347,7 @@
     $admin = GetAdminByID($adminId, $db);
     //define the error messages and input values
     $usernameErr = $fnameErr = $lnameErr = $emailErr = $opassErr = $npassErr = '';
+    $oldUserName = $admin[0]['userName'];
     $userName = $admin[0]['userName'];
     $fName = $admin[0]['fName'];
     $lName = $admin[0]['lName'];
@@ -389,9 +390,14 @@
           $opassErr == "" && $npassErr == "") {
         //check the old password
         if (sha1($oPass) == $admin[0]['password']) {
-          UpdateAdmin($adminId, $userName, $fName, $lName, $email, $nPass, $db);
-          $userName = $fName = $lName = $email = $oPass = $nPass = '';
-          header("Location: index.php");
+          //check if the username used before or no
+          if (isUsedUserNameEdit($oldUserName, $userName, $db)) {
+            $usernameErr = "This user name is already used! Try another one";
+          } else {
+            UpdateAdmin($adminId, $userName, $fName, $lName, $email, $nPass, $db);
+            $userName = $fName = $lName = $email = $oPass = $nPass = '';
+            header("Location: index.php");
+          }
         }else {
           $opassErr = "Wrong Password";
         }
