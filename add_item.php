@@ -34,8 +34,9 @@ if($_SESSION['discount_item']==""){
     $_SESSION['discount_item']=0;
 }
 //validate priceItem
-if(!ctype_digit($_SESSION["price"]) ||$_SESSION["price"]<0){
-    $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
+
+if(!is_float(floatval($_SESSION["price"])) ||$_SESSION["price"]<0){
+    $_SESSION["pricerr"]="* Only Positive Value is Allowed";
 }
 
                 //street validation

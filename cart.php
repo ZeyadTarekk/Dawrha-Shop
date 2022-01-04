@@ -43,7 +43,7 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
     <div class="row row-of-card g-5 justify-content-start align-items-center">
       <?php
             foreach($items as $k):
-            $finalPrice= (int)$k['quantity'] * (int)($k['price']) - (int)($k['price']) * (int)(($k['discount']/100));
+              $finalPrice= (int)$k['quantity'] * floatval($k['price'] - $k['price'] * ($k['discount']/100));
             ?>
       <div class="col-8 col-lg-4 col-xl-3 ">
         <div class="card m-md-auto shadow" style="width: 19rem;">
