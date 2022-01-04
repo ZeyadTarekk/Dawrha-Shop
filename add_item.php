@@ -30,6 +30,7 @@ $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
 $_SESSION['DB_er']="";
+var_dump(($_SESSION));
 
 //validate priceItem
 if(!ctype_digit($_SESSION["price"]) ||$_SESSION["price"]<0){
@@ -74,17 +75,21 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
         $allowTypes = array('jpg','png','jpeg','gif'); 
         $fileNames = array_filter($_FILES['files']['name']); 
         $arrFile=array();
-    if(!empty($fileNames)){ 
-        foreach($_FILES['files']['name'] as $key=>$val){  
-            $fileName = basename($_FILES['files']['name'][$key]);
-            $randomName = uniqid() . "-" . time();
-            $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-            $newfilename = $randomName . '.' . $fileType;
-            $targetFilePath = $targetDir . $newfilename;
-            if(in_array($fileType, $allowTypes)){
-                if(move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)){ 
-                   array_push($arrFile,$newfilename); 
-                    }
+        if(!empty($fileNames))
+        { 
+            foreach($_FILES['files']['name'] as $key=>$val)
+            {  
+                $fileName = basename($_FILES['files']['name'][$key]);
+                $randomName = uniqid() . "-" . time();
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+                $newfilename = $randomName . '.' . $fileType;
+                $targetFilePath = $targetDir . $newfilename;
+                if(in_array($fileType, $allowTypes))
+                {
+                    if(move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath))
+                        { 
+                        array_push($arrFile,$newfilename); 
+                        }
                 } 
             }
         }
@@ -114,7 +119,7 @@ else{
         <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
             <div class="display h1 mt-4 mb-4">Add Item</div>
             <div class=" col-lg-5 col-md-12 col-sm-6">
-                <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data">
+                <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data" style="height: fit-content;">
                     <div class="mb-4 input-group ">
                         <input type="name" class="form-control" placeholder="Item Name" name="name" required autofocus
                             value="<?php 
@@ -156,7 +161,7 @@ else{
                 } ?></p>
                     <div class="row g-2 mb-4">
                         <div class="col-sm-6">
-                            <input required min=1 type="number" name="homenumber" class="form-control"
+                            <input required min=0 type="number" name="homenumber" class="form-control"
                                 placeholder="Home Number" value="<?php if(isset($_SESSION["homeNum"])){
                             echo $_SESSION["homeNum"] ;
                             unset($_SESSION["homeNum"]);}?>">
@@ -234,14 +239,9 @@ else{
                 <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
             </div>
             <?php 
-             if (isset($_SESSION['DB_er'])&&$_SESSION['DB_er']==1) {
-             echo '<div class="alert alert-success w-50" role="alert" >Successfully Submition
-                      <i class="bi bi-check"></i></div>';
-                     unset($_SESSION["DB_er"]);}
-                 else{
-                     if(isset($_SESSION['DB_er'])){
-                    echo '<div class="alert alert-danger container-md w-50 mt-5 mb-5" role="alert">Invalid submit</div>'; 
-                    unset($_SESSION["DB_er"]);}
+                    if(isset($_SESSION['DB_er'])&&$_SESSION['DB_er']!=1){
+                    echo '<div class="alert alert-danger container-md  mt-5 mb-5" style="width: 50%;" role="alert">Invalid submit</div>'; 
+                    unset($_SESSION["DB_er"]);
                 }?>
         </div>
     </div>

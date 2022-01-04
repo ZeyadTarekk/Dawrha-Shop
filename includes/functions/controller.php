@@ -671,16 +671,13 @@ function deleteItemImage($db,$itemID,$image){
     $stmt->execute();
 }
 function updateImageItem($db,$Arrimage,$itemID){
-        foreach($Arrimage as $image)
-        {
-            $sql="UPDATE  itemimage set image (itemId,image) 
-            VALUES (".$itemID.",'".$image."')";
-            $stmt=$db->prepare($sql);
-            $stmt->execute();
-        }
-
+foreach($Arrimage as $image){
+    $sql="INSERT INTO itemimage (itemId,image) 
+    VALUES (".$itemID.",'".$image."')";
+    $stmt=$db->prepare($sql);
+    $stmt->execute();
 }
-
+}
 // end edit Item
 // order page
 function getOrdersOfItem($id, $db)
