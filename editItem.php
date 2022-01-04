@@ -50,7 +50,7 @@ if(isset($_POST['DONE']))
             $_SESSION["country_er"]="";
             $_SESSION['DB_er']="";
             if($_SESSION['discount_item']==""){
-                $_SESSION['discount']=0;}
+                $_SESSION['discount_item']=0;}
                 //validate priceItem
             if(!ctype_digit($_SESSION["price"]) ||$_SESSION["price"]<0){
                 $_SESSION["pricerr"]="* Only Numeric Positive Value is Allowed";
