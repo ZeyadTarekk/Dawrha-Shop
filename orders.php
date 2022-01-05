@@ -23,8 +23,9 @@ if(isset($_GET['feedback'])){
 }
 $orderDetails = getOrdersOfItem($_GET['itemid'], $db);
 $itemName = GetItemByID($_GET['itemid'], $db)[0]['title'];
+$mobileSeller = getSellerMobiles($_SESSION['id'],$db);
 if (isset($_GET['deleteOrderId'])) {
-    $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been declined";
+    $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been declined\n you can communicate with the seller through ".(count($mobileSeller)>0?$mobileSeller[0]->phoneNo:"");
     insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
     setOrderRejected($_GET['deleteOrderId'], $db);
     ?>
@@ -49,7 +50,7 @@ if (isset($_GET['deleteOrderId'])) {
     <?php
 }
 else if (isset($_GET['acceptOrderId'])) {
-    $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been accepted";
+    $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been accepted\n you can communicate with the seller through ".(count($mobileSeller)>0?$mobileSeller[0]->phoneNo:"");
     insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
     incrementBuyer_SellerTransactions($_GET['buyerId'],$_SESSION['id'],$_GET['buyerUserName'],$_SESSION['username'],$db);
     setOrderAccepted($_GET['acceptOrderId'], $db);
