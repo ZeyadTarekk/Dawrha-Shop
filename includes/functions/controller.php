@@ -520,6 +520,12 @@ function SelectQuantityOfItem($cartID, $itemID, $db) {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+function QuantityOfItem($itemID, $db) {
+    $sql = "SELECT quantity FROM item WHERE itemId=" . $itemID . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 function CheckBuyerAndItem($cartID, $itemID, $db) {
     $sql = "SELECT * FROM cartitem WHERE cartId=" . $cartID . " AND itemId=" . $itemID . ";";
     $stmt = $db->query($sql);

@@ -80,8 +80,8 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
   </div>
   <?php $result=getPayItemcount($db,$cartID)[0];?>
   <div class="container">
-  <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a>
-  <h6 class="display text-center text-danger"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
+  <!-- <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a> -->
+  <h6 class="mt-3 display text-center text-danger"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
   <h6 class="display text-center text-danger"><?php echo 'Total Payment: ' .$result['payment'] .' $' ?></h6>
   </div>
 </div>

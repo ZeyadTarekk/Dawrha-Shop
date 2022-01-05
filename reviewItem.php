@@ -105,6 +105,14 @@ if ($do == 'Manage') {
           <span>Add to cart</span>
         </button>
       </form>
+        <?php 
+          if (isset($_SESSION['trueQuantity'])) {
+            echo '<div class="alert-danger p-3 mt-2" style="width: fit-content; border-radius: 15px;">';
+            echo 'Max Quantity is ' . $_SESSION['trueQuantity'];
+            unset($_SESSION['trueQuantity']);
+            echo '</div>';
+          }
+        ?>
       <?php } } ?>
     </div>
   </section>
@@ -112,6 +120,12 @@ if ($do == 'Manage') {
 
 <?php 
 } elseif ($do == 'Confirm' && isset($_SESSION['id']) && $_SESSION['typeOfUser'] == "buyer") {
+  $num = $_POST['quan'];
+  $trueQuantity = QuantityOfItem($item['itemId'], $db)[0]['quantity'];
+  if ($num > $trueQuantity) {
+    $_SESSION['trueQuantity'] = $trueQuantity;
+    header("Location: ?do=Manage&itemId=" . $_GET['itemId'] . "&itemName=" . $_GET['itemName'] . "");
+  }
   if (isset($_POST['submit'])) {
     //add this item to the cart of that buyer(session_id)
     $num = $_GET['quantity'];
