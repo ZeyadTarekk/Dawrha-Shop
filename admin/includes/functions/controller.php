@@ -166,6 +166,11 @@ function DeleteBuyerByID($id, $db) {
   $deleteSql = "DELETE FROM buyer WHERE ID=" . $id . "";
   $db->exec($deleteSql);
 }
+
+function DeleteCart($cartId, $db) {
+  $deleteSql = "DELETE FROM cart WHERE cartId=" . $cartId . ";";
+  $db->exec($deleteSql);
+}
 //End Buyer
 
 //Start Seller

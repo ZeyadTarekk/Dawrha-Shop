@@ -90,7 +90,7 @@
                       echo $phone['phone'] . '<br>';}
                     echo '</td>';
                     echo '<td>
-                            <a href="?do=Delete&buyerId=' . $buyer['ID'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
+                            <a href="?do=Delete&buyerId=' . $buyer['ID'] . '&cartId=' . $buyer['cartId'] . '" class="btn btn-danger"><i class="fas fa-user-minus"></i> Delete</a>
                           </td>';
                     echo '</tr>';
                   } }
@@ -103,12 +103,16 @@
 <?php
   } elseif ($do == 'Delete') {
     $buyerId = isset($_GET['buyerId']) && is_numeric($_GET['buyerId']) ? intval($_GET['buyerId']) : 0;
+    $cartId = isset($_GET['cartId']) && is_numeric($_GET['cartId']) ? intval($_GET['cartId']) : 0;
     if (!$buyerId) {
       header("Location: buyers.php");
-    }else {
+    } elseif (!$cartId) {
+      header("Location: buyers.php");
+    } else {
       $buyer = GetBuyerByID($buyerId, $db);
       if(isset($_POST['submit'])) {
         DeleteBuyerByID($buyerId, $db);
+        DeleteCart($cartId, $db);
         header("Location: buyers.php");
       }
     }
@@ -117,7 +121,7 @@
       <h1 class="text-center">Delete Buyer</h1>
       <div class="delete-box shadow">
         <h3 class="text-center">Are you Sure You Want To Delete <b><?php echo $buyer[0]['userName'] ?></b></h3>
-        <form action="?do=Delete&buyerId=<?php echo $buyerId; ?>" method="POST" class="text-center">
+        <form action="?do=Delete&buyerId=<?php echo $buyerId; ?>&cartId=<?php echo $cartId; ?>" method="POST" class="text-center">
           <button type="submit" name="submit" class="btn btn-danger">Yes</button>
           <a class="btn btn-success" href="?do=Manage">No</a>
         </form>
