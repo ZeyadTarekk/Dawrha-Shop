@@ -779,6 +779,19 @@ function dislikeBuyer($id,$userName,$db)
         ":id"=>$id
     ));
 }
+function likeSeller($db,$id)
+{
+    $sql = "UPDATE seller SET likes = likes + 1 WHERE Id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id"=>$id));
+}
+function dislikeSeller($db,$id)
+{
+    $sql = "UPDATE seller SET disLikes = disLikes + 1 WHERE Id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id"=>$id));
+}
+
 function incrementBuyer_SellerTransactions($buyerid,$sellerid,$buyerUsername,$sellerUsername,$db)
 {
     $sql1 = getBuyer($db,$buyerUsername)[0];

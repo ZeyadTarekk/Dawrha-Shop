@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   $pageTitle = 'Notifications';
   include "init.php";
   // session_start();
@@ -8,6 +9,15 @@
   date_default_timezone_set("EET");
   $date = date('Y-m-d', time());
   $date = new DateTime($date);
+  if(isset($_GET['likes'])){
+    likeSeller($db,$_GET['id']);
+    header("Location: notification.php");
+  }
+  if(isset($_GET['dislikes'])){
+    dislikeSeller($db,$_GET['id']);
+    header("Location: notification.php");
+  }
+  // print_r($Notifications);
   
 ?>
 
@@ -39,7 +49,7 @@
        "Notification From ". $noti['fName']." ".$noti['lName']; ?>
                 </div>
               </div>
-              <div class="text-right text-muted pt-1">
+              <div class="text-right text-muted pt-1" style="min-width: fit-content;">
                 <?php
                 $date1 = new DateTime($noti['date']);
                 $interval = $date1->diff($date);
@@ -61,12 +71,39 @@
             <div class="fw-bold mr-3">
               <div><?php echo $noti['message'] ?>
               </div>
-              <div class="small">
-                <?php echo
-       "Notification From ". $noti['fName']." ".$noti['lName']; ?>
+              <div class="small d-flex justify-content-between pt-3">
+                <div class=""> <?php echo
+       "Notification From ". $noti['fName']." ".$noti['lName']; ?></div>
+                <div class="pe-3">
+                  <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Feedback
+                  </button>
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                          Your feedback helps us improve our service.
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                          <a type="button" href="notification.php?likes=true&id=<?php echo $noti['sellerId']  ?>"
+                            class="btn btn-secondary" data-bs-dismiss="">Like</a>
+                          <a type="button" href="notification.php?dislikes=true&id=<?php echo $noti['sellerId']  ?>"
+                            class=" btn
+                            btn-primary">DisLike</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="text-right text-muted pt-1">
+            <div class="text-right text-muted pt-1 " style="min-width: fit-content;">
               <?php $date1 = new DateTime($noti['date']); 
               $interval = $date1->diff($date); 
               if($interval->days == 0 ) echo "Today"; 
@@ -103,7 +140,7 @@
        "Notification From ". $noti['fName']." ".$noti['lName']; ?>
               </div>
             </div>
-            <div class="text-right text-muted pt-1">
+            <div class="text-right text-muted pt-1 " style="min-width: fit-content;">
               <?php $date1 = new DateTime($noti['date']); 
               $interval = $date1->diff($date); 
               if($interval->days == 0 ) echo "Today"; 
@@ -125,5 +162,5 @@
     setNotificationsSeenForBuyer($db,$_SESSION['userID']);
   elseif(isset($_SESSION["typeOfUser"]) && $_SESSION['typeOfUser']=='seller')
     setNotificationsSeenForSeller($db,$_SESSION['userID']);
-  
+  ob_end_flush(); 
 ?>
