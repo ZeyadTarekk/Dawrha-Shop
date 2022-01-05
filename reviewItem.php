@@ -33,6 +33,8 @@ if ($do == 'Manage') {
         <?php 
           if (!empty($images)) {
             echo '<img src="' . $dataimages . $images[0]['image'] . '" alt="primary">';
+          } else {
+            echo '<img src="' . $dataimages . 'default.png" alt="primary">';
           }
         ?>
       </div>

@@ -99,11 +99,6 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
         if(!empty($arrFile)){
             insertImage($arrFile,$db);
     }
-    else{
-        $defaultName="default.png";
-        array_push($arrFile,$defaultName);
-        insertImage($arrFile,$db);
-    }
 } 
 else{
     header("Location:add_item.php");

@@ -84,7 +84,13 @@
           <a href="<?php echo "reviewitem.php?do=Manage&itemId=" . $ite['itemId'] . "&itemName=" . $ite['title'] ?>"
             style="text-decoration:none; color:black">
             <div class="card m-md-auto shadow" style="width: 18rem;">
-              <img src="<?php echo $dataimages . $ite['image'] ?>" class="card-img-top" alt="Item">
+              <img src="<?php 
+              if (isset($ite['image'])) {
+                echo $dataimages . $ite['image'];
+              } else {
+                echo $dataimages . "default.png";
+              }
+              ?>" class="card-img-top" alt="Item">
               <div class="card-body">
                 <h5 class="card-title"><?php echo $ite['title'] ?></h5>
                 <h6 class="card-title"><?php echo $ite['categoryName'] ?></h6>
