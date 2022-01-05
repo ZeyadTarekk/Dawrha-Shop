@@ -262,6 +262,13 @@ function GetItemBySellerUserName($username, $db) {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
+
+function GetImagesByID($itemID, $db) {
+  $sql = "SELECT * FROM itemimage WHERE itemId=" . $itemID . ";";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 //End Item
 
 //Start Stats

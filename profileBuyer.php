@@ -151,6 +151,8 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                         <?php
                         if($imageName){
                             echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        } else {
+                            echo'<img src="'.$imagesUploades. 'default.png" class="card-img-top" alt="Item">';
                         }
                         ?>
                         <?php echo '       

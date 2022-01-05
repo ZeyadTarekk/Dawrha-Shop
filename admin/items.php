@@ -127,6 +127,8 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
       header("Location: items.php");
     } else {
       $item = GetItemViewByID($itemId, $db);
+      $images = GetImagesByID($itemId, $db);
+      $dataimages = "../data/uploads/items/";
 ?>
 
     <div class="ItemsForm container mb-5 shadow">
@@ -134,12 +136,21 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
         <div class="gallery">
           <!-- the main image -->
           <div id="screen">
-            <img src="../data/uploads/items/magna-1.jfif" alt="">
-          </div>
-          <div class="thumbnails">
-            <img src="../data/uploads/items/magna-1.jfif" alt="">
-            <img src="../data/uploads/items/magna-2.jfif" alt="">
-          </div>
+        <?php 
+          if (!empty($images)) {
+            echo '<img src="' . $dataimages . $images[0]['image'] . '" alt="primary">';
+          } else {
+            echo '<img src="' . $dataimages . 'default.png" alt="primary">';
+          }
+        ?>
+      </div>
+      <div class="thumbnails">
+        <?php 
+          for($i = 0; $i < count($images); $i++) {
+            echo '<img src="' . $dataimages . $images[$i]['image'] . '" alt="primary">';
+          }
+        ?>
+      </div>
           </div>
             <div class="product">
               <a href="?do=Manage" class="seller-name">(ask)<?php echo $item[0]['fName'] . ' ' . $item[0]['lName']; ?></a>

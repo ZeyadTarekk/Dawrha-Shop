@@ -52,8 +52,14 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
             style="width: fit-content; top: 0;right: 0" onclick="return        deleteItemCart()">
             <span class="badge"><i class="bi bi-trash"></i>
             </span></a>
-            <?php $imageOfitem=GetImagesByID($k['itemId'],$db)[0]; ?>
-          <img src="<?php echo $dataimages .$imageOfitem['image']?>" class="card-img-top" alt="Item">
+            <?php $imageOfitem=GetImagesByID($k['itemId'],$db); ?>
+          <img src="<?php 
+              if (isset($imageOfitem[0]['image'])) {
+                echo $dataimages .$imageOfitem[0]['image'];
+              } else {
+                echo $dataimages . "default.png";
+              }
+              ?>" class="card-img-top" alt="Item">
           <div class="card-body ">
             <h5 class="card-title">
               <?php echo $k['title']?> </h5>
@@ -75,8 +81,8 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
   <?php $result=getPayItemcount($db,$cartID)[0];?>
   <div class="container">
   <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a>
-  <h6 class="display text-center text-danger"><?php echo 'Item Count: ' .$result['itemCount'] ?></h6>
-  <h6 class="display text-center text-danger"><?php echo 'Payment: ' .$result['payment'] ?></h6>
+  <h6 class="display text-center text-danger"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
+  <h6 class="display text-center text-danger"><?php echo 'Total Payment: ' .$result['payment'] .' $' ?></h6>
   </div>
 </div>
 

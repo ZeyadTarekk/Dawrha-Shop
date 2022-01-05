@@ -457,8 +457,7 @@
         <div class="input-group mb-2">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
           <input type="password" class="form-control" name="newpassword" id="password2"
-                  placeholder="New Password" aria-label="NewPassword" aria-describedby="basic-addon1"
-                  value="<?php echo $nPass; ?>">
+                  placeholder="New Password" aria-label="NewPassword" aria-describedby="basic-addon1">
           <span class="input-group-text" onclick="togglePasswordVisibility(2)"><i class="bi bi-eye"
                                                                           id="eyeIcon2"></i></span>
         </div>
