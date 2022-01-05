@@ -2,6 +2,10 @@
   ob_start();
   $pageTitle = "Statistics";
   include 'init.php';
+
+  if(!isset($_SESSION['typeOfUser']))
+    header("Location: ../signin.php");
+
   if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
     header("Location: ../signin.php");
   }
@@ -15,9 +19,9 @@
           <th scope="col" class="table-dark">Stats</th>
           <th scope="col" class="table-dark">Number</th>
         </tr>
-        </thead>
-        <tbody>
-          <?php 
+      </thead>
+      <tbody>
+        <?php 
               echo '
               <tr>
               <th scope="row">Number of Buyers</th>
