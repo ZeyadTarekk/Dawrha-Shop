@@ -446,6 +446,12 @@ function countItemCart($db,$cartID){
     $result = $stmt->fetchColumn();
     return $result;
 }
+function getPayItemcount($db,$cartID){
+    $sql="SELECT itemCount,payment from cart WHERE cart.cartId=".$cartID.";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 // end cart
 
 //Start reviewItem

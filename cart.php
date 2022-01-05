@@ -52,7 +52,8 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
             style="width: fit-content; top: 0;right: 0" onclick="return        deleteItemCart()">
             <span class="badge"><i class="bi bi-trash"></i>
             </span></a>
-          <img src="<?php echo $imgs . "Login-img.png" ?>" class="card-img-top" alt="Item">
+            <?php $imageOfitem=GetImagesByID($k['itemId'],$db)[0]; ?>
+          <img src="<?php echo $dataimages .$imageOfitem['image']?>" class="card-img-top" alt="Item">
           <div class="card-body ">
             <h5 class="card-title">
               <?php echo $k['title']?> </h5>
@@ -61,7 +62,7 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
             <h4 class="card-title"> <?php echo $finalPrice ?> $</h4>
             <div class="card-body">
               <a href="reviewItem.php?do=Manage&itemId=<?php echo $k['itemId']; ?>&itemName=<?php echo $k['title']; ?>"
-                class="btn btn-success ">Edit quantity</a>
+                class="btn btn-warning ">Edit quantity</a>
               <a href="cart.php?itemID=<?php echo $k['itemId']?>&userID=<?php echo $_SESSION['id']?>&orderPrice=<?php echo $finalPrice?>&qty=<?php echo $k['quantity']?>"
                 class="btn btn-primary">Order Item</a>
             </div>
@@ -70,6 +71,12 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
       </div>
       <?php endforeach ?>
     </div>
+  </div>
+  <?php $result=getPayItemcount($db,$cartID)[0];?>
+  <div class="container">
+  <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a>
+  <h6 class="display text-center text-danger"><?php echo 'Item Count: ' .$result['itemCount'] ?></h6>
+  <h6 class="display text-center text-danger"><?php echo 'Payment: ' .$result['payment'] ?></h6>
   </div>
 </div>
 
