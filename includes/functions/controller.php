@@ -322,6 +322,13 @@ function getOrdersCount($itemId,$db){
     $rows = $stmt->fetchColumn();
     return $rows;
 }
+function getPendingOrdersCount($itemId,$db){
+    $sql = "SELECT count(*) FROM orders,item WHERE orders.itemId = item.itemId AND item.itemId = :id AND orders.status = 0";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $itemId));
+    $rows = $stmt->fetchColumn();
+    return $rows;
+}
 // end profile seller
 // Start notifications
 function setNotificationsSeenForBuyer($db,$ownerID){
