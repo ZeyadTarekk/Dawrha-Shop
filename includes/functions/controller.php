@@ -627,10 +627,15 @@ function makeAnOrder($db,$buyerId,$itemID,$orderPrice,$quantity){
     $result6 = $stmt6->fetchAll(PDO::FETCH_ASSOC);
     $stmt6->closeCursor();
     
-    $sql7 = "SELECT fName, lName from buyer WHERE ID = $buyerId";
+    $sql7 = "SELECT fName, lName, cartId from buyer WHERE ID = $buyerId";
     $stmt7 = $db->query($sql7);
     $result7 = $stmt7->fetchAll(PDO::FETCH_ASSOC);
     $stmt7->closeCursor();
+
+    $sql10 = "UPDATE cart SET itemCount = itemCount - 1 , payment = payment - :orderPrice WHERE cartId = :buyerId";
+    $stmt10 = $db->prepare($sql10);
+    $stmt10->execute(array(":orderPrice"=>$orderPrice,":buyerId"=>$buyerId));
+    $stmt10->closeCursor();
 
     date_default_timezone_set("EET");
     $date = date('Y-m-d', time());
