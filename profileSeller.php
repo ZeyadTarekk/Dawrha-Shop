@@ -240,11 +240,15 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     as $soldItem) {
                     $imageName = getImageOfAnItem($soldItem->itemId,$db);
                     $category = getCategory($soldItem->categoryId, $db)[0];
+                    $countOrders = getOrdersCount($soldItem->itemId,$db)[0];
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
+                        <a href="orders.php?itemid='.$soldItem->itemId.'" style="z-index: 12" class="btn btn-danger rounded-pill position-absolute"
+                               style="width: fit-content; top: 0;right: 0">
+                                <span class="badge">'.$countOrders.'</span></a>
                                 '; ?>
-                    <a href="reviewItem.php?do=Manage&itemId=<?= $forSaleItem->itemId?>&itemName=<?=$forSaleItem->title?>" style="text-decoration: none;color: black;filter:grayscale(100%)">
+                    <a href="reviewItem.php?do=Manage&itemId=<?= $soldItem->itemId?>&itemName=<?=$soldItem->title?>" style="text-decoration: none;color: black;filter:grayscale(100%)">
 
                         <?php
                         if($imageName){
@@ -298,7 +302,7 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
                                 '; ?>
-                    <a href="reviewItem.php?do=Manage&itemId=<?= $forSaleItem->itemId?>&itemName=<?=$forSaleItem->title?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
+                    <a href="reviewItem.php?do=Manage&itemId=<?= $deletedItem->itemId?>&itemName=<?=$deletedItem->title?>" style="text-decoration: none;color: black;filter:grayscale(70%)">
 
                         <?php
                         if($imageName){

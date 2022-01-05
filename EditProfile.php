@@ -325,8 +325,7 @@ if (!isset($_SESSION['password_checked'])) {
                         foreach ($_SESSION['Edit_phone'] as $phone) {
                             echo "<tr>";
                             echo '<th scope="row" style="width: 100%">' . ($_SESSION['typeOfUser'] == "seller" ? $phone->phoneNo : $phone->phone) . '</th>';
-                            echo '<th scope="row" style="width: 100%"><a href="EditProfile.php?delete_mobile=
-                                 ' . ($_SESSION['typeOfUser'] == "seller" ? $phone->phoneNo : $phone->phone) . '" class="btn btn-block btn-danger text-white rounded-pill ">Delete</a></th>';
+                            echo '<th scope="row" style="width: 100%"><a href="EditProfile.php?delete_mobile=' . ($_SESSION['typeOfUser'] == "seller" ? $phone->phoneNo : $phone->phone) . '" class="btn btn-block btn-danger text-white rounded-pill ">Delete</a></th>';
                             echo "<tr>";
                         }
                         ?>

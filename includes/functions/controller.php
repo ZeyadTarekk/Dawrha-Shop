@@ -716,5 +716,49 @@ function insertNotificationBuyer($message,$sellerid, $ownerid, $db)
 
     return $last_id;
 }
+function likeBuyer($id,$userName,$db)
+{
+    $sql1 = getBuyer($db,$userName)[0];
+    $likes = $sql1['likes']+1;
+    $sql = "UPDATE buyer SET likes = :likes WHERE Id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":likes" => $likes,
+        ":id"=>$id
+    ));
+}
+function dislikeBuyer($id,$userName,$db)
+{
+    $sql1 = getBuyer($db,$userName)[0];
+    $dislikes = $sql1['disLikes']+1;
+    $sql = "UPDATE buyer SET disLikes = :dislikes WHERE Id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":dislikes" => $dislikes,
+        ":id"=>$id
+    ));
+}
+function incrementBuyer_SellerTransactions($buyerid,$sellerid,$buyerUsername,$sellerUsername,$db)
+{
+    $sql1 = getBuyer($db,$buyerUsername)[0];
+    $buyerTransactions = $sql1['transactions']+1;
+
+    $sql2 = "UPDATE buyer SET transactions = :transactions WHERE Id = :buyerid";
+    $stmt2 = $db->prepare($sql2);
+    $stmt2->execute(array(
+        ":transactions" => $buyerTransactions,
+        ":buyerid"=>$buyerid
+    ));
+
+    $sql3 = getSeller($db,$sellerUsername)[0];
+    $sellerTransactions = $sql3['transactions']+1;
+
+    $sql4 = "UPDATE seller SET transactions = :transactions WHERE Id = :sellerid";
+    $stmt4 = $db->prepare($sql4);
+    $stmt4->execute(array(
+        ":transactions" => $sellerTransactions,
+        ":sellerid"=>$sellerid
+    ));
+}
 //end order page
 ?>
