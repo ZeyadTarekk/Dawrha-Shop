@@ -61,7 +61,7 @@
               href="index.php">All</a></button>
         </li>
         <?php foreach($categories as $cat): ?>
-        <li><button
+        <li title="<?php echo $cat['categoryDescription']?>"><button
             class="btn btn-success <?php if(isset($_GET['cat'])&&$cat['categoryName']===$_GET['cat']) echo "active" ?> "><a
               href="<?php echo "index.php?cat=".$cat['categoryName'] ?>"><?php echo $cat['categoryName'] ?></a></button>
         </li>
