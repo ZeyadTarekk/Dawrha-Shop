@@ -838,5 +838,13 @@ function setOrderRejected($id,$db){
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
 }
+function getOrder($id, $db)
+{
+    $sql = "SELECT * FROM orders WHERE orders.orderId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
 //end order page
 ?>
