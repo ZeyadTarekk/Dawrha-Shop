@@ -689,6 +689,12 @@ foreach($Arrimage as $image){
     $stmt->execute();
 }
 }
+function getCountOfImage($db,$itemID){
+    $sql="SELECT COUNT(image) from itemimage WHERE itemimage.itemId=".$itemID.";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchColumn();
+    return $result;
+}
 // end edit Item
 // order page
 function getOrdersOfItem($id, $db)

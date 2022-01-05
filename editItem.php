@@ -3,15 +3,15 @@ ob_start();
 $pageTitle = 'Edit Item';
 include "init.php";
 
-if(!isset($_SESSION['username'])){
-header("Location: signup.php");
-return;
-}
-if(isset($_GET['id'])){
-    $_SESSION['itemID']=$_GET['id'];}
-    $oldItem=GetItem($db, $_SESSION['itemID']);
-    foreach($oldItem as $item)
-    $_SESSION["item_name"]=input_data($item['title']);
+        if(!isset($_SESSION['username'])){
+        header("Location: signup.php");
+        return;
+        }
+        if(isset($_GET['id'])){
+        $_SESSION['itemID']=$_GET['id'];}
+        $oldItem=GetItem($db, $_SESSION['itemID']);
+        foreach($oldItem as $item)
+        $_SESSION["item_name"]=input_data($item['title']);
         $_SESSION['description_item']=input_data($item['description']);
         $_SESSION['discount_item']= input_data($item['discount']);
         $_SESSION['quantity_item']= input_data($item['quantity']);
@@ -27,10 +27,10 @@ if(isset($_GET['id'])){
 
             //delete photo
         if(isset($_GET['deleteImage'])){
-            deleteItemImage($db, $_SESSION['itemID'],$_GET['deleteImage']);}
+        deleteItemImage($db, $_SESSION['itemID'],$_GET['deleteImage']);}
 
 
-if(isset($_POST['DONE']))
+    if(isset($_POST['DONE']))
     { 
         //filter data
             $_SESSION["item_name"]=input_data($_POST['name']);
@@ -241,9 +241,17 @@ if(isset($_POST['DONE']))
                 </form>
                 
             </div>
+            <?php
+                $imageCount=getCountOfImage($db,$_SESSION['itemID']);
+                if($imageCount==0):?>
+                    <div class="col-lg-6 col-md-12">
+                    <img src="<?php echo $dataimages ."editing.png" ?>" alt=" item's photo" class="img-fluid">
+                </div>
+                <?php endif;?>
             <div class=" col-md-7 row  justify-content-center ">
-                <?php $imagesOfitem=GetImagesByID($_SESSION['itemID'],$db); 
-                foreach($imagesOfitem as $image):?>
+                <?php $imagesOfitem=GetImagesByID($_SESSION['itemID'],$db);?>
+                
+                <?php foreach($imagesOfitem as $image):?>
                 <div class="card m-md-auto col-lg-4 border-0 col-sm-5 mb-5 ">
                 <a href="editItem.php?deleteImage=<?php echo $image['image']?>" id="stopRedirect" class="btn btn-danger rounded-pill position-absolute"
                 style="width: fit-content; top: 0;right: 0" onclick="return deleteImage()" ><span class="badge b-5"><i class="bi bi-trash "></i></span></a>

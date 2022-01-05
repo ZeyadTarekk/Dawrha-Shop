@@ -125,11 +125,11 @@ else{
                     <div class="mb-4 input-group ">
                         <input type="name" class="form-control" placeholder="Item Name" name="name" required autofocus
                             value="<?php 
-                             if(isset($_SESSION["item_name"])){
-                             echo $_SESSION["item_name"];
+                            if(isset($_SESSION["item_name"])){
+                            echo $_SESSION["item_name"];
                             unset($_SESSION["item_name"]);
                             }
-                             ?>">
+                            ?>">
                     </div>
                     <p class="diplay text-danger mb-2">
                         <?php if(isset($_SESSION["item_namerr"])){
@@ -151,7 +151,7 @@ else{
                             <option selected> Choose Categories...</option>
                             <?php  $row = getCategories($db);
                                 foreach($row as $cat):
-                             echo '<option value="'.$cat['categoryId'].'">'.$cat['categoryName'].'</option>';?>
+                                echo '<option value="'.$cat['categoryId'].'">'.$cat['categoryName'].'</option>';?>
                             <?php endforeach ?>
                         </select>
                         <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
@@ -238,7 +238,7 @@ else{
                 </form>
             </div>
             <div class="col-lg-6 col-md-12">
-                <img src=" layout/images/itemPhoto.png" alt=" item's photo" class="img-fluid">
+                <img src="<?php echo $dataimages ."itemPhoto.png"?>" alt=" item's photo" class="img-fluid">
             </div>
             <?php 
                     if(isset($_SESSION['DB_er'])&&$_SESSION['DB_er']!=1){
@@ -251,4 +251,4 @@ else{
 </div>
 <?php include $tpl . "footer.php";
 ob_end_flush();
- ?>
+?>
