@@ -26,7 +26,7 @@ $itemName = GetItemByID($_GET['itemid'], $db)[0]['title'];
 if (isset($_GET['deleteOrderId'])) {
     $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been declined";
     insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
-    deleteOrder($_GET['deleteOrderId'], $db);
+    setOrderRejected($_GET['deleteOrderId'], $db);
     ?>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -52,7 +52,7 @@ else if (isset($_GET['acceptOrderId'])) {
     $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been accepted";
     insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
     incrementBuyer_SellerTransactions($_GET['buyerId'],$_SESSION['id'],$_GET['buyerUserName'],$_SESSION['username'],$db);
-    deleteOrder($_GET['acceptOrderId'], $db);
+    setOrderAccepted($_GET['acceptOrderId'], $db);
     ?>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

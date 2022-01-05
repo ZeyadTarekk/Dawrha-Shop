@@ -407,6 +407,30 @@ function getBuyerOrderedItems($id, $db)
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+function getBuyerPendingOrderedItems($id, $db)
+{
+    $sql = "SELECT * FROM buyer,orders,item WHERE buyer.ID = orders.buyerId AND orders.itemId = item.itemId AND orders.status = 0 AND buyer.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getBuyerAcceptedOrderedItems($id, $db)
+{
+    $sql = "SELECT * FROM buyer,orders,item WHERE buyer.ID = orders.buyerId AND orders.itemId = item.itemId AND orders.status = 1 AND buyer.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
+function getBuyerRejectedOrderedItems($id, $db)
+{
+    $sql = "SELECT * FROM buyer,orders,item WHERE buyer.ID = orders.buyerId AND orders.itemId = item.itemId AND orders.status = 2 AND buyer.ID = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
+}
 function getBuyerDeletedItems($id, $db)
 {
     $sql = "SELECT * FROM buyer,item WHERE buyer.ID = item.buyerId AND item.isDeleted = 1 AND buyer.ID = :id";
@@ -699,7 +723,7 @@ function getCountOfImage($db,$itemID){
 // order page
 function getOrdersOfItem($id, $db)
 {
-    $sql = "SELECT * FROM orders WHERE orders.itemId = :id";
+    $sql = "SELECT * FROM orders WHERE orders.itemId = :id AND orders.status = 0";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
@@ -776,6 +800,17 @@ function incrementBuyer_SellerTransactions($buyerid,$sellerid,$buyerUsername,$se
         ":transactions" => $sellerTransactions,
         ":sellerid"=>$sellerid
     ));
+}
+
+function setOrderAccepted($id,$db){
+    $sql = "UPDATE orders SET orders.status = 1 WHERE orders.orderId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+}
+function setOrderRejected($id,$db){
+    $sql = "UPDATE orders SET orders.status = 2 WHERE orders.orderId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
 }
 //end order page
 ?>

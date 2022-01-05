@@ -15,6 +15,9 @@ if (isset($_GET['deleteOrderId'])) {
 $buyerData = getBuyer($db, $_SESSION['username'])[0];
 $buyerMobiles = getBuyerMobiles($_SESSION['id'], $db);
 $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
+$pendingOrderedItems = getBuyerPendingOrderedItems($_SESSION['id'], $db);
+$acceptedOrderedItems = getBuyerAcceptedOrderedItems($_SESSION['id'], $db);
+$rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
 ?>
 
 
@@ -126,20 +129,20 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
 
 
         <!------------------------------------------------>
-        <!--   ordered  -->
+        <!-- pending  ordered  -->
         <!------------------------------------------------>
         <div class="row justify-content-around" id="ordered">
             <div class="jumbotron jumbotron-fluid m-3">
                 <div class="container">
-                    <h1 class="display-4">Ordered Items</h1>
+                    <h1 class="display-4">Pending ordered Items</h1>
                     <hr class="my-4">
-                    <p class="lead">List of all ordered items.</p>
+                    <p class="lead">List of all pending ordered items.</p>
                 </div>
             </div>
             <div class="col-sm-12 ">
                 <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
                     <?php
-                    foreach ($orderedItems as $orderedItem) {
+                    foreach ($pendingOrderedItems as $orderedItem) {
                     $imageName = getImageOfAnItem($orderedItem->itemId,$db);
                     $category = getCategory($orderedItem->categoryId, $db)[0];
                     echo '
@@ -176,5 +179,109 @@ $orderedItems = getBuyerOrderedItems($_SESSION['id'], $db);
                 </section>
             </div>
         </div>
+
+
+        <!------------------------------------------------>
+        <!-- accepted  ordered  -->
+        <!------------------------------------------------>
+        <div class="row justify-content-around" id="ordered">
+            <div class="jumbotron jumbotron-fluid m-3">
+                <div class="container">
+                    <h1 class="display-4">Accepted ordered Items</h1>
+                    <hr class="my-4">
+                    <p class="lead">List of all accepted ordered items.</p>
+                </div>
+            </div>
+            <div class="col-sm-12 ">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
+                    <?php
+                    foreach ($acceptedOrderedItems as $orderedItem) {
+                    $imageName = getImageOfAnItem($orderedItem->itemId,$db);
+                    $category = getCategory($orderedItem->categoryId, $db)[0];
+                    echo '
+                    <div class="col-lg-3 m-0 text-center">
+                        <div class="card m-md-auto shadow" style="width: 18rem;">
+                                '; ?>
+                    <a href="reviewItem.php?do=Manage&itemId=<?= $orderedItem->itemId?>&itemName=<?=$orderedItem->title?>" style="text-decoration: none;color: black;">
+
+                        <?php
+                        if($imageName){
+                            echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        }
+                        ?>
+                        <?php echo '       
+                    <div class="card-body">
+                                <h5 class="card-title">' . $orderedItem->title . '</h5>
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $orderedItem->description . '</p>
+                                <h6 class="card-title">' . $orderedItem->orderPrice . '$</h6>
+                                <h6 class="card-title"> Quantity: ' . $orderedItem->quantity . '</h6>
+                                <h6 class="card-title">' . $orderedItem->orderDate . '</h6>
+                                <div class="card-body">
+                                    
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    ';
+                        } ?>
+                        <!--                        <a href="profileBuyer.php?deleteOrderId=' . $orderedItem->orderId . '" class="btn btn-danger">Delete</a>-->
+                </section>
+            </div>
+        </div>
+
+
+        <!------------------------------------------------>
+        <!-- rejected  ordered  -->
+        <!------------------------------------------------>
+        <div class="row justify-content-around" id="ordered">
+            <div class="jumbotron jumbotron-fluid m-3">
+                <div class="container">
+                    <h1 class="display-4">Rejected ordered Items</h1>
+                    <hr class="my-4">
+                    <p class="lead">List of all rejected ordered items.</p>
+                </div>
+            </div>
+            <div class="col-sm-12 ">
+                <section class="row flex-row flex-nowrap p-3 overflow-auto profile_scroll rounded position-static "style="gap: 60px;">
+                    <?php
+                    foreach ($rejectedOrderedItems as $orderedItem) {
+                    $imageName = getImageOfAnItem($orderedItem->itemId,$db);
+                    $category = getCategory($orderedItem->categoryId, $db)[0];
+                    echo '
+                    <div class="col-lg-3 m-0 text-center">
+                        <div class="card m-md-auto shadow" style="width: 18rem;">
+                                '; ?>
+                    <a href="reviewItem.php?do=Manage&itemId=<?= $orderedItem->itemId?>&itemName=<?=$orderedItem->title?>" style="text-decoration: none;color: black;">
+
+                        <?php
+                        if($imageName){
+                            echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        }
+                        ?>
+                        <?php echo '       
+                    <div class="card-body">
+                                <h5 class="card-title">' . $orderedItem->title . '</h5>
+                                <h6 class="card-title">' . $category->categoryName . '</h6>
+                                <p class="card-text">' . $orderedItem->description . '</p>
+                                <h6 class="card-title">' . $orderedItem->orderPrice . '$</h6>
+                                <h6 class="card-title"> Quantity: ' . $orderedItem->quantity . '</h6>
+                                <h6 class="card-title">' . $orderedItem->orderDate . '</h6>
+                                <div class="card-body">
+                                    
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    ';
+                        } ?>
+                        <!--                        <a href="profileBuyer.php?deleteOrderId=' . $orderedItem->orderId . '" class="btn btn-danger">Delete</a>-->
+                </section>
+            </div>
+        </div>
+
+
     </div>
 <?php include $tpl . "footer.php";ob_end_flush();?>
