@@ -752,12 +752,10 @@ function getBuyerById($id,$db){
 
 function insertNotificationBuyer($message,$sellerid, $ownerid, $db)
 {
-    $sql1 = "insert into notification (message,date,seen) values (:message,:date,:seen)";
+    $sql1 = "insert into notification (message) values (:message)";
     $stmt1 = $db->prepare($sql1);
     $stmt1->execute(array(
-        ":message" => $message,
-        ":date" => date('Y-m-d'),
-        ":seen"=>0
+        ":message" => $message
     ));
     $last_id = $db->lastInsertId();
     $sql2 = "insert into buyernotification (notificationId,sellerId,ownerID) values (:notificationId,:sellerid,:ownerid)";
