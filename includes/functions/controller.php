@@ -846,5 +846,13 @@ function getOrder($id, $db)
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
     return $rows;
 }
+function addToItemQuantity($id,$quantity,$db){
+    $sql = "UPDATE item set item.quantity = item.quantity + :quantity WHERE itemId = :id;";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(
+        ":id" => $id,
+        ":quantity" => $quantity
+        ));
+}
 //end order page
 ?>
