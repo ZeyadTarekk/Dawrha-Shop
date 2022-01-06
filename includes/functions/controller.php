@@ -520,6 +520,12 @@ function SelectQuantityOfItem($cartID, $itemID, $db) {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+function QuantityOfItem($itemID, $db) {
+    $sql = "SELECT quantity FROM item WHERE itemId=" . $itemID . ";";
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 function CheckBuyerAndItem($cartID, $itemID, $db) {
     $sql = "SELECT * FROM cartitem WHERE cartId=" . $cartID . " AND itemId=" . $itemID . ";";
     $stmt = $db->query($sql);
@@ -831,6 +837,14 @@ function setOrderRejected($id,$db){
     $sql = "UPDATE orders SET orders.status = 2 WHERE orders.orderId = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $id));
+}
+function getOrder($id, $db)
+{
+    $sql = "SELECT * FROM orders WHERE orders.orderId = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(":id" => $id));
+    $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+    return $rows;
 }
 //end order page
 ?>

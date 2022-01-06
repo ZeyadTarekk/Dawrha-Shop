@@ -145,6 +145,7 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                     foreach ($pendingOrderedItems as $orderedItem) {
                     $imageName = getImageOfAnItem($orderedItem->itemId,$db);
                     $category = getCategory($orderedItem->categoryId, $db)[0];
+                    $orderQuantity = getOrder($orderedItem->orderId,$db)[0]->quantity;
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -164,7 +165,7 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $orderedItem->description . '</p>
                                 <h6 class="card-title">' . $orderedItem->orderPrice . '$</h6>
-                                <h6 class="card-title"> Quantity: ' . $orderedItem->quantity . '</h6>
+                                <h6 class="card-title"> Quantity: ' . $orderQuantity . '</h6>
                                 <h6 class="card-title">' . $orderedItem->orderDate . '</h6>
                                 <div class="card-body">
                                     
@@ -198,6 +199,7 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                     foreach ($acceptedOrderedItems as $orderedItem) {
                     $imageName = getImageOfAnItem($orderedItem->itemId,$db);
                     $category = getCategory($orderedItem->categoryId, $db)[0];
+                    $orderQuantity = getOrder($orderedItem->orderId,$db)[0]->quantity;
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -207,6 +209,8 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                         <?php
                         if($imageName){
                             echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        } else {
+                            echo'<img src="'.$imagesUploades. 'default.png" class="card-img-top" alt="Item">';
                         }
                         ?>
                         <?php echo '       
@@ -215,7 +219,7 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $orderedItem->description . '</p>
                                 <h6 class="card-title">' . $orderedItem->orderPrice . '$</h6>
-                                <h6 class="card-title"> Quantity: ' . $orderedItem->quantity . '</h6>
+                                <h6 class="card-title"> Quantity: ' . $orderQuantity . '</h6>
                                 <h6 class="card-title">' . $orderedItem->orderDate . '</h6>
                                 <div class="card-body">
                                     
@@ -249,6 +253,7 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                     foreach ($rejectedOrderedItems as $orderedItem) {
                     $imageName = getImageOfAnItem($orderedItem->itemId,$db);
                     $category = getCategory($orderedItem->categoryId, $db)[0];
+                    $orderQuantity = getOrder($orderedItem->orderId,$db)[0]->quantity;
                     echo '
                     <div class="col-lg-3 m-0 text-center">
                         <div class="card m-md-auto shadow" style="width: 18rem;">
@@ -258,6 +263,8 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                         <?php
                         if($imageName){
                             echo'<img src="'.$imagesUploades. $imageName[0]->image .' " class="card-img-top" alt="Item">';
+                        } else {
+                            echo'<img src="'.$imagesUploades. 'default.png" class="card-img-top" alt="Item">';
                         }
                         ?>
                         <?php echo '       
@@ -266,7 +273,7 @@ $rejectedOrderedItems = getBuyerRejectedOrderedItems($_SESSION['id'], $db);
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $orderedItem->description . '</p>
                                 <h6 class="card-title">' . $orderedItem->orderPrice . '$</h6>
-                                <h6 class="card-title"> Quantity: ' . $orderedItem->quantity . '</h6>
+                                <h6 class="card-title"> Quantity: ' . $orderQuantity . '</h6>
                                 <h6 class="card-title">' . $orderedItem->orderDate . '</h6>
                                 <div class="card-body">
                                     

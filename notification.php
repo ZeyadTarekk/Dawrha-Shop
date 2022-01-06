@@ -76,7 +76,7 @@
        "Notification From ". $noti['fName']." ".$noti['lName']; ?></div>
                 <div class="pe-3">
                   <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Feedback
+                    Rate <?php echo $noti['fName']." ".$noti['lName'] ?>
                   </button>
 
                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -88,15 +88,17 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-center">
-                          Your feedback helps us improve our service.
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
                           <a type="button" href="notification.php?likes=true&id=<?php echo $noti['sellerId']  ?>"
-                            class="btn btn-secondary" data-bs-dismiss="">Like</a>
+                            class="btn btn-success" data-bs-dismiss="">Like <i
+                              class="bi bi-hand-thumbs-up-fill"></i></a>
                           <a type="button" href="notification.php?dislikes=true&id=<?php echo $noti['sellerId']  ?>"
                             class=" btn
-                            btn-primary">DisLike</a>
+                            btn-secondary">DisLike <i class="bi bi-hand-thumbs-down-fill"></i></a>
                         </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                          Your feedback helps us improve our service.
+                        </div>
+
                       </div>
                     </div>
                   </div>

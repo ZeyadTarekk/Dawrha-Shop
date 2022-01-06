@@ -2,6 +2,9 @@
 $pageTitle = "Items";
 include 'init.php';
 
+  if(!isset($_SESSION['typeOfUser']))
+    header("Location: ../signin.php");
+
 if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
   header("Location: ../signin.php");
 }
@@ -35,40 +38,40 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
     }
 ?>
 
-    <div class="searching-area container items">
-      <h1 class="text-center">Manage Items</h1>
-      <form action="?do=Manage" method="POST" class="search-form">
-        <div class="name">
-          <div>Seller UserName:</div>
-          <input type="text" name="name" class="form-control">
-        </div>
-        <div class="id">
-          <div>ID:</div>
-          <input type="text" name="id" class="form-control">
-        </div>
-        <div class="search-btns">
-          <input type="submit" name="search" value="Search" class="btn btn-primary me-1 ms-1">
-          <input type="submit" name="showall" value="Show All" class="btn btn-primary">
-        </div>
-      </form>
+<div class="searching-area container items">
+  <h1 class="text-center">Manage Items</h1>
+  <form action="?do=Manage" method="POST" class="search-form">
+    <div class="name">
+      <div>Seller UserName:</div>
+      <input type="text" name="name" class="form-control">
     </div>
+    <div class="id">
+      <div>ID:</div>
+      <input type="text" name="id" class="form-control">
+    </div>
+    <div class="search-btns">
+      <input type="submit" name="search" value="Search" class="btn btn-primary me-1 ms-1">
+      <input type="submit" name="showall" value="Show All" class="btn btn-primary">
+    </div>
+  </form>
+</div>
 
-    <div class="container items">
-          <div class="table-responsive">
-            <table class="table table-bordered text-center">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col" class="table-dark">#ID</th>
-                  <th scope="col" class="table-dark">Item Name</th>
-                  <th scope="col" class="table-dark">Category</th>
-                  <th scope="col" class="table-dark">Owner's Name</th>
-                  <th scope="col" class="table-dark">Price</th>
-                  <th scope="col" class="table-dark">Quantity</th>
-                  <th scope="col" class="table-dark">Control</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <?php
+<div class="container items">
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="table-dark">#ID</th>
+          <th scope="col" class="table-dark">Item Name</th>
+          <th scope="col" class="table-dark">Category</th>
+          <th scope="col" class="table-dark">Owner's Name</th>
+          <th scope="col" class="table-dark">Price</th>
+          <th scope="col" class="table-dark">Quantity</th>
+          <th scope="col" class="table-dark">Control</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
                   if (empty($items)) {
                     echo '<tr>';
                     echo '<td scope="row" colspan="7" style="font-size: 25px; color: #c13131;">No Result Found</td>';
@@ -90,10 +93,10 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
                     echo '</tr>';
                   } }
                   ?>
-              </tbody>
-            </table>
-          </div>
-    </div>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <?php
   } elseif ($do == 'Delete') {
@@ -109,16 +112,16 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
     }
 ?>
 
-    <div class="ItemsForm container mb-5">
-      <h1 class="text-center">Delete Item</h1>
-      <div class="delete-box shadow">
-        <h3 class="text-center">Are you Sure You Want To Delete <b><?php echo $item[0]['title'] ?></b></h3>
-        <form action="?do=Delete&itemId=<?php echo $itemId; ?>" method="POST" class="text-center">
-          <button type="submit" name="submit" class="btn btn-danger">Yes</button>
-          <a class="btn btn-success" href="?do=Manage">No</a>
-        </form>
-      </div>
-    </div>
+<div class="ItemsForm container mb-5">
+  <h1 class="text-center">Delete Item</h1>
+  <div class="delete-box shadow">
+    <h3 class="text-center">Are you Sure You Want To Delete <b><?php echo $item[0]['title'] ?></b></h3>
+    <form action="?do=Delete&itemId=<?php echo $itemId; ?>" method="POST" class="text-center">
+      <button type="submit" name="submit" class="btn btn-danger">Yes</button>
+      <a class="btn btn-success" href="?do=Manage">No</a>
+    </form>
+  </div>
+</div>
 
 <?php
   } elseif ($do == 'View') {
@@ -131,11 +134,11 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
       $dataimages = "../data/uploads/items/";
 ?>
 
-    <div class="ItemsForm container mb-5 shadow">
-      <section class="review-item">
-        <div class="gallery">
-          <!-- the main image -->
-          <div id="screen">
+<div class="ItemsForm container mb-5 shadow">
+  <section class="review-item">
+    <div class="gallery">
+      <!-- the main image -->
+      <div id="screen">
         <?php 
           if (!empty($images)) {
             echo '<img src="' . $dataimages . $images[0]['image'] . '" alt="primary">';
@@ -151,15 +154,15 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
           }
         ?>
       </div>
-          </div>
-            <div class="product">
-              <a href="?do=Manage" class="seller-name">(ask)<?php echo $item[0]['fName'] . ' ' . $item[0]['lName']; ?></a>
-              <hr>
-              <span class="date-of-item"><?php echo $item[0]['addDate']; ?></span>
-              <p class="item-name"><?php echo $item[0]['title']; ?></p>
-              <p class="description"><?php echo $item[0]['description']; ?></p>
-              <div class="price">
-              <?php 
+    </div>
+    <div class="product">
+      <a href="?do=Manage" class="seller-name">(ask)<?php echo $item[0]['fName'] . ' ' . $item[0]['lName']; ?></a>
+      <hr>
+      <span class="date-of-item"><?php echo $item[0]['addDate']; ?></span>
+      <p class="item-name"><?php echo $item[0]['title']; ?></p>
+      <p class="description"><?php echo $item[0]['description']; ?></p>
+      <div class="price">
+        <?php 
                 if ($item[0]['discount'] == 0) {
                   echo '<div class="new-price">';
                   echo $item[0]['price'] . " $";
@@ -176,12 +179,12 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
                   echo '</div>';
                 }
               ?>
-              </div>
-              <p class="loctaion">Location: <?php echo $item[0]['homeNumber'] . ', ' .
+      </div>
+      <p class="loctaion">Location: <?php echo $item[0]['homeNumber'] . ', ' .
                                   $item[0]['street'] . ' ' . $item[0]['city'] . ' ' . $item[0]['country'];?></p>
-          </div>
-      </section>
     </div>
+  </section>
+</div>
 
 <?php
       }
