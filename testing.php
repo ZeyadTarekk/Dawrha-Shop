@@ -1,59 +1,33 @@
 <?php
-$noNavbar = '';
-$pageTitle = 'Add Item';
-include "init.php";
-?>
-<div class="container">
-    <h1 class="head">Add Item</h1>
-    <form method="post" target="_self">
-        <div class="special">
-            <div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="title's product">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                <select class="form-select" id="inputGroupSelect02">
-                    <option selected>Choose Categories...</option>
-                    <option value="1">Plastic</option>
-                    <option value="2">Paper</option>
-                    <option value="3">Glass</option>
-                </select>
-                <label class="input-group-text" for="inputGroupSelect02">Options</label>
-            </div>
-            <div>
-                <label for="pri" class="pri1" style="display:block;">Price
-                </label>
-            </div>
-            <div class="input-group">
-                <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-                <span class="input-group-text">&#163</span>
-                <span class="input-group-text">0.00</span>
-            </div>
-            <br>
-            <div id="input_div">
-                <input type="text" size="25" value="1" id="count">
-                <input type="button" value="-" id="moins" onclick="minus()">
-                <input type="button" value="+" id="pluss" onclick="plus()">
-            </div>
-            <br>
-            <div class="img">
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                </div>
-            </div>
-            <br>
-            <div>
-                <button id="save">Add</button>
-            </div>
-        </div>
-        <form>
+ob_start();
+$pageTitle = 'Edit Item';
+include "init.php";?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
-<!--flex-grow,flex-shrink,ordering,align-items,align-content,display:flex,justify-content:flex-start,-->
-<?php include $tpl . "footer.php" ?>
+<?php include $tpl . "footer.php" ;
+ob_end_flush();
+?>
