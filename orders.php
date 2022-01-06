@@ -27,6 +27,7 @@ $mobileSeller = getSellerMobiles($_SESSION['id'],$db);
 if (isset($_GET['deleteOrderId'])) {
     $message = "Hello ".$_GET['buyerUserName']." regarding your order for ".$itemName.", quantity: ".$_GET['quantity'].", price: ".$_GET['price'].", at ".$_GET['orderDate']." we want to inform you that it has been declined\n you can communicate with the seller through ".(count($mobileSeller)>0?$mobileSeller[0]->phoneNo:"");
     insertNotificationBuyer($message,$_SESSION['id'],$_GET['buyerId'], $db);
+    addToItemQuantity($_GET['itemid'],$_GET['quantity'],$db);
     setOrderRejected($_GET['deleteOrderId'], $db);
     ?>
     <div class="modal-dialog modal-dialog-centered" role="document">
