@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2022 at 12:36 AM
+-- Generation Time: Jan 06, 2022 at 09:21 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -80,8 +80,9 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`ID`, `fName`, `lName`, `userName`, `email`, `password`) VALUES
 (1, 'Beshoy', 'Morad', 'iiBesh00', 'beshoy@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964'),
-(2, 'Zeyad', 'Tarek', 'zeyad', 'zoz@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964'),
-(3, 'Abdo', 'Hamza', 'Abdo', 'hamza@gmail.com', '446fb062fa0d84bef7e04866b9e8c0ff43dfa7f9');
+(2, 'Zeyad', 'Tarek', 'ZeyadTarek', 'Zeyad.Ta01@gmail.com', 'c271a80ee083d5024fdf5ad6dd38651085f4e8eb'),
+(3, 'Abdelrahman', 'Mohamed', 'Abdelrahman', 'a.m.hamza156@gmail.com', 'c271a80ee083d5024fdf5ad6dd38651085f4e8eb'),
+(7, 'Ziad', 'Sherif', 'ZiadSherif', 'zsherif308@gmail.com', 'c271a80ee083d5024fdf5ad6dd38651085f4e8eb');
 
 -- --------------------------------------------------------
 
@@ -108,8 +109,18 @@ CREATE TABLE `buyer` (
 --
 
 INSERT INTO `buyer` (`ID`, `userName`, `password`, `joinDate`, `email`, `fName`, `lName`, `cartId`, `likes`, `disLikes`, `transactions`) VALUES
-(2, 'Abdelrahman', '14459f84a76df0cc57ffd1bf6a17149bfd09f82b', '2001-06-15', 'a.m.hamza156@gmail.com', 'Abdelrahman', 'Hamza', 2, 6, 1, 4),
-(3, 'BeshoyB', '798f3deb4fcccdc3c42b313bea4e09203aa0f3d6', '2022-01-06', 'dgdfg@gmail.com', 'Beshoy', 'Morad', 3, 1, 0, 1);
+(4, 'ahmed', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'ahmed@gmail.com', 'Ahmed', 'Mohamed', 4, 0, 0, 0),
+(5, 'Mohamed', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'mohamed@gmail.com', 'Mohamed', 'Ahmed', 5, 0, 0, 0),
+(6, 'Hossam', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Hossam@gmail.com', 'Hossam', 'Ahmed', 6, 0, 0, 0),
+(7, 'AyaAhmed', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Aya@gmail.com', 'Aya', 'Ahmed', 7, 0, 0, 0),
+(8, 'SarahAhmed', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Sarah@gmail.com', 'Sarah', 'Ahmed', 8, 0, 0, 0),
+(9, 'JohnDoe', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'john@gmail.com', 'John', 'Doe', 9, 0, 0, 0),
+(10, 'MohamedAhmed', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'mohamedahmed@gmail.com', 'Mohamed', 'Ahmed', 10, 0, 0, 0),
+(11, 'ZachariaIrvine', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Zacharia@gmail.com', 'Zacharia ', 'Irvine', 11, 0, 0, 0),
+(12, 'ArunMurillo', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'ArunMurillo@gmail.com', 'Arun', 'Murillo', 12, 0, 0, 0),
+(13, 'ReyanshEnriquez', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'ReyanshEnriquez@gmail.com', 'Reyansh', 'Enriquez', 13, 0, 0, 0),
+(14, 'EvelynRossi', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'EvelynRossi@gm.com', 'Evelyn', 'Rossi', 14, 0, 0, 0),
+(15, 'EmaanWilkerson', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'EmaanWilkerson@gm.com', 'Emaan', 'Wilkerson', 15, 0, 0, 0);
 
 --
 -- Triggers `buyer`
@@ -131,20 +142,6 @@ CREATE TABLE `buyernotification` (
   `ownerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `buyernotification`
---
-
-INSERT INTO `buyernotification` (`notificationId`, `sellerId`, `ownerID`) VALUES
-(4, 2, 2),
-(6, 2, 2),
-(8, 2, 2),
-(10, 2, 2),
-(12, 2, 2),
-(14, 2, 2),
-(16, 2, 2),
-(18, 3, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -163,8 +160,18 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cartId`, `itemCount`, `payment`) VALUES
 (1, 1, 168),
-(2, 0, 0),
-(3, 0, 0);
+(4, 0, 0),
+(5, 0, 0),
+(6, 0, 0),
+(7, 0, 0),
+(8, 0, 0),
+(9, 0, 0),
+(10, 0, 0),
+(11, 0, 0),
+(12, 0, 0),
+(13, 0, 0),
+(14, 0, 0),
+(15, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -196,7 +203,11 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`categoryId`, `categoryName`, `categoryDescription`) VALUES
 (1, 'Other', ''),
-(2, 'Plastic', 'Plastic is an essential component of many items, including water bottles, combs, and beverage containers. Knowing the difference, as well as the SPI codes, will help you make more informed decisions about recycling.');
+(2, 'Plastic', 'Contains any plastic objects'),
+(4, 'Glass', 'Contains any glass objects'),
+(5, 'Metal', 'Contains any metal objects'),
+(6, 'Paper', 'Contains any paper objetcs'),
+(7, 'Clothes', 'Contains any Clothes');
 
 --
 -- Triggers `category`
@@ -236,9 +247,16 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`itemId`, `title`, `description`, `price`, `quantity`, `addDate`, `isDeleted`, `categoryId`, `sellerId`, `startDate`, `endDate`, `discount`, `homeNumber`, `street`, `city`, `country`) VALUES
-(3, 'Abdelrahman Hamza', '1111111', 11, 111087, '2001-06-15', 0, 2, 2, NULL, NULL, 11, 11, 'Cairo', 'Cairo', 'Egypt'),
-(4, 'boootle', 'dfgdfgfd', 10.7, 10, '2022-01-06', 0, 1, 2, NULL, NULL, 1, 2, 'hjgh', 'bvbc', 'vcbcvb'),
-(20, 'bottlessss', 'dfgfdgdf', 10.5, 7, '2022-01-06', 0, 2, 3, NULL, NULL, 1, 15, 'dfgdfg', 'dfgdfg', 'dfgdfg');
+(21, 'Bottles', 'Empty Glass Bottles', 130, 30, '2022-01-06', 0, 4, 7, NULL, NULL, 0, 8920, 'Olive', 'LittleRock', 'UnitedStates'),
+(22, 'Scrub', 'Metal Scrub is in a very good state', 160, 40, '2022-01-06', 0, 5, 7, NULL, NULL, 0, 479, 'Oakwood', 'LaneAliquippa', 'US'),
+(23, 'Containers', 'Plastic Containers with different sizes', 60, 14, '2022-01-06', 0, 2, 7, NULL, NULL, 3, 6, 'Baker', 'Kalamazoo', 'US'),
+(24, 'Bottles', 'Plastic Bottles of different sizes', 50, 35, '2022-01-06', 0, 2, 7, NULL, NULL, 0, 57, 'Newcastle', 'SouthRichmondHill', 'US'),
+(25, 'Jar', 'Jars of different sizes', 110, 47, '2022-01-06', 0, 4, 7, NULL, NULL, 0, 19, 'Riverside', 'Erie', 'US'),
+(26, 'Books', 'Books in a good state', 30, 30, '2022-01-06', 0, 6, 7, NULL, NULL, 0, 8257, 'Illinois', 'Birmingham', 'US'),
+(27, 'College Books', 'Engineering College Books', 50, 60, '2022-01-06', 0, 6, 7, NULL, NULL, 5, 76, 'Brandywine', 'Bensalem', 'US'),
+(28, 'Small Jars', '', 98, 57, '2022-01-06', 0, 4, 7, NULL, NULL, 0, 435, 'SugarAve', 'OwingsMills', 'US'),
+(29, 'Paint tools', 'Old Paint tools (Brushes and paints)', 45, 30, '2022-01-06', 0, 1, 7, NULL, NULL, 0, 9608, 'Clark Dr Feasterville', 'Owings Mills', 'United States'),
+(30, 'Clothes', 'Heavy and light clothes', 40, 41, '2022-01-06', 0, 7, 7, NULL, NULL, 5, 841, 'South Woodsid', 'Chicago', 'United States');
 
 -- --------------------------------------------------------
 
@@ -250,6 +268,39 @@ CREATE TABLE `itemimage` (
   `itemId` int(11) NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `itemimage`
+--
+
+INSERT INTO `itemimage` (`itemId`, `image`) VALUES
+(21, '61d740146fc30-1641496596.jpg'),
+(22, '61d74272ea7ac-1641497202.jpg'),
+(23, '61d741f8745f2-1641497080.jpg'),
+(24, '61d7441ca9f52-1641497628.jpg'),
+(24, '61d744355cc02-1641497653.png'),
+(24, '61d7444abcccf-1641497674.jpg'),
+(25, '61d745e1a5def-1641498081.jpg'),
+(25, '61d746433aaf5-1641498179.jfif'),
+(26, '61d74695b44f9-1641498261.jpg'),
+(26, '61d74695b4717-1641498261.jpg'),
+(26, '61d746ec45267-1641498348.jpg'),
+(27, '61d749bb7f5f7-1641499067.jpg'),
+(27, '61d749e3b688f-1641499107.jpg'),
+(28, '61d74ae8ba461-1641499368.png'),
+(28, '61d74ae8ba76e-1641499368.jfif'),
+(28, '61d74ae8baad4-1641499368.jpg'),
+(28, '61d74ae8baf31-1641499368.webp'),
+(28, '61d74ae8bb18b-1641499368.jpg'),
+(28, '61d74ae8bb3f9-1641499368.jpg'),
+(29, '61d74c1af2d98-1641499674.jpg'),
+(29, '61d74c1af3027-1641499674.jpg'),
+(29, '61d74c1af37c0-1641499674.jpg'),
+(30, '61d74eae177c5-1641500334.jpg'),
+(30, '61d74eae179c6-1641500334.jpg'),
+(30, '61d74eae17b75-1641500334.jpg'),
+(30, '61d74eae17d08-1641500334.jpg'),
+(30, '61d74eae17ea1-1641500334.jpg');
 
 -- --------------------------------------------------------
 
@@ -268,7 +319,9 @@ CREATE TABLE `mobileadmin` (
 
 INSERT INTO `mobileadmin` (`adminId`, `phone`) VALUES
 (1, '01273311810'),
-(2, '0127312587');
+(2, '01206583954'),
+(3, '01150530696'),
+(7, '01146188908');
 
 -- --------------------------------------------------------
 
@@ -286,8 +339,18 @@ CREATE TABLE `mobilebuyer` (
 --
 
 INSERT INTO `mobilebuyer` (`buyerId`, `phone`) VALUES
-(2, '1232313'),
-(3, '01273311810');
+(4, '1234567689'),
+(5, '123456789'),
+(6, '12345678'),
+(7, '123456789'),
+(8, '123456789'),
+(9, '123456789'),
+(10, '123456789'),
+(11, '123456789'),
+(12, '123456789'),
+(13, '123456789'),
+(14, '123456789'),
+(15, '1234567890');
 
 -- --------------------------------------------------------
 
@@ -305,8 +368,18 @@ CREATE TABLE `mobileseller` (
 --
 
 INSERT INTO `mobileseller` (`sellerId`, `phoneNo`) VALUES
-(2, '01150530696'),
-(3, '01273311810');
+(4, '123456789'),
+(5, '123456789'),
+(6, '123456789'),
+(7, '123456789'),
+(8, '123456789'),
+(9, '123456789'),
+(10, '123456789'),
+(11, '123456789'),
+(12, '123456789'),
+(13, '1234567890'),
+(14, '12345678'),
+(15, '123456789');
 
 -- --------------------------------------------------------
 
@@ -320,29 +393,6 @@ CREATE TABLE `notification` (
   `date` date NOT NULL DEFAULT curdate(),
   `seen` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id`, `message`, `date`, `seen`) VALUES
-(1, 'Hello Beshoy Morad, Beshoy Morad ordered your item: dfgdfg, Quantity: 3, Price: 210, at 2022-01-05', '2022-01-05', 1),
-(3, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 3, Price: 29.37, at 2022-01-05', '2001-06-15', 0),
-(4, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 3, price: 29.37, at 2001-06-15 we want to inform you that it has been accepted', '2022-01-05', 1),
-(5, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 4, Price: 39.16, at 2022-01-05', '2001-06-15', 0),
-(6, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 4, price: 39.16, at 2001-06-15 we want to inform you that it has been accepted', '2022-01-05', 1),
-(7, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 4, Price: 39.16, at 2022-01-05', '2001-06-15', 0),
-(8, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 4, price: 39.16, at 2001-06-15 we want to inform you that it has been declined', '2022-01-05', 1),
-(9, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 3, Price: 29.37, at 2022-01-05', '2001-06-15', 0),
-(10, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 3, price: 29.37, at 2001-06-15 we want to inform you that it has been accepted', '2022-01-05', 1),
-(11, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 4, Price: 39.16, at 2022-01-05', '2001-06-15', 0),
-(12, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 4, price: 39.16, at 2001-06-15 we want to inform you that it has been accepted', '2022-01-05', 1),
-(13, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 3, Price: 29.37, at 2022-01-05', '2001-06-15', 0),
-(14, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 3, price: 29.37, at 2001-06-15 we want to inform you that it has been declined\n you can communicate with the seller through 01150530696', '2022-01-05', 1),
-(15, 'Hello Abdelrahman Hamza, Abdelrahman Hamza ordered your item: Abdelrahman Hamza, Quantity: 3, Price: 29.37, at 2022-01-05', '2001-06-15', 0),
-(16, 'Hello Abdelrahman regarding your order for Abdelrahman Hamza, quantity: 3, price: 29.37, at 2001-06-15 we want to inform you that it has been declined\n you can communicate with the seller through 01150530696', '2022-01-05', 1),
-(17, 'Hello Beshoy Morad, Beshoy Morad ordered your item: bottlessss, Quantity: 2, Price: 20.79, at 2022-01-06', '2022-01-06', 1),
-(18, 'Hello BeshoyB regarding your order for bottlessss, quantity: 2, price: 20.79, at 2022-01-06 we want to inform you that it has been accepted\n you can communicate with the seller through 01273311810', '2022-01-06', 1);
 
 -- --------------------------------------------------------
 
@@ -359,19 +409,6 @@ CREATE TABLE `orders` (
   `itemId` int(11) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`orderId`, `orderPrice`, `quantity`, `orderDate`, `buyerId`, `itemId`, `status`) VALUES
-(3, 39.16, 4, '2001-06-15', 2, 3, 1),
-(4, 39.16, 4, '2001-06-15', 2, 3, 2),
-(5, 29.37, 3, '2001-06-15', 2, 3, 1),
-(6, 39.16, 4, '2001-06-15', 2, 3, 1),
-(7, 29.37, 3, '2001-06-15', 2, 3, 2),
-(8, 29.37, 3, '2001-06-15', 2, 3, 2),
-(9, 20.79, 2, '2022-01-06', 3, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -397,8 +434,18 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`ID`, `userName`, `password`, `joinDate`, `email`, `fName`, `lName`, `likes`, `disLikes`, `transactions`) VALUES
-(2, 'AbdelrahmanS', '14459f84a76df0cc57ffd1bf6a17149bfd09f82b', '2001-06-15', 'abdelrahman.othman01@eng-st.cu.edu.eg', 'Abdelrahman', 'Hamza', 0, 0, 4),
-(3, 'BeshoyS', '798f3deb4fcccdc3c42b313bea4e09203aa0f3d6', '2022-01-06', 'besh0morta@gmail.com', 'Beshoy', 'Morad', 1, 0, 1);
+(4, 'AhmedElsaid', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Ahmed2@gmail.com', 'Ahmed', 'Elsaid', 0, 0, 0),
+(5, 'Liam', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Liam@gmail.com', 'Liam', 'Noah', 0, 0, 0),
+(6, 'Olivia', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Olivia@gmail.com', 'Olivia', 'Liam', 0, 0, 0),
+(7, 'Emma', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Emma@gmail.com', 'Emma', 'Oliver', 0, 0, 0),
+(8, 'Sophia', '299129b6ca094e4621e97d763f754a69fd436789', '2022-01-06', 'Sophia@gmail.com', 'Sophia', 'Alexander', 0, 0, 0),
+(9, 'Evelyn', '299129b6ca094e4621e97d763f754a69fd436789', '2022-01-06', 'Evelyn@gmail.com', 'Evelyn', 'James', 0, 0, 0),
+(10, 'Isabella', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Isabella@gmail.com', 'Isabella', 'William', 0, 0, 0),
+(11, 'Benjamin', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'Benjamin@gmail.com', 'Benjamin', 'Henry', 0, 0, 0),
+(12, 'BiancaSawyer', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'BiancaSawyer@gmail.com', 'Bianca', 'Sawyer', 0, 0, 0),
+(13, 'HayleighKinney', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'HayleighKinney@gmail.com', 'Hayleigh', 'Kinney', 0, 0, 0),
+(14, 'KallumHolder', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'KallumHolder@gmail.com', 'Kallum', 'Holder', 0, 0, 0),
+(15, 'NabeelaBallard', 'a57ae0fe47084bc8a05f69f3f8083896f8b437b0', '2022-01-06', 'NabeelaBallard@gm.com', 'Nabeela', 'Ballard', 0, 0, 0);
 
 --
 -- Triggers `seller`
@@ -419,20 +466,6 @@ CREATE TABLE `sellernotifications` (
   `buyerId` int(11) NOT NULL,
   `ownerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sellernotifications`
---
-
-INSERT INTO `sellernotifications` (`notificationId`, `buyerId`, `ownerID`) VALUES
-(3, 2, 2),
-(5, 2, 2),
-(7, 2, 2),
-(9, 2, 2),
-(11, 2, 2),
-(13, 2, 2),
-(15, 2, 2),
-(17, 3, 3);
 
 --
 -- Indexes for dumped tables
@@ -554,31 +587,31 @@ ALTER TABLE `sellernotifications`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `buyer`
 --
 ALTER TABLE `buyer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -596,7 +629,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
