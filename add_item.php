@@ -3,6 +3,16 @@ ob_start();
 $pageTitle = 'Add Item';
 include "init.php";
 
+    // $_SESSION["item_name"]="";
+    // $_SESSION["price"]="";
+    // $_SESSION["discount_item"]="";
+    // $_SESSION["quantity_item"]="";
+    // $_SESSION["description_item"]="";
+    // $_SESSION["city"]="";
+    // $_SESSION["country"]="";
+    // $_SESSION["categoryId"]="";
+    // $_SESSION['homeNum']="";
+    // $_SESSION['st']="";
 
 if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
 header("Location:logout.php") ;
@@ -47,8 +57,9 @@ if(!ctype_alpha(str_replace(' ', '', $_SESSION['st']))){
     
 
         //validate city & country
-if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]))){
-    $_SESSION["country_er"]="* Only Alphabets  Allowed";
+
+if((!ctype_alpha(str_replace(' ', '', $_SESSION['city'])))||(!ctype_alpha(str_replace(' ', '', $_SESSION['country'])))){
+    $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
 }
 
         //validate Category
@@ -74,7 +85,7 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
     $_SESSION['DB_er']=1;
     
         $targetDir = "data/uploads/items/";
-        $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw'); 
+        $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw','jfif','JFIF','webp','WEBP'); 
         $fileNames = array_filter($_FILES['files']['name']); 
         $arrFile=array();
         if(!empty($fileNames))

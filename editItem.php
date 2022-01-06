@@ -61,8 +61,8 @@ include "init.php";
                 $_SESSION["st_er"]="* Only Alphabets and White Space Are Allowed";
             }            
                 //validate city & country
-            if((!ctype_alpha( $_SESSION["city"]))||(!ctype_alpha($_SESSION["country"]))){
-                $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
+            if((!ctype_alpha(str_replace(' ', '', $_SESSION['city'])))||(!ctype_alpha(str_replace(' ', '', $_SESSION['country'])))){
+            $_SESSION["country_er"]="* Only Alphabets and White Space Are Allowed";
             }
                 //validate Category
             if($_SESSION["categoryId"]=="Choose Categories..."){
@@ -85,7 +85,7 @@ include "init.php";
 
 
                 $targetDir = "data/uploads/items/";
-                $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw');
+                $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw','jfif','JFIF','webp','WEBP'); 
                 $fileNames = array_filter($_FILES['files']['name']); 
                 $arrFile=array();
                     if(!empty($fileNames))
@@ -229,7 +229,7 @@ include "init.php";
                                 echo $_SESSION["quantity_item"]; 
                                 unset($_SESSION["quantity_item"]);}?>">
           </div>
-          <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="DONE">save
+          <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="DONE">Save
             item</button>
         </form>
 
