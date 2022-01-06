@@ -207,7 +207,7 @@ include "init.php";
                                 unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
               class="form-control  " aria-label="Dollar amount (with dot and two decimal places)">
             <span class="input-group-text bg-success text-light">$</span>
-            <span class="input-group-text bg-success text-light">0.00</span>
+            <!-- <span class="input-group-text bg-success text-light">0.00</span> -->
           </div>
           <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
                         echo $_SESSION["pricerr"]; 
@@ -218,7 +218,7 @@ include "init.php";
                                 echo $_SESSION["discount_item"]; 
                                 unset($_SESSION["discount_item"]);}?>">
             <span class=" input-group-text  bg-success text-light">$</span>
-            <span class="input-group-text bg-success text-light">%</span>
+            <!-- <span class="input-group-text bg-success text-light">%</span> -->
           </div>
           <div class="input-group  mb-4 ">
             <input name="files[]" type="file" class="form-control " id="inputGroupFile04" multiple
