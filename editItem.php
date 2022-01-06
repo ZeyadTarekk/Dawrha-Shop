@@ -125,142 +125,136 @@ include "init.php";
     }
 ?>
 <div class="container-fluid ">
-    <div class=" row justify-content-center  ">
-        <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
-            <div class="display h1 mt-4 mb-4">Edit Item</div>
-            <div class=" col-lg-5 col-md-12 col-sm-6 justify-content-center col-fluid">
-                <form action="editItem.php" method="POST" id="contactFrom" enctype="multipart/form-data">
-                    <div class="mb-4 input-group ">
-                        <input type="name" class="form-control" placeholder="Item Name" name='name'autofocus
-                            value="<?php if(isset($_SESSION["item_name"])){echo $_SESSION["item_name"];
+  <div class=" row justify-content-center  ">
+    <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
+      <div class="display h1 mt-4 mb-4">Edit Item</div>
+      <div class=" col-lg-5 col-md-12 col-sm-6 justify-content-center col-fluid">
+        <form action="editItem.php" method="POST" id="contactFrom" enctype="multipart/form-data">
+          <div class="mb-4 input-group ">
+            <input type="name" class="form-control" placeholder="Item Name" name='name' autofocus value="<?php if(isset($_SESSION["item_name"])){echo $_SESSION["item_name"];
                             unset($_SESSION["item_name"]);
                             }?>">
-                    </div>
-                    <p class="diplay text-danger mb-2">
-                        <?php if(isset($_SESSION["item_namerr"])){
+          </div>
+          <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["item_namerr"])){
                             echo $_SESSION["item_namerr"] ;
                             unset($_SESSION["item_namerr"]);
                         }?></p>
-                    <div class=" mb-4 input-group">
-                        <textarea placeholder="Description" class="form-control" rows="2"
-                            name="description"><?php if(isset($_SESSION['description_item'])){
+          <div class=" mb-4 input-group">
+            <textarea placeholder="Description" class="form-control" rows="2" name="description"><?php if(isset($_SESSION['description_item'])){
                                 echo $_SESSION['description_item'];
                             unset($_SESSION['description_item']);
                             };?>
                     </textarea>
-                    </div>
-                    <div class="input-group  mb-4">
-                        <select  value="<?php if(isset($_SESSION["categoryId"])){
+          </div>
+          <div class="input-group  mb-4">
+            <select value="<?php if(isset($_SESSION["categoryId"])){
                                 echo $_SESSION["categoryId"]; 
                                 unset($_SESSION["categoryId'"]);
-                        }?>" class="form-select " id="inputGroupSelect02" name="category" >
-                        <?php
+                        }?>" class="form-select " id="inputGroupSelect02" name="category">
+              <?php
                         ?>
-                            <?php  $row = getCategories($db);
+              <?php  $row = getCategories($db);
                                 foreach($row as $cat):
                                     if($cat['categoryId']==$_SESSION['categoryId']){
                                         echo '<option selected value="'.$_SESSION['categoryId'].'">'.$_SESSION['categoryName'].'</option>';}
                                         else{echo '<option value="'.$cat['categoryId'].'">'.$cat['categoryName'].'</option>';}?>
-                            <?php endforeach ?>
-                        </select>
-                        <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
-                    </div>
-                    <p class="diplay text-danger "><?php 
+              <?php endforeach ?>
+            </select>
+            <label class="input-group-text bg-success text-light" for="inputGroupSelect02">Options</label>
+          </div>
+          <p class="diplay text-danger "><?php 
                     if(isset($_SESSION["cat_er"])){
                         echo $_SESSION["cat_er"]; 
                         unset($_SESSION["cat_er"]);
                 } ?></p>
-                    <div class="row g-2 mb-4">
-                        <div class="col-sm-6">
-                            <input  min=1 type="number" name="homenumber" class="form-control"
-                                placeholder="Home Number" value="<?php if(isset($_SESSION["homeNum"])){
+          <div class="row g-2 mb-4">
+            <div class="col-sm-6">
+              <input min=1 type="number" name="homenumber" class="form-control" placeholder="Home Number" value="<?php if(isset($_SESSION["homeNum"])){
                             echo $_SESSION["homeNum"] ;
                             unset($_SESSION["homeNum"]);}?>">
-                        </div>
-                        <div class="col-sm-6">
-                            <input  name="street" type="text" class="form-control" placeholder="Street"
-                                aria-label="streett" value="<?php if(isset($_SESSION["st"])){
+            </div>
+            <div class="col-sm-6">
+              <input name="street" type="text" class="form-control" placeholder="Street" aria-label="streett" value="<?php if(isset($_SESSION["st"])){
                                     echo $_SESSION["st"] ;
                                     unset($_SESSION["st"]);}?>">
-                        </div>
-                    </div>
-                    <p class="diplay text-danger "><?php 
+            </div>
+          </div>
+          <p class="diplay text-danger "><?php 
                     if(isset($_SESSION["st_er"])){
                         echo $_SESSION["st_er"]; 
                         unset($_SESSION["st_er"]);
                 } ?></p>
-                    <div class="row g-2 mb-4">
-                        <div class="col-sm-6">
-                            <input  type="text" name="city" class="form-control" placeholder="City"
-                                aria-label="City" value="<?php if(isset($_SESSION["city"])){
+          <div class="row g-2 mb-4">
+            <div class="col-sm-6">
+              <input type="text" name="city" class="form-control" placeholder="City" aria-label="City" value="<?php if(isset($_SESSION["city"])){
                             echo $_SESSION["city"] ;
                             unset($_SESSION["city"]);}?>">
-                        </div>
-                        <div class="col-sm-6">
-                            <input  name="country" type="text" class="form-control" placeholder="Country"
-                                aria-label="country" value="<?php if(isset($_SESSION["country"])){
+            </div>
+            <div class="col-sm-6">
+              <input name="country" type="text" class="form-control" placeholder="Country" aria-label="country" value="<?php if(isset($_SESSION["country"])){
                                     echo $_SESSION["country"] ;
                                     unset($_SESSION["country"]);}?>">
-                        </div>
-                    </div>
-                    <p class="diplay text-danger "><?php if(isset($_SESSION["country_er"])){
+            </div>
+          </div>
+          <p class="diplay text-danger "><?php if(isset($_SESSION["country_er"])){
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
-                    <div class=" input-group mb-4">
-                        <input value="<?php if(isset($_SESSION["price"])){
+          <div class=" input-group mb-4">
+            <input value="<?php if(isset($_SESSION["price"])){
                                 echo $_SESSION["price"]; 
-                                unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"class="form-control  "
-                            aria-label="Dollar amount (with dot and two decimal places)">
-                        <span class="input-group-text bg-success text-light">$</span>
-                        <span class="input-group-text bg-success text-light">0.00</span>
-                    </div>
-                    <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
+                                unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
+              class="form-control  " aria-label="Dollar amount (with dot and two decimal places)">
+            <span class="input-group-text bg-success text-light">$</span>
+            <span class="input-group-text bg-success text-light">0.00</span>
+          </div>
+          <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
                         echo $_SESSION["pricerr"]; 
                         unset($_SESSION["pricerr"]);
                 } ?></p>
-                    <div class=" input-group mb-4">
-                        <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number"
-                            class="form-control" value="<?php if(isset($_SESSION["discount_item"])){
+          <div class=" input-group mb-4">
+            <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number" class="form-control" value="<?php if(isset($_SESSION["discount_item"])){
                                 echo $_SESSION["discount_item"]; 
                                 unset($_SESSION["discount_item"]);}?>">
-                        <span class=" input-group-text  bg-success text-light">$</span>
-                        <span class="input-group-text bg-success text-light">%</span>
-                    </div>
-                    <div class="input-group  mb-4 ">
-                        <input name="files[]" type="file" class="form-control " id="inputGroupFile04" multiple
-                            aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
-                    </div>
-                    <div class="input-group mb-4">
-                        <input  class="form-control" type="number" placeholder="Quantity" name="quantity"min=0  value="<?php if(isset($_SESSION["quantity_item"])){
+            <span class=" input-group-text  bg-success text-light">$</span>
+            <span class="input-group-text bg-success text-light">%</span>
+          </div>
+          <div class="input-group  mb-4 ">
+            <input name="files[]" type="file" class="form-control " id="inputGroupFile04" multiple
+              aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
+          </div>
+          <div class="input-group mb-4">
+            <input class="form-control" type="number" placeholder="Quantity" name="quantity" min=0 value="<?php if(isset($_SESSION["quantity_item"])){
                                 echo $_SESSION["quantity_item"]; 
                                 unset($_SESSION["quantity_item"]);}?>">
-                    </div>
-                    <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="DONE">save
-                        item</button>
-                </form>
-                
-            </div>
-            <?php
+          </div>
+          <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="DONE">save
+            item</button>
+        </form>
+
+      </div>
+      <?php
                 $imageCount=getCountOfImage($db,$_SESSION['itemID']);
                 if($imageCount==0):?>
-                    <div class="col-lg-6 col-md-12">
-                    <img src="<?php echo $dataimages ."editing.png" ?>" alt=" item's photo" class="img-fluid">
-                </div>
-                <?php endif;?>
-            <div class=" col-md-7 row  justify-content-center ">
-                <?php $imagesOfitem=GetImagesByID($_SESSION['itemID'],$db);?>
-                
-                <?php foreach($imagesOfitem as $image):?>
-                <div class="card m-md-auto col-lg-4 border-0 col-sm-5 mb-5 ">
-                <a href="editItem.php?deleteImage=<?php echo $image['image']?>" id="stopRedirect" class="btn btn-danger rounded-pill position-absolute"
-                style="width: fit-content; top: 0;right: 0" onclick="return deleteImage()" ><span class="badge b-5"><i class="bi bi-trash "></i></span></a>
-                <img src="<?php echo $dataimages .$image['image'] ?>" alt=" item's photo" class="img-fluid" >
-                </div>
-                <?php endforeach?>
-            </div>
+      <div class="col-lg-6 col-md-12">
+        <img src="<?php echo $imgs ."editing.png" ?>" alt=" item's photo" class="img-fluid">
+      </div>
+      <?php endif;?>
+      <div class=" col-md-7 row  justify-content-center ">
+        <?php $imagesOfitem=GetImagesByID($_SESSION['itemID'],$db);?>
+
+        <?php foreach($imagesOfitem as $image):?>
+        <div class="card m-md-auto col-lg-4 border-0 col-sm-5 mb-5 ">
+          <a href="editItem.php?deleteImage=<?php echo $image['image']?>" id="stopRedirect"
+            class="btn btn-danger rounded-pill position-absolute" style="width: fit-content; top: 0;right: 0"
+            onclick="return deleteImage()"><span class="badge b-5"><i class="bi bi-trash "></i></span></a>
+          <img src="<?php echo $dataimages .$image['image'] ?>" alt=" item's photo" class="img-fluid">
         </div>
+        <?php endforeach?>
+      </div>
     </div>
+  </div>
 </div>
 <?php include $tpl . "footer.php" ;
 ob_end_flush();
