@@ -14,7 +14,6 @@ if (isset($_GET['deleteItem'])) {
     header("Location: cart.php");
 }
 
-
 if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isset($_GET['itemID'])){
     $_SESSION['orderStatus'] = -1; 
     $_SESSION['orderStatus'] = makeAnOrder($db,$_GET['userID'],$_GET['itemID'],$_GET['orderPrice'],$_GET['qty']);
@@ -23,20 +22,32 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
     else 
       header("Location: cart.php?Ordersuccess=false");
 }
+
+if(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='true'){
+  $_SESSION['Ordersuccess']='true';
+  header("Location: cart.php");
+  return;
+}
+if(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='false'){
+  $_SESSION['Ordersuccess']='false';
+  header("Location: cart.php");
+  return;
+}
 ?>
 <div class="container-lg text-center shadow p-5 mt-4 mb-4 border-3">
   <div class="text-center">
-    <?php if(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='true'): ?>
+    <?php if(isset($_SESSION['Ordersuccess'])&&$_SESSION['Ordersuccess']=='true'): ?>
     <div class="alert alert-success m-auto mb-5" style="width: 50%;" role="alert">Order Done Successfully</div>
-    <?php unset($_GET['Ordersuccess']); ?>
-    <?php elseif(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='false'): ?>
+    <?php unset($_SESSION['Ordersuccess']); ?>
+    <?php elseif(isset($_SESSION['Ordersuccess'])&&$_SESSION['Ordersuccess']==='false'): ?>
     <?php if($_SESSION['orderStatus']==0): ?>
     <div class="alert alert-danger m-auto mb-5" style="width: 50%;" role="alert">Selected quantity no longer available!
       Item is sold out.. Order can't be done </div>
+    <?php unset($_SESSION['Ordersuccess']); ?>
     <?php else: ?>
     <div class="alert alert-danger m-auto mb-5" style="width: 50%;" role="alert">Selected quantity no longer available!
       Only <?php echo $_SESSION['orderStatus'] ?> Left.. Order can't be done </div>
-    <?php unset($_GET['Ordersuccess']); ?>
+    <?php unset($_SESSION['Ordersuccess']); ?>
     <?php endif; ?>
     <?php endif; ?>
     <?php if($itemCount==0): ?>
