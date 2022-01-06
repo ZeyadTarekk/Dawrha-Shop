@@ -28,6 +28,7 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
   <div class="text-center">
     <?php if(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='true'): ?>
     <div class="alert alert-success m-auto mb-5" style="width: 50%;" role="alert">Order Done Successfully</div>
+    <?php unset($_GET['Ordersuccess']); ?>
     <?php elseif(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='false'): ?>
     <?php if($_SESSION['orderStatus']==0): ?>
     <div class="alert alert-danger m-auto mb-5" style="width: 50%;" role="alert">Selected quantity no longer available!
@@ -35,6 +36,7 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
     <?php else: ?>
     <div class="alert alert-danger m-auto mb-5" style="width: 50%;" role="alert">Selected quantity no longer available!
       Only <?php echo $_SESSION['orderStatus'] ?> Left.. Order can't be done </div>
+    <?php unset($_GET['Ordersuccess']); ?>
     <?php endif; ?>
     <?php endif; ?>
     <?php if($itemCount==0): ?>
@@ -52,7 +54,7 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
             style="width: fit-content; top: 0;right: 0" onclick="return        deleteItemCart()">
             <span class="badge"><i class="bi bi-trash"></i>
             </span></a>
-            <?php $imageOfitem=GetImagesByID($k['itemId'],$db); ?>
+          <?php $imageOfitem=GetImagesByID($k['itemId'],$db); ?>
           <img src="<?php 
               if (isset($imageOfitem[0]['image'])) {
                 echo $dataimages .$imageOfitem[0]['image'];
@@ -80,9 +82,9 @@ if(isset($_GET['orderPrice'])&&isset($_GET['qty'])&&isset($_GET['userID'])&&isse
   </div>
   <?php $result=getPayItemcount($db,$cartID)[0];?>
   <div class="container">
-  <!-- <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a> -->
-  <h6 class="mt-3 display text-center text-danger"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
-  <h6 class="display text-center text-danger"><?php echo 'Total Payment: ' .$result['payment'] .' $' ?></h6>
+    <!-- <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a> -->
+    <h6 class="mt-3 display text-center text-danger"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
+    <h6 class="display text-center text-danger"><?php echo 'Total Payment: ' .$result['payment'] .' $' ?></h6>
   </div>
 </div>
 
