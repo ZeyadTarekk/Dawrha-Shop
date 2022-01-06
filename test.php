@@ -19,12 +19,21 @@ header("Location:logout.php") ;
 return;
     
 }
+//echo pow(10, -1); // 0.1
 
 if(isset($_POST['done']))
 {
+    if($_POST['decimal']==""){
+        $_POST['decimal']=0;
+    }
         //filter data
+$lenDecimal=strlen((string)$_POST['decimal']);
+$pow=pow(10,$lenDecimal);
+$_SESSION['decimal']=floatval($_POST['decimal']/$pow);
+$_SESSION['price']=floatval($_SESSION['decimal']+($_POST['priceValue']));
+
 $_SESSION["item_name"]=input_data($_POST['name']);
-$_SESSION["price"]=input_data($_POST['priceOfItem']);
+$_SESSION["price"]=input_data($_SESSION['price']);
 $_SESSION["discount_item"]=input_data($_POST['discountOfItem']);
 $_SESSION["quantity_item"]=input_data( $_POST['quantity']);
 $_SESSION["description_item"]=input_data( $_POST['description']);
@@ -33,20 +42,32 @@ $_SESSION["country"]=input_data( $_POST['country']);
 $_SESSION["categoryId"]=input_data($_POST['category']);
 $_SESSION['homeNum']=input_data($_POST['homenumber']);
 $_SESSION['st']=input_data($_POST['street']);
+$_SESSION['item_namerr']="";
+$_SESSION['description_er']="";
 $_SESSION['st_er']="";
 $_SESSION["pricerr"] = "";
 $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
 $_SESSION['DB_er']="";
+echo $_SESSION['price'];
+// var_dump(($_SESSION));
 if($_SESSION['discount_item']==""){
     $_SESSION['discount_item']=0;
 }
-//validate priceItem
-
-if(!is_float(floatval($_SESSION["price"])) ||$_SESSION["price"]<0){
-    $_SESSION["pricerr"]="* Only Positive Value is Allowed";
+        //valdiate title Name
+if(strlen($_SESSION['item_name'])>20){
+    $_SESSION['item_namerr']="* Title item is Longer 20 character";
 }
+        //validate description
+        if(strlen($_SESSION['description_item'])>300){
+            $_SESSION['description_er']="* Description Item is Longer Than 300 character";
+        }
+
+        //validate priceItem
+// if(!is_float(floatval($_SESSION["price"])) ||$_SESSION["price"]<0){
+//     $_SESSION["pricerr"]="* Only Positive Value is Allowed";
+// }
 
                 //street validation
 if(!ctype_alpha(str_replace(' ', '', $_SESSION['st']))){
@@ -66,7 +87,7 @@ if($_SESSION["categoryId"]=="Choose Categories..."){
     $_SESSION["cat_er"]=" * Please Choose Category";
     }
     
-if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
+if($_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
     insertItem($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
     ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
@@ -81,7 +102,7 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
     $_SESSION['homeNum']="";
     $_SESSION['st']="";
 
-    $_SESSION['DB_er']=1;
+        $_SESSION['DB_er']=1;
     
         $targetDir = "data/uploads/items/";
         $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG','GIF','TIFF','PSD','PDF','EPS','AI','INDD','RAW','tiff','psd','pdf','eps','ai','indd','raw','jfif','JFIF','webp','WEBP'); 
@@ -108,15 +129,15 @@ if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er
         
         if(!empty($arrFile)){
             insertImage($arrFile,$db);
-    }
+            }
 } 
 else{
-    header("Location:add_item.php");
+    header("Location:test.php");
     return;
         
     }
     if( $_SESSION['DB_er']==1){
-        header("Location:profileSeller.php");
+        header("Location:test.php");
         return;
         }
 }
@@ -126,7 +147,7 @@ else{
     <div class=" col-md-10 row  justify-content-center m-5 text-center input-group-lg shadow">
       <div class="display h1 mt-4 mb-4">Add Item</div>
       <div class=" col-lg-5 col-md-12 col-sm-6">
-        <form action="add_item.php" method="POST" id="contactFrom" enctype="multipart/form-data"
+        <form action="test.php" method="POST" id="contactFrom" enctype="multipart/form-data"
           style="height: fit-content;">
           <div class="mb-4 input-group ">
             <input type="name" class="form-control" placeholder="Item Name" name="name" required autofocus value="<?php 
@@ -148,6 +169,11 @@ else{
                             unset($_SESSION["description_item"]);
                         } ;?></textarea>
           </div>
+          <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION['description_er'])){
+                            echo $_SESSION['description_er'] ;
+                            unset ($_SESSION['description_er']);
+                        }?></p>
           <div class="input-group  mb-4">
             <select required value="<?php if(isset($_SESSION["categoryId"])){
                                 echo $_SESSION["categoryId"]; 
@@ -202,18 +228,21 @@ else{
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
-          <div class=" input-group mb-4">
-            <input value="<?php if(isset($_SESSION["price"])){
-                                echo $_SESSION["price"]; 
-                                unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
-              required class="form-control  " aria-label="Dollar amount (with dot and two decimal places)">
-            <span class="input-group-text bg-success text-light">$</span>
-            <!-- <span class="input-group-text bg-success text-light">0.00</span> -->
+
+            <div class="row g-2 mb-4">
+            <div class="   col-sm-8">
+            <input value="<?php if(isset($_SESSION["priceValue"])){
+                                echo $_SESSION["priceValue"]; 
+                                unset($_SESSION["priceValue"]);}?>" placeholder=" Price" name="priceValue" type="number"
+              required class="form-control" min=0 >
+            </div>
+            <div class="col-sm-4">
+              <input  name="decimal" type="number" min=0 class="form-control" placeholder="decimal" 
+                value="<?php if(isset($_SESSION["decimal"])){
+                                    echo $_SESSION["decimal"] ;
+                                    unset($_SESSION["decimal"]);}?>">
+            </div>
           </div>
-          <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
-                        echo $_SESSION["pricerr"]; 
-                        unset($_SESSION["pricerr"]);
-                } ?></p>
           <div class=" input-group mb-4">
             <input min=0 placeholder="Discount" max=100 name="discountOfItem" type="number" class="form-control" value="<?php if(isset($_SESSION["discount_item"])){
                                 echo $_SESSION["discount_item"]; 
