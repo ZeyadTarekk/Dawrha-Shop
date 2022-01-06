@@ -95,7 +95,23 @@
                 <h5 class="card-title"><?php echo $ite['title'] ?></h5>
                 <h6 class="card-title"><?php echo $ite['categoryName'] ?></h6>
                 <p class="card-text"> <?php echo $ite['description'] ?></p>
-                <h4 class="card-title"><?php echo $ite['price'] . '$' ?></h4>
+                <div class="price">
+                  <?php if ($ite['discount'] == 0): ?>
+                  <div class="new-price">
+                    <?php echo $ite['price'] . "$"; ?>
+                  </div>
+                  <?php else: ?>
+                  <div class="new-price">
+                    <?php echo $ite['price'] - ($ite['price'] * ($ite['discount']/100)) . "$"; ?>
+                  </div>
+                  <div class="discount">
+                    <?php echo $ite['discount'] . "%"; ?>
+                  </div>
+                  <div class="old-price">
+                    <?php echo $ite['price'] . "$"; ?>
+                  </div>
+                  <?php endif; ?>
+                </div>
                 <div class="card-body">
                   <?php if($ite['quantity']==0): ?>
                   <span class="badge p-3 rounded-pill bg-danger">Sold Out!</span>

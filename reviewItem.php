@@ -61,17 +61,17 @@ if ($do == 'Manage') {
         <?php 
           if ($item['discount'] == 0) {
             echo '<div class="new-price">';
-            echo $item['price'] . " $";
+            echo $item['price'] . "$";
             echo '</div>';
           }else {
             echo '<div class="new-price">';
-            echo $item['price'] - ($item['price'] * ($item['discount']/100)) . " $";
+            echo $item['price'] - ($item['price'] * ($item['discount']/100)) . "$";
             echo '</div>';
             echo '<div class="discount">';
             echo $item['discount'] . "%";
             echo '</div>';
             echo '<div class="old-price">';
-            echo $item['price'] . " $";
+            echo $item['price'] . "$";
             echo '</div>';
           }
         ?>
@@ -94,7 +94,8 @@ if ($do == 'Manage') {
             </form>';
           } elseif ($item['quantity'] != 0) {
       ?>
-      <form action="?do=Confirm&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>" class="order-section" method="POST">
+      <form action="?do=Confirm&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>" class="order-section"
+        method="POST">
         <div class="counter">
           <span class="left-btn" onclick="ereasing()"><i class="fas fa-minus"></i></span>
           <input type="number" id="amount" min="1" name="quan">
@@ -105,7 +106,7 @@ if ($do == 'Manage') {
           <span>Add to cart</span>
         </button>
       </form>
-        <?php 
+      <?php 
           if (isset($_SESSION['trueQuantity'])) {
             echo '<div class="alert-danger p-3 mt-2" style="width: fit-content; border-radius: 15px;">';
             echo 'Max Quantity is ' . $_SESSION['trueQuantity'];
@@ -148,15 +149,19 @@ if ($do == 'Manage') {
   <h1 class="text-center">Add to Cart</h1>
   <div class="info-section">
     <div class="item-name"><b>Item:</b> <?php echo $item['title']; ?></div>
-    <div class="final-price"><b>Price:</b> <?php echo $item['price'] - ($item['price'] * ($item['discount']/100)); ?> $</div>
+    <div class="final-price"><b>Price:</b> <?php echo $item['price'] - ($item['price'] * ($item['discount']/100)); ?> $
+    </div>
     <div class="quantity"><b>Quantity:</b> <?php echo $num; ?></div>
-    <div class="total-price"><b>Total Price:</b> <?php echo $num * ($item['price'] - ($item['price'] * ($item['discount']/100))); ?> $</div>
+    <div class="total-price"><b>Total Price:</b>
+      <?php echo $num * ($item['price'] - ($item['price'] * ($item['discount']/100))); ?> $</div>
     <div class="location"><b>Location:</b> <?php echo $item['homeNumber'] . ', ' .
                                   $item['street'] . ' ' . $item['city'] . ' ' . $item['country'];?></div>
   </div>
-  <form action="?do=Confirm&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>&quantity=<?php echo $num; ?>" method="POST" class="text-center" method="POST">
+  <form action="?do=Confirm&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>&quantity=<?php echo $num; ?>"
+    method="POST" class="text-center" method="POST">
     <button type="submit" name="submit" class="btn btn-success">Confirm</button>
-    <a class="btn btn-danger" href="<?php echo '?do=Manage&itemId=' . $itemId . '&itemName=' . $itemName; ?>">Go Back</a>
+    <a class="btn btn-danger" href="<?php echo '?do=Manage&itemId=' . $itemId . '&itemName=' . $itemName; ?>">Go
+      Back</a>
   </form>
 </div>
 
@@ -185,15 +190,19 @@ if ($do == 'Manage') {
   <h1 class="text-center">Edit The Cart</h1>
   <div class="info-section">
     <div class="item-name"><b>Item:</b> <?php echo $item['title']; ?></div>
-    <div class="final-price"><b>Price:</b> <?php echo $item['price'] - ($item['price'] * ($item['discount']/100)); ?> $</div>
+    <div class="final-price"><b>Price:</b> <?php echo $item['price'] - ($item['price'] * ($item['discount']/100)); ?> $
+    </div>
     <div class="quantity"><b>Quantity:</b> <?php echo $num; ?></div>
-    <div class="total-price"><b>Total Price:</b> <?php echo $num * ($item['price'] - ($item['price'] * ($item['discount']/100))); ?> $</div>
+    <div class="total-price"><b>Total Price:</b>
+      <?php echo $num * ($item['price'] - ($item['price'] * ($item['discount']/100))); ?> $</div>
     <div class="location"><b>Location:</b> <?php echo $item['homeNumber'] . ', ' .
                                   $item['street'] . ' ' . $item['city'] . ' ' . $item['country'];?></div>
   </div>
-  <form action="?do=Update&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>&quantity=<?php echo $num; ?>" method="POST" class="text-center" method="POST">
+  <form action="?do=Update&itemId=<?php echo $itemId ?>&itemName=<?php echo $itemName; ?>&quantity=<?php echo $num; ?>"
+    method="POST" class="text-center" method="POST">
     <button type="submit" name="submit" class="btn btn-success">Confirm</button>
-    <a class="btn btn-danger" href="<?php echo '?do=Manage&itemId=' . $itemId . '&itemName=' . $itemName; ?>">Go Back</a>
+    <a class="btn btn-danger" href="<?php echo '?do=Manage&itemId=' . $itemId . '&itemName=' . $itemName; ?>">Go
+      Back</a>
   </form>
 </div>
 
