@@ -206,7 +206,8 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $forSaleItem->description . '</p>
-                                <h4 class="card-title">' . $forSaleItem->price . '</h4>
+                                <h4 class="card-title">' . $forSaleItem->price . '$</h4>
+                                <h6 class="card-title">' . $forSaleItem->addDate . '</h6>
                                 <div class="card-body">
                                     <a href="editItem.php?id=' . $forSaleItem->itemId . '" class="btn btn-success">Edit</a>
                                     <a href="profileSeller.php?delete_id=' . $forSaleItem->itemId . '" class="btn btn-danger">Delete</a>
@@ -264,7 +265,8 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 <h5 class="card-title">' . $soldItem->title . '</h5>
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $soldItem->description . '</p>
-                                <h4 class="card-title">' . $soldItem->price . '</h4>
+                                <h4 class="card-title">' . $soldItem->price . '$</h4>
+                                <h6 class="card-title">' . $soldItem->addDate . '</h6>
                                 <div class="card-body">
                                     <a href="editItem.php?id=' . $soldItem->itemId . '" class="btn btn-success">Edit</a>
                                     <a href="profileSeller.php?delete_id=' . $soldItem->itemId . '" class="btn btn-danger">Delete</a>
@@ -320,7 +322,8 @@ $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
                                 <h5 class="card-title">' . $deletedItem->title . '</h5>
                                 <h6 class="card-title">' . $category->categoryName . '</h6>
                                 <p class="card-text">' . $deletedItem->description . '</p>
-                                <h4 class="card-title">' . $deletedItem->price . '</h4>
+                                <h4 class="card-title">' . $deletedItem->price . '$</h4>
+                                <h6 class="card-title">' . $deletedItem->addDate . '</h6>
                                 <div class="card-body">
                                     <a href="profileSeller.php?retrieve_id=' . $deletedItem->itemId . '" class="btn btn-success">Retrieve</a>
                                     <a href="profileSeller.php?permanentlyDelete_id=' . $deletedItem->itemId . '"  id="stopRedirect" class="btn btn-danger" onclick="return permanentlyDeleteItem()">Delete</a>
