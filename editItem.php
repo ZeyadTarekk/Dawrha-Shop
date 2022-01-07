@@ -52,6 +52,7 @@ include "init.php";
             $_SESSION["city_er"]="";
             $_SESSION["country_er"]="";
             $_SESSION['DB_er']="";
+            $_SESSION['quantity_er']="";
             if($_SESSION['discount_item']==""){
                 $_SESSION['discount_item']=0;}
                 
@@ -68,13 +69,17 @@ include "init.php";
             if(strlen($_SESSION['country'])>30){
                 $_SESSION['country_er']="*Country Name is Longer Than 30 character";
             }
-            if(strlen($_SESSION['homeNum']>11)){
-                $_SESSION['home_er']="* Home Number is Longer Than 11 digit";
-        
-            }
+        if($_SESSION['homeNum']>99999999999){
+            $_SESSION['home_er']="* Home Number is Longer Than 11 digit";
+
+        }
+        if($_SESSION['quantity_item']>99999999999){
+            $_SESSION['quantity_er']="* Quantity  is Longer Than 11 digit";
+
+        }
                         //validate priceItem
                         if (!(filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT) === 0 ||filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT)) || floatval($_SESSION["price"]) < 0) {
-                          $_SESSION["pricerr"] = "* Only Positive Value is Allowed";
+                          $_SESSION["pricerr"] = "* Invalid number";
                       }
 
                 //street validation
@@ -91,7 +96,7 @@ include "init.php";
                 }
     
     
-            if($_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="")
+            if($_SESSION['city_er']==""&&$_SESSION['quantity_er']==""&&$_SESSION['home_er']==""&&$_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="")
             {    
                 updateTitle($db,$_SESSION['itemID'],$_SESSION['item_name']);
                 updatePrice($db,$_SESSION['itemID'],$_SESSION['price']);
@@ -150,6 +155,15 @@ include "init.php";
               $_SESSION["categoryId"]="";
               $_SESSION['homeNum']="";
               $_SESSION['st']="";
+              $_SESSION['st_er']="";
+              $_SESSION['item_namerr']="";
+              $_SESSION['description_er']="";
+              $_SESSION["pricerr"] = "";
+              $_SESSION['home_er']="";
+              $_SESSION["cat_er"]="";
+              $_SESSION["city_er"]="";
+              $_SESSION["country_er"]="";
+              $_SESSION['DB_er']="";
             header("Location:profileSeller.php");
             return;
             }
@@ -275,6 +289,11 @@ include "init.php";
                                 echo $_SESSION["quantity_item"]; 
                                 unset($_SESSION["quantity_item"]);}?>">
           </div>
+            <p class="diplay text-danger mb-2">
+                <?php if(isset($_SESSION['quantity_er'])){
+                    echo $_SESSION['quantity_er'] ;
+                    unset($_SESSION['quantity_er']);
+                }?></p>
           <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="DONE">Save
             item</button>
         </form>

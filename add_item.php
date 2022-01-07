@@ -42,6 +42,7 @@ $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
 $_SESSION['DB_er']="";
+$_SESSION['quantity_er']="";
 if($_SESSION['discount_item']==""){
     $_SESSION['discount_item']=0;
 }
@@ -61,15 +62,19 @@ if($_SESSION['discount_item']==""){
     if(strlen($_SESSION['country'])>30){
         $_SESSION['country_er']="*Country Name is Longer Than 30 character";
     }
-    if(strlen($_SESSION['homeNum']>11)){
+    if($_SESSION['homeNum']>99999999999){
         $_SESSION['home_er']="* Home Number is Longer Than 11 digit";
+
+    }
+    if($_SESSION['quantity_item']>99999999999){
+        $_SESSION['quantity_er']="* Quantity  is Longer Than 11 digit";
 
     }
 
 //validate priceItem
 
 if (!(filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT) === 0 ||filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT)) || floatval($_SESSION["price"]) < 0) {
-    $_SESSION["pricerr"] = "* Only Positive Value is Allowed";
+    $_SESSION["pricerr"] = "* Invalid number";
 }
 
                 //street validation
@@ -90,7 +95,7 @@ if($_SESSION["categoryId"]=="Choose Categories..."){
     $_SESSION["cat_er"]=" * Please Choose Category";
     }
     
-if($_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
+if($_SESSION['home_er']==""&&$_SESSION['quantity_er']==""&&$_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){
     insertItem($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
     ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
@@ -219,15 +224,17 @@ else{
                                     unset($_SESSION["st"]);}?>">
             </div>
           </div>
-          <p class="diplay text-danger "><?php 
+          <p class="diplay text-danger ">
+              <?php
                     if(isset($_SESSION["st_er"])){
                         echo $_SESSION["st_er"]; 
                         unset($_SESSION["st_er"]);
-                } ?></p>
+                } ?>
+          </p>
                 <p class="diplay text-danger mb-2">
-            <?php if(isset($_SESSION["home_er"])){
-                            echo $_SESSION["home_er"] ;
-                            unset($_SESSION["home_er"]);
+            <?php if(isset($_SESSION['home_er'])){
+                            echo $_SESSION['home_er'] ;
+                            unset($_SESSION['home_er']);
                         }?></p>
           <div class="row g-2 mb-4">
             <div class="col-sm-6">
@@ -278,6 +285,11 @@ else{
                                 echo $_SESSION["quantity_item"]; 
                                 unset($_SESSION["quantity_item"]);}?>">
           </div>
+            <p class="diplay text-danger mb-2">
+                <?php if(isset($_SESSION['quantity_er'])){
+                    echo $_SESSION['quantity_er'] ;
+                    unset($_SESSION['quantity_er']);
+                }?></p>
           <button class="btn  btn-success text-align-light mt-2 mb-4" type="submit" name="done">Add
             item</button>
         </form>
