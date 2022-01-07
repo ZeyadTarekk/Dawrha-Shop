@@ -45,16 +45,26 @@ include "init.php";
             $_SESSION['st']=input_data($_POST['street']);
             $_SESSION['st_er']="";
             $_SESSION["pricerr"] = "";
+            $_SESSION['item_namerr']="";
+            $_SESSION['description_er']="";
             $_SESSION["cat_er"]="";
             $_SESSION["city_er"]="";
             $_SESSION["country_er"]="";
             $_SESSION['DB_er']="";
             if($_SESSION['discount_item']==""){
                 $_SESSION['discount_item']=0;}
-                //validate priceItem
-                if(!is_float(floatval($_SESSION["price"])) ||$_SESSION["price"]<0){
-                    $_SESSION["pricerr"]="* Only Positive Value is Allowed";
-                }
+                
+                if(strlen($_SESSION['item_name'])>20){
+                  $_SESSION['item_namerr']="* Title item is Longer 20 character";
+              }
+                      //validate description
+                      if(strlen($_SESSION['description_item'])>300){
+                          $_SESSION['description_er']="* Description Item is Longer Than 300 character";
+                      }
+                        //validate priceItem
+                        if (!(filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT) === 0 ||filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT)) || floatval($_SESSION["price"]) < 0) {
+                          $_SESSION["pricerr"] = "* Only Positive Value is Allowed";
+                      }
 
                 //street validation
             if(!ctype_alpha(str_replace(' ', '', $_SESSION['st']))){
@@ -70,7 +80,7 @@ include "init.php";
                 }
     
     
-            if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="")
+            if($_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="")
             {    
                 updateTitle($db,$_SESSION['itemID'],$_SESSION['item_name']);
                 updatePrice($db,$_SESSION['itemID'],$_SESSION['price']);

@@ -34,6 +34,8 @@ $_SESSION["categoryId"]=input_data($_POST['category']);
 $_SESSION['homeNum']=input_data($_POST['homenumber']);
 $_SESSION['st']=input_data($_POST['street']);
 $_SESSION['st_er']="";
+$_SESSION['item_namerr']="";
+$_SESSION['description_er']="";
 $_SESSION["pricerr"] = "";
 $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
@@ -42,10 +44,21 @@ $_SESSION['DB_er']="";
 if($_SESSION['discount_item']==""){
     $_SESSION['discount_item']=0;
 }
+
+
+        //validate title name
+            if(strlen($_SESSION['item_name'])>20){
+                $_SESSION['item_namerr']="* Title item is Longer 20 character";
+            }
+                    //validate description
+            if(strlen($_SESSION['description_item'])>300){
+                        $_SESSION['description_er']="* Description Item is Longer Than 300 character";
+            }
+
 //validate priceItem
 
-if(!is_float(floatval($_SESSION["price"])) ||$_SESSION["price"]<0){
-    $_SESSION["pricerr"]="* Only Positive Value is Allowed";
+if (!(filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT) === 0 ||filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT)) || floatval($_SESSION["price"]) < 0) {
+    $_SESSION["pricerr"] = "* Only Positive Value is Allowed";
 }
 
                 //street validation
@@ -66,7 +79,7 @@ if($_SESSION["categoryId"]=="Choose Categories..."){
     $_SESSION["cat_er"]=" * Please Choose Category";
     }
     
-if($_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
+if($_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""){    
     insertItem($_SESSION['item_name'],$_SESSION['description_item'],$_SESSION['price'],$_SESSION['quantity_item']
     ,$_SESSION['categoryId'],$_SESSION['discount_item'],$_SESSION['id'],$_SESSION['homeNum'],$_SESSION['st'],
     $_SESSION['city'],$_SESSION['country'],$db);
