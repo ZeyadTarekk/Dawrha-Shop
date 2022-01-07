@@ -129,6 +129,16 @@ include "init.php";
             }
             if( $_SESSION['DB_er']==1)
             {
+              $_SESSION["item_name"]="";
+              $_SESSION["price"]="";
+              $_SESSION["discount_item"]="";
+              $_SESSION["quantity_item"]="";
+              $_SESSION["description_item"]="";
+              $_SESSION["city"]="";
+              $_SESSION["country"]="";
+              $_SESSION["categoryId"]="";
+              $_SESSION['homeNum']="";
+              $_SESSION['st']="";
             header("Location:profileSeller.php");
             return;
             }

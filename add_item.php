@@ -3,17 +3,6 @@ ob_start();
 $pageTitle = 'Add Item';
 include "init.php";
 
-    // $_SESSION["item_name"]="";
-    // $_SESSION["price"]="";
-    // $_SESSION["discount_item"]="";
-    // $_SESSION["quantity_item"]="";
-    // $_SESSION["description_item"]="";
-    // $_SESSION["city"]="";
-    // $_SESSION["country"]="";
-    // $_SESSION["categoryId"]="";
-    // $_SESSION['homeNum']="";
-    // $_SESSION['st']="";
-
 if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
 header("Location:logout.php") ;
 return;
@@ -22,7 +11,18 @@ return;
 
 if(isset($_POST['done']))
 {
+     $_SESSION["item_name"]="";
+    $_SESSION["price"]="";
+    $_SESSION["discount_item"]="";
+    $_SESSION["quantity_item"]="";
+    $_SESSION["description_item"]="";
+    $_SESSION["city"]="";
+    $_SESSION["country"]="";
+    $_SESSION["categoryId"]="";
+    $_SESSION['homeNum']="";
+    $_SESSION['st']="";
         //filter data
+
 $_SESSION["item_name"]=input_data($_POST['name']);
 $_SESSION["price"]=input_data($_POST['priceOfItem']);
 $_SESSION["discount_item"]=input_data($_POST['discountOfItem']);
@@ -129,6 +129,16 @@ else{
         
     }
     if( $_SESSION['DB_er']==1){
+        $_SESSION["item_name"]="";
+        $_SESSION["price"]="";
+        $_SESSION["discount_item"]="";
+        $_SESSION["quantity_item"]="";
+        $_SESSION["description_item"]="";
+        $_SESSION["city"]="";
+        $_SESSION["country"]="";
+        $_SESSION["categoryId"]="";
+        $_SESSION['homeNum']="";
+        $_SESSION['st']="";
         header("Location:profileSeller.php");
         return;
         }
