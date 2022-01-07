@@ -37,6 +37,7 @@ $_SESSION['st_er']="";
 $_SESSION['item_namerr']="";
 $_SESSION['description_er']="";
 $_SESSION["pricerr"] = "";
+$_SESSION['home_er']="";
 $_SESSION["cat_er"]="";
 $_SESSION["city_er"]="";
 $_SESSION["country_er"]="";
@@ -54,6 +55,16 @@ if($_SESSION['discount_item']==""){
             if(strlen($_SESSION['description_item'])>300){
                         $_SESSION['description_er']="* Description Item is Longer Than 300 character";
             }
+            if(strlen($_SESSION['city'])>30){
+                $_SESSION['city_er']="* City Name is Longer Than 30 character";
+    }
+    if(strlen($_SESSION['country'])>30){
+        $_SESSION['country_er']="*Country Name is Longer Than 30 character";
+    }
+    if(strlen($_SESSION['homeNum']>11)){
+        $_SESSION['home_er']="* Home Number is Longer Than 11 digit";
+
+    }
 
 //validate priceItem
 
@@ -171,6 +182,11 @@ else{
                             unset($_SESSION["description_item"]);
                         } ;?></textarea>
           </div>
+          <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["description_er"])){
+                            echo $_SESSION["description_er"] ;
+                            unset($_SESSION["description_er"]);
+                        }?></p>
           <div class="input-group  mb-4">
             <select required value="<?php if(isset($_SESSION["categoryId"])){
                                 echo $_SESSION["categoryId"]; 
@@ -208,6 +224,11 @@ else{
                         echo $_SESSION["st_er"]; 
                         unset($_SESSION["st_er"]);
                 } ?></p>
+                <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["home_er"])){
+                            echo $_SESSION["home_er"] ;
+                            unset($_SESSION["home_er"]);
+                        }?></p>
           <div class="row g-2 mb-4">
             <div class="col-sm-6">
               <input required type="text" name="city" class="form-control" placeholder="City" aria-label="City" value="<?php if(isset($_SESSION["city"])){
@@ -225,13 +246,17 @@ else{
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
+                   <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["city_er"])){
+                            echo $_SESSION["city_er"] ;
+                            unset($_SESSION["city_er"]);
+                        }?></p>
           <div class=" input-group mb-4">
             <input value="<?php if(isset($_SESSION["price"])){
                                 echo $_SESSION["price"]; 
                                 unset($_SESSION["price"]);}?>" placeholder=" Price" name="priceOfItem" type="text"
               required class="form-control  " aria-label="Dollar amount (with dot and two decimal places)">
             <span class="input-group-text bg-success text-light">$</span>
-            <!-- <span class="input-group-text bg-success text-light">0.00</span> -->
           </div>
           <p class="diplay text-danger "><?php if(isset($_SESSION["pricerr"])){
                         echo $_SESSION["pricerr"]; 
@@ -242,15 +267,10 @@ else{
                                 echo $_SESSION["discount_item"]; 
                                 unset($_SESSION["discount_item"]);}?>">
             <span class=" input-group-text  bg-success text-light">$</span>
-            <!-- <span class="input-group-text bg-success text-light">%</span> -->
           </div>
           <div class="input-group  mb-4 ">
             <input name="files[]" type="file" class="form-control " id="inputGroupFile04" multiple
               aria-describedby="inputGroupFileAddon04 " aria-label="Upload" />
-            <!-- <button name="upload-img" class="btn btn-success" type="submit" id="inputGroupFileAddon04"
-                            multiple>
-                            Upload
-                        </button> -->
           </div>
           <div class="input-group mb-4" id="input_div">
             <input required class="form-control " type="number" placeholder="Quantity" name="quantity" size="25" min=0

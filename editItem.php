@@ -48,6 +48,7 @@ include "init.php";
             $_SESSION['item_namerr']="";
             $_SESSION['description_er']="";
             $_SESSION["cat_er"]="";
+            $_SESSION['home_er']="";
             $_SESSION["city_er"]="";
             $_SESSION["country_er"]="";
             $_SESSION['DB_er']="";
@@ -61,6 +62,16 @@ include "init.php";
                       if(strlen($_SESSION['description_item'])>300){
                           $_SESSION['description_er']="* Description Item is Longer Than 300 character";
                       }
+                      if(strlen($_SESSION['city'])>30){
+                        $_SESSION['city_er']="* City Name is Longer Than 30 character";
+            }
+            if(strlen($_SESSION['country'])>30){
+                $_SESSION['country_er']="*Country Name is Longer Than 30 character";
+            }
+            if(strlen($_SESSION['homeNum']>11)){
+                $_SESSION['home_er']="* Home Number is Longer Than 11 digit";
+        
+            }
                         //validate priceItem
                         if (!(filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT) === 0 ||filter_var($_SESSION["price"], FILTER_VALIDATE_FLOAT)) || floatval($_SESSION["price"]) < 0) {
                           $_SESSION["pricerr"] = "* Only Positive Value is Allowed";
@@ -167,6 +178,11 @@ include "init.php";
                             };?>
                     </textarea>
           </div>
+          <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["description_er"])){
+                            echo $_SESSION["description_er"] ;
+                            unset($_SESSION["description_er"]);
+                        }?></p>
           <div class="input-group  mb-4">
             <select value="<?php if(isset($_SESSION["categoryId"])){
                                 echo $_SESSION["categoryId"]; 
@@ -205,6 +221,11 @@ include "init.php";
                         echo $_SESSION["st_er"]; 
                         unset($_SESSION["st_er"]);
                 } ?></p>
+                       <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["home_er"])){
+                            echo $_SESSION["home_er"] ;
+                            unset($_SESSION["home_er"]);
+                        }?></p>
           <div class="row g-2 mb-4">
             <div class="col-sm-6">
               <input type="text" name="city" class="form-control" placeholder="City" aria-label="City" value="<?php if(isset($_SESSION["city"])){
@@ -221,6 +242,11 @@ include "init.php";
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
+                  <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION["city_er"])){
+                            echo $_SESSION["city_er"] ;
+                            unset($_SESSION["city_er"]);
+                        }?></p>
           <div class=" input-group mb-4">
             <input value="<?php if(isset($_SESSION["price"])){
                                 echo $_SESSION["price"]; 
