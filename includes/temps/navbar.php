@@ -8,6 +8,8 @@
   $images = "layout/images/";
   session_start();
 
+  $_SESSION['noOfNewNotification'] = 0;
+
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
   $User = getBuyer($db,$_SESSION["username"]);
   $Notifications = getNotificationsForBuyer($db,$User[0]['ID']);
@@ -49,14 +51,17 @@ header("Location: signin.php");
     <ul class="dropdown-menu dropdown-menu-notification" aria-labelledby="navbarDropdown11" style="right: 0;">
       <?php foreach($Notifications as $noti): ?>
       <?php if($noti['seen']==='0'): ?>
+      <?php $_SESSION['noOfNewNotification'] = $_SESSION['noOfNewNotification'] +1; ?>
       <li><a class="dropdown-item add-red noti-items-red" href="notification.php"><?php echo
        "Notification From ". $noti['fName']." ".$noti['lName']; ?></a>
       </li>
       <?php endif; ?>
       <?php endforeach; ?>
+      <?php if($_SESSION['noOfNewNotification']!=0): ?>
       <li>
         <hr class="dropdown-divider">
       </li>
+      <?php endif; ?>
       <?php foreach($Notifications as $noti): ?>
       <?php if($noti['seen']==='1'): ?>
       <li><a class="dropdown-item" href="notification.php"><?php echo

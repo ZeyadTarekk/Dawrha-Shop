@@ -25,9 +25,11 @@
   <div class="row  justify-content-center">
     <div class="col-lg-9">
       <div class="box shadow-sm rounded bg-white mb-3">
+        <?php if($_SESSION['noOfNewNotification']!=0): ?>
         <div class="box-title border-bottom p-3">
           <h6 class="m-0">Recent</h6>
         </div>
+        <?php endif; ?>
         <div class="box-body p-0">
           <?php foreach($Notifications as $noti): ?>
           <?php if($noti['seen']==='0'): ?>
