@@ -2,7 +2,7 @@
 ob_start();
 $pageTitle = "Cart";
 include "init.php";
-if(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='buyer'){
+if(!isset($_SESSION['typeOfUser'])||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='buyer')){
     header("Location: index.php");
 }
 $cartID = GetCartIDFromBuyer($_SESSION["id"], $db)[0]['cartId'];
