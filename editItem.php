@@ -3,10 +3,16 @@ ob_start();
 $pageTitle = 'Edit Item';
 include "init.php";
 
-        if(!isset($_SESSION['username'])){
-        header("Location: signup.php");
+        if(!isset($_SESSION['username']) ||(isset($_SESSION['typeOfUser'])&&$_SESSION['typeOfUser']!='seller')){
+        header("Location:index.php") ;
         return;
         }
+        
+        if(!isset($_GET['id'])){
+        header("Location:index.php") ;
+        return;
+        }
+
         if(isset($_GET['id'])){
         $_SESSION['itemID']=$_GET['id'];}
         $oldItem=GetItem($db, $_SESSION['itemID']);
@@ -235,7 +241,7 @@ include "init.php";
                         echo $_SESSION["st_er"]; 
                         unset($_SESSION["st_er"]);
                 } ?></p>
-                       <p class="diplay text-danger mb-2">
+          <p class="diplay text-danger mb-2">
             <?php if(isset($_SESSION["home_er"])){
                             echo $_SESSION["home_er"] ;
                             unset($_SESSION["home_er"]);
@@ -256,7 +262,7 @@ include "init.php";
                         echo $_SESSION["country_er"]; 
                         unset($_SESSION["country_er"]);
                 }  ?></p>
-                  <p class="diplay text-danger mb-2">
+          <p class="diplay text-danger mb-2">
             <?php if(isset($_SESSION["city_er"])){
                             echo $_SESSION["city_er"] ;
                             unset($_SESSION["city_er"]);
@@ -289,8 +295,8 @@ include "init.php";
                                 echo $_SESSION["quantity_item"]; 
                                 unset($_SESSION["quantity_item"]);}?>">
           </div>
-            <p class="diplay text-danger mb-2">
-                <?php if(isset($_SESSION['quantity_er'])){
+          <p class="diplay text-danger mb-2">
+            <?php if(isset($_SESSION['quantity_er'])){
                     echo $_SESSION['quantity_er'] ;
                     unset($_SESSION['quantity_er']);
                 }?></p>
