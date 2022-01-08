@@ -24,6 +24,10 @@
 <div class="container pt-5 ">
   <div class="row  justify-content-center">
     <div class="col-lg-9">
+      <?php if($_SESSION['noOfNewNotification']==0&&$_SESSION['noOfOldNotification']==0):  ?>
+      <div class="alert alert-info m-auto mb-5 text-center" role="alert" style="width: 50%;" role="alert">No
+        Notifications yet</div>
+      <?php endif; ?>
       <div class="box shadow-sm rounded bg-white mb-3">
         <?php if($_SESSION['noOfNewNotification']!=0): ?>
         <div class="box-title border-bottom p-3">
@@ -122,9 +126,11 @@
         </div>
       </div>
       <div class="box shadow-sm rounded bg-white mb-3">
+        <?php if($_SESSION['noOfOldNotification']!=0): ?>
         <div class="box-title border-bottom p-3">
           <h6 class="m-0">Earlier</h6>
         </div>
+        <?php endif; ?>
         <div class="box-body p-0">
           <?php foreach($Notifications as $noti): ?>
           <?php if($noti['seen']==='1'): ?>

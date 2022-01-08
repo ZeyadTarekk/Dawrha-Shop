@@ -51,7 +51,7 @@ if(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='false'){
     <?php endif; ?>
     <?php endif; ?>
     <?php if($itemCount==0): ?>
-    <div class="alert alert-danger m-auto mb-5" style="width: 50%;" role="alert">Cart is Empty</div>
+    <div class="alert alert-info m-auto mb-5" style="width: 50%;" role="alert">Cart is Empty</div>
     <?php endif; ?>
     <div class="row row-of-card g-5 justify-content-start align-items-center">
       <?php
@@ -94,8 +94,8 @@ if(isset($_GET['Ordersuccess'])&&$_GET['Ordersuccess']==='false'){
   <?php $result=getPayItemcount($db,$cartID)[0];?>
   <div class="container">
     <!-- <a href="#"class="btn btn-success mb-2 mt-5 ">Order all items</a> -->
-    <h6 class="mt-3 display text-center text-danger"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
-    <h6 class="display text-center text-danger"><?php echo 'Total Payment: ' .$result['payment'] .' $' ?></h6>
+    <h6 class="mt-3 display text-center text-dark"><?php echo 'Total Number Of Items: ' .$result['itemCount'] ?></h6>
+    <h6 class="display text-center text-dark"><?php echo 'Total Payment: ' .$result['payment'] .' $' ?></h6>
   </div>
 </div>
 

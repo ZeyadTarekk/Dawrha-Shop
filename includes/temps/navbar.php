@@ -9,6 +9,7 @@
   session_start();
 
   $_SESSION['noOfNewNotification'] = 0;
+  $_SESSION['noOfOldNotification'] = 0;
 
   if(isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"]==="buyer"){
   $User = getBuyer($db,$_SESSION["username"]);
@@ -64,6 +65,7 @@ header("Location: signin.php");
       <?php endif; ?>
       <?php foreach($Notifications as $noti): ?>
       <?php if($noti['seen']==='1'): ?>
+      <?php $_SESSION['noOfOldNotification'] = $_SESSION['noOfOldNotification'] +1; ?>
       <li><a class="dropdown-item" href="notification.php"><?php echo
        "Notification From ". $noti['fName']." ".$noti['lName']; ?></a></li>
       <?php endif; ?>
