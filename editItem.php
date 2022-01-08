@@ -7,14 +7,13 @@ include "init.php";
         header("Location:index.php") ;
         return;
         }
-        
-        if(!isset($_GET['id'])){
-        header("Location:index.php") ;
-        return;
-        }
+        // if(!isset($_GET['id'])&&!isset($_GET['deleteImage'])){
+        // header("Location:index.php") ;
+        // return;
+        // }
 
         if(isset($_GET['id'])){
-        $_SESSION['itemID']=$_GET['id'];}
+        $_SESSION['itemID']=$_GET['id'];
         $oldItem=GetItem($db, $_SESSION['itemID']);
         foreach($oldItem as $item)
         $_SESSION["item_name"]=input_data($item['title']);
@@ -27,10 +26,11 @@ include "init.php";
         $_SESSION['homeNum']= input_data($item['homeNumber']);
         $_SESSION['st']= input_data($item['street']);
         $rows=getCategoryName($item['categoryId'],$db);
+
         foreach($rows as $i)
         $_SESSION['categoryId']= $i['categoryId'];
         $_SESSION['categoryName']= $i['categoryName'];
-
+        }
             //delete photo
         if(isset($_GET['deleteImage'])){
         deleteItemImage($db, $_SESSION['itemID'],$_GET['deleteImage']);}
@@ -102,7 +102,7 @@ include "init.php";
                 }
     
     
-            if($_SESSION['city_er']==""&&$_SESSION['quantity_er']==""&&$_SESSION['home_er']==""&&$_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]=="")
+            if($_SESSION['city_er']==""&&$_SESSION['quantity_er']==""&&$_SESSION['home_er']==""&&$_SESSION['description_er']==""&&$_SESSION['item_namerr']==""&&$_SESSION["pricerr"]==""  && $_SESSION["cat_er"]=="" && $_SESSION["country_er"]=="" && $_SESSION["st_er"]==""&&isset($_SESSION['itemID']))
             {    
                 updateTitle($db,$_SESSION['itemID'],$_SESSION['item_name']);
                 updatePrice($db,$_SESSION['itemID'],$_SESSION['price']);
@@ -306,23 +306,27 @@ include "init.php";
 
       </div>
       <?php
+              if(isset($_SESSION['itemID'])){
                 $imageCount=getCountOfImage($db,$_SESSION['itemID']);
-                if($imageCount==0):?>
+                if($imageCount==0){
+                ?>
+
+      <?php }} else {?>
       <div class="col-lg-6 col-md-12">
         <img src="<?php echo $imgs ."editing.png" ?>" alt=" item's photo" class="img-fluid">
       </div>
-      <?php endif;?>
+      <?php } ?>
       <div class=" col-md-7 row  justify-content-center ">
-        <?php $imagesOfitem=GetImagesByID($_SESSION['itemID'],$db);?>
+        <?php if(isset($_SESSION['itemID'])) $imagesOfitem=GetImagesByID($_SESSION['itemID'],$db);?>
 
-        <?php foreach($imagesOfitem as $image):?>
+        <?php if(isset($imagesOfitem)) {foreach($imagesOfitem as $image){?>
         <div class="card m-md-auto col-lg-4 border-0 col-sm-5 mb-5 ">
           <a href="editItem.php?deleteImage=<?php echo $image['image']?>" id="stopRedirect"
             class="btn btn-danger rounded-pill position-absolute" style="width: fit-content; top: 0;right: 0"
             onclick="return deleteImage()"><span class="badge b-5"><i class="bi bi-trash "></i></span></a>
           <img src="<?php echo $dataimages .$image['image'] ?>" alt=" item's photo" class="img-fluid">
         </div>
-        <?php endforeach?>
+        <?php }}?>
       </div>
     </div>
   </div>
