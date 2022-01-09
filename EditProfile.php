@@ -198,9 +198,9 @@ if (!isset($_SESSION['password_checked'])) {
                 updateBuyer($_SESSION['id'], $_SESSION['Edit_username'], $_SESSION['Edit_password'], $_SESSION['Edit_email'], $_SESSION['Edit_firstName'], $_SESSION['Edit_lastName'], $db);
 //            insertBuyerPhoneNumber($_SESSION['id'], $_SESSION['signup_phone'], $db);
                 $_SESSION['username'] = $_SESSION['Edit_username'];
-                var_dump($_SESSION);
-//                header("Location: profileBuyer.php");
-//                return;
+//                var_dump($_SESSION);
+                header("Location: profileBuyer.php");
+                return;
             } else {
                 $_SESSION['Edit_password'] = sha1($_SESSION['Edit_password']);
                 updateSeller($_SESSION['id'], $_SESSION['Edit_username'], $_SESSION['Edit_password'], $_SESSION['Edit_email'], $_SESSION['Edit_firstName'], $_SESSION['Edit_lastName'], $db);
