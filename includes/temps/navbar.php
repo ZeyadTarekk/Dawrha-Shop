@@ -2,7 +2,6 @@
   ob_start();
   require 'admin/connect.php' ;
   $func = "includes/functions/";
-  // require $func . 'controllerForNavbar.php';
   require $func . 'controller.php';
   $unSeenFlag = false;
   $images = "layout/images/";

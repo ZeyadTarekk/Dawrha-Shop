@@ -2,7 +2,6 @@
   ob_start();
   $pageTitle = 'Notifications';
   include "init.php";
-  // session_start();
   if(!isset($_SESSION["typeOfUser"]))
     header("Location: logout.php");
   $Notifications = $_SESSION['not'];
@@ -17,7 +16,6 @@
     dislikeSeller($db,$_GET['id']);
     header("Location: notification.php");
   }
-  // print_r($Notifications);
   
 ?>
 

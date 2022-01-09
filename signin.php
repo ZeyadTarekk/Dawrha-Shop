@@ -3,10 +3,7 @@ $noNavbar = '';
 $pageTitle = 'SignIn';
 $images = "layout/images/";
 include "init.php";
-//$_SESSION["typeOfUser"] =["buyer","seller","admin"];
-//$_SESSION["username"]="username";
 session_start();
-//var_dump($_SESSION);
 if (isset($_POST['username']))
     $_SESSION["printUserName"] = htmlentities($_POST['username']);
 if (isset($_POST['username']) && isset($_POST['password'])) {

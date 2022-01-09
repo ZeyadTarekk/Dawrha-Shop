@@ -29,8 +29,7 @@ $forSaleItems = getSellerForSaleItems($_SESSION['id'], $db);
 $soldItems = getSellerSoldOutItems($_SESSION['id'], $db);
 $deletedItems = getSellerDeletedItems($_SESSION['id'], $db);
 
-//var_dump($sellerData);
-//var_dump($sellerMobiles);
+
 ?>
 
 

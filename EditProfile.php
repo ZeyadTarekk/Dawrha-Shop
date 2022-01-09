@@ -3,10 +3,7 @@ ob_start();
 $pageTitle = 'Edit profile';
 $images = "layout/images/";
 include "init.php";
-//session_start();
-//session_destroy();
 
-//var_dump($_SESSION);
 // if not signed in return to sign in
 if (!isset($_SESSION['username'])) {
     header("Location: signin.php");
@@ -104,7 +101,6 @@ if (!isset($_SESSION['password_checked'])) {
     $_SESSION['Edit_firstName'] = $userDate['fName'];
     $_SESSION['Edit_lastName'] = $userDate['lName'];
     $_SESSION['Edit_password'] = '';
-//var_dump($_SESSION);
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mobileForm'])) {
         $mobile = input_data($_POST['phone']);
         echo $mobile;
@@ -143,7 +139,6 @@ if (!isset($_SESSION['password_checked'])) {
         $_SESSION['Edit_username'] = htmlentities($_POST['username']);
         $_SESSION['Edit_firstName'] = htmlentities($_POST['firstName']);
         $_SESSION['Edit_lastName'] = htmlentities($_POST['lastName']);
-//    $_SESSION['Edit_phone'] = htmlentities($_POST['phone']);
         $_SESSION['Edit_password'] = htmlentities($_POST['password']);
         // error checking
         $_SESSION["missingError"] = "";
@@ -171,7 +166,6 @@ if (!isset($_SESSION['password_checked'])) {
         $_SESSION['firstNameError'] = validateName($_POST['firstName']);
         $_SESSION['lastNameError'] = validateName($_POST['lastName']);
         $_SESSION['passwordError'] = validatePassword($_POST['password']);
-//    $_SESSION['phoneError'] = validateNumber($_POST['phone']);
         $condition1 = false;
         $condition2 = false;
         if ($_SESSION['typeOfUser'] == 'buyer') {
@@ -196,14 +190,12 @@ if (!isset($_SESSION['password_checked'])) {
             if ($_SESSION['typeOfUser'] == "buyer") {
                 $_SESSION['Edit_password'] = sha1($_SESSION['Edit_password']);
                 updateBuyer($_SESSION['id'], $_SESSION['Edit_username'], $_SESSION['Edit_password'], $_SESSION['Edit_email'], $_SESSION['Edit_firstName'], $_SESSION['Edit_lastName'], $db);
-//            insertBuyerPhoneNumber($_SESSION['id'], $_SESSION['signup_phone'], $db);
                 $_SESSION['username'] = $_SESSION['Edit_username'];
                 header("Location: profileBuyer.php");
                 return;
             } else {
                 $_SESSION['Edit_password'] = sha1($_SESSION['Edit_password']);
                 updateSeller($_SESSION['id'], $_SESSION['Edit_username'], $_SESSION['Edit_password'], $_SESSION['Edit_email'], $_SESSION['Edit_firstName'], $_SESSION['Edit_lastName'], $db);
-//            insertSellerPhoneNumber($_SESSION['id'], $_SESSION['signup_phone'], $db);
                 $_SESSION['username'] = $_SESSION['Edit_username'];
                 header("Location: profileSeller.php");
                 return;

@@ -17,28 +17,6 @@ function togglePasswordVisibility() {
 }
 // End SignIn
 
-//counter
-// let counter = document.getElementById("counting");
-// counter.value=0;
-// function plus() {
-//   if(counter.value!=null)
-//   counter.value++;
-// }
-// function minus() {
-//   if(counter.value!=null)
-//   {
-//   counter.value--;
-//   if (counter.value < 0) {
-//     counter.value = 0;
-//   }
-// }
-// }
-//end counter
-
-//add item_to cart
-
-//end add item_to cart
-
 //Start ReviewItem
 //counter to the number of items to add to cart
 let amount = document.getElementById("amount");

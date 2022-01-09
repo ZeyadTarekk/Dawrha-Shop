@@ -3,10 +3,7 @@ $noNavbar = '';
 $pageTitle = 'SignUp';
 $images = "layout/images/";
 include "init.php";
-//session_start();
-//session_destroy();
 session_start();
-//var_dump($_SESSION);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // For printing
     $_SESSION['signup_email'] = htmlentities($_POST['email']);
