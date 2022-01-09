@@ -97,4 +97,22 @@ function sizeEmail($email) {
   }
 }
 
+function sizeCatName($name) {
+  if (strlen($name) > 30) {
+    return "* Category Name Can\'t be more than 30 Characters";
+  } else {
+    return "";
+  }
+}
+
+function sizeCatDes($des) {
+  if (strlen($des) > 300) {
+    return "* Category Description Can\'t be more than 300 Characters";
+  } else {
+    return "";
+  }
+}
+
+
+
 ?>

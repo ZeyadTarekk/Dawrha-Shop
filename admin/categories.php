@@ -47,6 +47,7 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
 <?php
   } elseif ($do == 'Add') {
     $catName = $catDes = '';
+    $catNameErr = $catDesErr = '';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $catName = $_POST['name'];
@@ -54,8 +55,14 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
 
       $catName = input_data($catName);
       $catDes = input_data($catDes);
-      AddNewCategory($catName, $catDes, $db);
-      header("Location: categories.php");
+
+      $catNameErr = sizeCatName($catName);
+      $catDesErr = sizeCatDes($catDes);
+
+      if ($catNameErr == "" && $catDesErr == "") {
+        AddNewCategory($catName, $catDes, $db);
+        header("Location: categories.php");
+      }
     }
 ?>
 <div class="CategoriesForms container mb-5">
@@ -67,11 +74,13 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
       <input type="text" class="form-control" name="name" placeholder="Name" aria-label="Name"
         aria-describedby="basic-addon1" value="<?php echo $catName; ?>" required>
     </div>
+    <span class="error"><?php echo $catNameErr; ?></span>
     <!-- Description -->
     <div class="mb-3">
       <label for="des" class="form-label">Description</label>
       <textarea class="form-control" id="des" rows="3" name="description"><?php echo $catDes; ?></textarea>
     </div>
+    <span class="error"><?php echo $catDesErr; ?></span>
     <button type="submit" class="btn btn-primary form-btn">Add</button>
   </form>
 </div>
@@ -82,6 +91,7 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
     if (!$catId) {
       header("Location: categories.php");
     }
+    $catNameErr = $catDesErr = '';
     $category = GetCategoryByID($catId, $db);
     $catName = $category[0]['categoryName'];
     $catDes = $category[0]['categoryDescription'];
@@ -92,8 +102,14 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
 
       $catName = input_data($catName);
       $catDes = input_data($catDes);
-      UpdateCategory($catId, $catName, $catDes, $db);
-      header("Location: categories.php");
+
+      $catNameErr = sizeCatName($catName);
+      $catDesErr = sizeCatDes($catDes);
+
+      if ($catNameErr == "" && $catDesErr == "") {
+        UpdateCategory($catId, $catName, $catDes, $db);
+        header("Location: categories.php");
+      }
     }
 ?>
 <div class="CategoriesForms container mb-5">
@@ -105,11 +121,13 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
       <input type="text" class="form-control" name="name" placeholder="Name" aria-label="Name"
         aria-describedby="basic-addon1" value="<?php echo $catName; ?>" required>
     </div>
+    <span class="error"><?php echo $catNameErr; ?></span>
     <!-- Description -->
     <div class="mb-3">
       <label for="des" class="form-label">Description</label>
       <textarea class="form-control" id="des" rows="3" name="description"><?php echo $catDes; ?></textarea>
     </div>
+    <span class="error"><?php echo $catDesErr; ?></span>
     <button type="submit" class="btn btn-primary form-btn">Edit</button>
   </form>
 </div>
