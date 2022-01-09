@@ -70,4 +70,31 @@ function validatePassword($pass) {
     return "";
   }
 }
+
+
+//functions to validate the size of each input
+function sizeString($string) {
+  if (strlen($string) > 20) {
+    return "* Input Can\'t be more than 20 Characters";
+  } else {
+    return "";
+  }
+}
+
+function sizeNumber($number) {
+  if (strlen($number) > 11) {
+    return "* Number Can\'t be more than 11 Digits";
+  } else {
+    return "";
+  }
+}
+
+function sizeEmail($email) {
+  if (strlen($email) > 70) {
+    return "* Email Can\'t be more than 70 Characters";
+  } else {
+    return "";
+  }
+}
+
 ?>

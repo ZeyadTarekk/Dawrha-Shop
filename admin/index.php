@@ -145,6 +145,15 @@
       $cemailErr = validateEmail($cEmail);
       $passErr = validatePassword($pass);
       $cpassErr = validatePassword($cPass);
+
+      //then check the size of each input
+      $usernameErr = sizeString($userName);
+      $fnameErr = sizeString($fName);
+      $lnameErr = sizeString($lName);
+      $phoneErr = sizeNumber($phone);
+      $emailErr = sizeEmail($email);
+      $cemailErr = sizeEmail($cEmail);
+
       //check all of the errors
       if ($usernameErr == "" && $fnameErr == "" && $lnameErr == "" && $phoneErr == "" && $emailErr == "" &&
           $cemailErr == "" && $passErr == "" && $cpassErr == "") {
@@ -261,6 +270,8 @@
         $phone = $_POST['phonenum'];
         $phone = input_data($phone);
         $phoneErr = validateNumber($phone);
+        $phoneErr = sizeNumber($phone);
+        
         if ($phoneErr == "") {
           if ($phone) {
             $check = CheckPhone($adminId, $phone, $db);
@@ -331,7 +342,6 @@
       $check = CheckPhone($adminId, $phone, $db);
       if ($check) {
         DeletePhone($adminId, $phone, $db);
-        echo 'deleted';
         header("Location: index.php?do=Phones&adminId=" . $adminId . "");
       }
     }
@@ -375,9 +385,16 @@
       $fnameErr = validateString($fName);
       $lnameErr = validateString($lName);
       $emailErr = validateEmail($email);
+
+      //then check the size of each input
+      $usernameErr = sizeString($userName);
+      $fnameErr = sizeString($fName);
+      $lnameErr = sizeString($lName);
+      $emailErr = sizeEmail($email);
+
       if ($nPass != ""){
         $npassErr = validatePassword($nPass);
-      }else {
+      } else {
         $nPass = $oPass;
       }
 
