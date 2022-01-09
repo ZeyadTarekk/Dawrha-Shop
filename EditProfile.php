@@ -113,6 +113,11 @@ if (!isset($_SESSION['password_checked'])) {
             header("Location: EditProfile.php");
             return;
         }
+        if((int)$_POST['phone']>99999999999){
+            $_SESSION['phoneError'] = "* Only numeric value is allowed and should be less than or equal 11 digits";
+            header("Location: EditProfile.php");
+            return;
+        }
         if ($_SESSION['typeOfUser'] == 'seller') {
             $userAllMobiles = getSellerMobiles($_SESSION['id'], $db);
             foreach ($userAllMobiles as $mobileUser) {
@@ -171,6 +176,21 @@ if (!isset($_SESSION['password_checked'])) {
         $_SESSION['firstNameError'] = validateName($_POST['firstName']);
         $_SESSION['lastNameError'] = validateName($_POST['lastName']);
         $_SESSION['passwordError'] = validatePassword($_POST['password']);
+        if(strlen($_POST['email'])>70){
+            $_SESSION['emailError'] = "* Invalid email format and should be less than or equal 70 characters";
+        }
+        if(strlen($_POST['username'])>20){
+            $_SESSION['userNameError'] = "* Invalid username format and should be less than or equal 20 characters";
+        }
+        if(strlen($_POST['password'])>50){
+            $_SESSION['passwordError'] = "* Password should be at least 8 characters in length and should include at least one upper case letter, and one number and should be less than 50 characters";
+        }
+        if(strlen($_POST['firstName'])>20){
+            $_SESSION['firstNameError'] = "* Only alphabets and white space are allowed and should be less than 20 characters";
+        }
+        if(strlen($_POST['lastName'])>20){
+            $_SESSION['lastNameError'] = "* Only alphabets and white space are allowed and should be less than 20 characters";
+        }
 //    $_SESSION['phoneError'] = validateNumber($_POST['phone']);
         $condition1 = false;
         $condition2 = false;
