@@ -626,7 +626,7 @@ function deleteMobileSeller($sellerId,$mobile,$db){
     $stmt->execute(array(":id" => $sellerId,":mobile"=>$mobile));
 }
 function deleteMobileBuyer($buyerId,$mobile,$db){
-    $sql = "DELETE FROM mobilebuyer WHERE mobileseller.buyerId = :id AND mobilebuyer.phone = :mobile";
+    $sql = "DELETE FROM mobilebuyer WHERE mobilebuyer.buyerId = :id AND mobilebuyer.phone = :mobile";
     $stmt = $db->prepare($sql);
     $stmt->execute(array(":id" => $buyerId,":mobile"=>$mobile));
 }

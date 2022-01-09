@@ -162,8 +162,8 @@ if (!isset($_SESSION['password_checked'])) {
         $_SESSION['sellerUsernameId'] = $sellerUsernameId = (getSellerIdByUserName($_POST["username"], $db) != null ? getSellerIdByUserName($_POST["username"], $db)[0]->id : null);
         $_SESSION['adminUsernameId'] = $adminUsernameId = getAdminIdByUserName($_POST["username"], $db);
 
-        $_SESSION['buyerEmailId'] = $buyerEmailId = (getBuyerIdByEmail($_POST["email"], $db) != null ? getBuyerIdByEmail($_POST["username"], $db)[0]->id : null);
-        $_SESSION['sellerEmailId'] = $sellerEmailId = (getSellerIdByEmail($_POST["email"], $db) != null ? getSellerIdByEmail($_POST["username"], $db)[0]->id : null);
+        $_SESSION['buyerEmailId'] = $buyerEmailId = (getBuyerIdByEmail($_POST["email"], $db) != null ? getBuyerIdByEmail($_POST["email"], $db)[0]->id : null);
+        $_SESSION['sellerEmailId'] = $sellerEmailId = (getSellerIdByEmail($_POST["email"], $db) != null ? getSellerIdByEmail($_POST["email"], $db)[0]->id : null);
         $_SESSION['adminEmailId'] = $adminEmailId = getAdminIdByEmail($_POST["email"], $db);
 
         $_SESSION['userNameError'] = validateUserName($_POST['username']);
@@ -176,7 +176,7 @@ if (!isset($_SESSION['password_checked'])) {
         $condition2 = false;
         if ($_SESSION['typeOfUser'] == 'buyer') {
             $condition1 = ($buyerUsernameId && $buyerUsernameId != $_SESSION['id']) || ($sellerUsernameId) || ($adminUsernameId);
-            $condition2 = ($buyerEmailId && $buyerEmailId != $_SESSION['id']) || ($sellerEmailId) || ($adminUsernameId);
+            $condition2 = ($buyerEmailId && $buyerEmailId != $_SESSION['id']) || ($sellerEmailId) || ($adminEmailId);
         } else {
             $condition1 = ($buyerUsernameId) || ($sellerUsernameId && $sellerUsernameId != $_SESSION['id']) || ($adminUsernameId);
             $condition2 = ($buyerEmailId) || ($sellerEmailId && $sellerEmailId != $_SESSION['id']) || ($adminEmailId);
@@ -198,8 +198,9 @@ if (!isset($_SESSION['password_checked'])) {
                 updateBuyer($_SESSION['id'], $_SESSION['Edit_username'], $_SESSION['Edit_password'], $_SESSION['Edit_email'], $_SESSION['Edit_firstName'], $_SESSION['Edit_lastName'], $db);
 //            insertBuyerPhoneNumber($_SESSION['id'], $_SESSION['signup_phone'], $db);
                 $_SESSION['username'] = $_SESSION['Edit_username'];
-                header("Location: profileBuyer.php");
-                return;
+                var_dump($_SESSION);
+//                header("Location: profileBuyer.php");
+//                return;
             } else {
                 $_SESSION['Edit_password'] = sha1($_SESSION['Edit_password']);
                 updateSeller($_SESSION['id'], $_SESSION['Edit_username'], $_SESSION['Edit_password'], $_SESSION['Edit_email'], $_SESSION['Edit_firstName'], $_SESSION['Edit_lastName'], $db);
