@@ -70,4 +70,49 @@ function validatePassword($pass) {
     return "";
   }
 }
+
+
+//functions to validate the size of each input
+function sizeString($string) {
+  if (strlen($string) > 20) {
+    return "* Input Can\'t be more than 20 Characters";
+  } else {
+    return "";
+  }
+}
+
+function sizeNumber($number) {
+  if (strlen($number) > 11) {
+    return "* Number Can\'t be more than 11 Digits";
+  } else {
+    return "";
+  }
+}
+
+function sizeEmail($email) {
+  if (strlen($email) > 70) {
+    return "* Email Can\'t be more than 70 Characters";
+  } else {
+    return "";
+  }
+}
+
+function sizeCatName($name) {
+  if (strlen($name) > 30) {
+    return "* Category Name Can\'t be more than 30 Characters";
+  } else {
+    return "";
+  }
+}
+
+function sizeCatDes($des) {
+  if (strlen($des) > 300) {
+    return "* Category Description Can\'t be more than 300 Characters";
+  } else {
+    return "";
+  }
+}
+
+
+
 ?>
