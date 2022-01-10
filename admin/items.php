@@ -156,7 +156,7 @@ if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] != "admin") {
       </div>
     </div>
     <div class="product">
-      <a href="?do=Manage" class="seller-name">(ask)<?php echo $item[0]['fName'] . ' ' . $item[0]['lName']; ?></a>
+      <a href="?do=Manage" class="seller-name"><?php echo $item[0]['fName'] . ' ' . $item[0]['lName']; ?></a>
       <hr>
       <span class="date-of-item"><?php echo $item[0]['addDate']; ?></span>
       <p class="item-name"><?php echo $item[0]['title']; ?></p>
