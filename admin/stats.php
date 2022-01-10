@@ -13,7 +13,7 @@
 
 <div class="container mt-5 mb-5">
   <div class="table-responsive">
-    <table class="table table-bordered text-center">
+    <table class="table shadow-sm table-bordered text-center">
       <thead class="thead-dark">
         <tr>
           <th scope="col" class="table-dark">Stats</th>
