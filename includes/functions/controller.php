@@ -55,6 +55,12 @@ function getSeller($db,$username){
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
+function getSellerId($db,$id){
+  $sql = "select * from seller where ID = $id";
+  $stmt = $db->query($sql);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 
 function getNotificationsForBuyer($db,$ownerID){
   $sql = "SELECT DISTINCT n.id, message,date,seen,sellerId,ownerID, s.fName ,s.lName  from notification as n , buyernotification , seller as s WHERE n.id = notificationId and ownerID =". $ownerID ." and s.ID = sellerId ORDER by date DESC;";
