@@ -95,25 +95,25 @@ $ cd Dawrha-Shop
 ## 📷 Demo Screenshots <a name = "Screenshots"></a>
 
 <div align="center">
-   <img width=50% src="Screenshots/s1.png"></a>
+   <img src="Screenshots/s1.png"></a>
    
-   <img width=50% src="Screenshots/s2.png"></a>
-   <img width=50% src="Screenshots/s3.png"></a>
+   <img  src="Screenshots/s2.png"></a>
+   <img  src="Screenshots/s3.png"></a>
    
-   <img width=50% src="Screenshots/s4.png"></a>
-   <img width=50% src="Screenshots/s5.jpeg"></a>
-   <img width=50% src="Screenshots/s6.jpeg"></a>
-   <img width=50% src="Screenshots/cart.jpeg"></a>
-   <img width=50% src="Screenshots/s7.png"></a>
-   <img width=50% src="Screenshots/s8.png"></a>
-   <img width=50% src="Screenshots/s9.png"></a>
-   <img width=50% src="Screenshots/s10.png"></a>
-   <img width=50% src="Screenshots/s11.png"></a>
-   <img width=50% src="Screenshots/s12.png"></a>
-   <img width=50% src="Screenshots/s13.png"></a>
-   <img width=50% src="Screenshots/s14.png"></a>
-   <img width=50% src="Screenshots/s15.png"></a>
-   <img width=50% src="Screenshots/s16.png"></a>
+   <img src="Screenshots/s4.png"></a>
+   <img src="Screenshots/s5.jpeg"></a>
+   <img src="Screenshots/s6.jpeg"></a>
+   <img src="Screenshots/cart.jpeg"></a>
+   <img src="Screenshots/s7.png"></a>
+   <img src="Screenshots/s8.png"></a>
+   <img src="Screenshots/s9.png"></a>
+   <img src="Screenshots/s10.png"></a>
+   <img src="Screenshots/s11.png"></a>
+   <img src="Screenshots/s12.png"></a>
+   <img src="Screenshots/s13.png"></a>
+   <img src="Screenshots/s14.png"></a>
+   <img src="Screenshots/s15.png"></a>
+   <img src="Screenshots/s16.png"></a>
    
    <hr>
    <h2 align='left'>Resopnsive</h2>
