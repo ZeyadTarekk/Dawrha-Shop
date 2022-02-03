@@ -1,7 +1,7 @@
 <div align="center">
 <a href="https://github.com/ZeyadTarekk/Dawrha-Shop" rel="noopener">
 
-![banner](Screenshots/Dawrha-Shop.png)
+![banner](Screenshots/DawrhaShop.png)
 
 </div>
 <div align="center">
