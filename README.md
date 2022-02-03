@@ -92,9 +92,9 @@ $ cd Dawrha-Shop
 - **MySQL**
 - **Bootstrap**
 
-## 📷 Demo Screenshots
+## 📷 Demo Screenshots <a name = "Screenshots"></a>
 
-<div name="Screenshots" align="center">
+<div align="center">
    <img width=50% src="Screenshots/s1.png"></a>
    
    <img width=50% src="Screenshots/s2.png"></a>
