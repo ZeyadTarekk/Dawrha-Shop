@@ -8,9 +8,9 @@
 
 [![GitHub contributors](https://img.shields.io/github/contributors/ZeyadTarekk/Dawrha-Shop)](https://github.com/ZeyadTarekk/Dawrha-Shop/contributors)
 [![GitHub issues](https://img.shields.io/github/issues/ZeyadTarekk/Dawrha-Shop)](https://github.com/ZeyadTarekk/Dawrha-Shop/issues)
+[![GitHub license](https://img.shields.io/github/license/ZeyadTarekk/Dawrha-Shop)](https://github.com/ZeyadTarekk/Dawrha-Shop/blob/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/ZeyadTarekk/Dawrha-Shop)](https://github.com/ZeyadTarekk/Dawrha-Shop/network)
 [![GitHub stars](https://img.shields.io/github/stars/ZeyadTarekk/Dawrha-Shop)](https://github.com/ZeyadTarekk/Dawrha-Shop/stargazers)
-[![GitHub license](https://img.shields.io/github/license/ZeyadTarekk/Dawrha-Shop)](https://github.com/ZeyadTarekk/Dawrha-Shop/blob/master/LICENSE)
 [![GitHub Language](https://img.shields.io/github/languages/count/ZeyadTarekk/Dawrha-Shop)](https://img.shields.io/github/languages/count/ZeyadTarekk/Dawrha-Shop)
 
 </div>
